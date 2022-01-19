@@ -1,6 +1,8 @@
 import sys
 import random
+import socket
 from PySide6 import QtCore, QtWidgets, QtGui
+
 
 class MyWidget(QtWidgets.QWidget):
     def __init__(self):
@@ -9,9 +11,13 @@ class MyWidget(QtWidgets.QWidget):
         self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
 
         self.button = QtWidgets.QPushButton("Click me!")
+        host_name = socket.gethostname()
+        ip_address = socket.gethostbyname(host_name)
+        self.ip_text = QtWidgets.QLabel(ip_address, alignment=QtCore.Qt.AlignTop)
         self.text = QtWidgets.QLabel("Hello World", alignment=QtCore.Qt.AlignCenter)
 
         self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout.addWidget(self.ip_text)
         self.layout.addWidget(self.text)
         self.layout.addWidget(self.button)
 
