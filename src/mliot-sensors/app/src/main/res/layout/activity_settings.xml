@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/purple_200"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/purple_200">
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="yes"
+            android:drawableStart="@drawable/ic_baseline_laptop_24"
+            android:drawablePadding="5dp"
+            android:hint="@string/settings_server_address"
+            android:imeActionLabel="@string/settings_ime_action_label_next"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold">
+
+            <requestFocus />
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/purple_200">
+
+        <EditText
+            android:id="@+id/port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="yes"
+            android:drawableStart="@drawable/ic_baseline_local_convenience_store_24"
+            android:drawablePadding="5dp"
+            android:hint="@string/settings_server_port"
+            android:imeActionLabel="@string/settings_ime_action_label_save"
+            android:imeOptions="actionSend|actionDone|actionGo"
+            android:inputType="number"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="30dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_round"
+        android:text="@string/settings_open"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>

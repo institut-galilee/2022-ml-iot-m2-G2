@@ -1,0 +1,28 @@
+// python3 -m grpc_tools.protoc -I./proto --python_out=. --grpc_python_out=. ./proto/sink.proto
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "mliot.sensors.proto";
+
+service SinkService {
+  rpc SendAudio(Audio) returns (Response) {}
+  rpc SendVideo(Video) returns (Response) {}
+  rpc SendAcceleration(Acceleration) returns (Response) {}
+}
+
+message Response {
+  bool received = 1;
+}
+
+message Audio {
+  bytes data = 1;
+}
+
+message Video {
+  bytes data = 1;
+}
+
+message Acceleration {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
