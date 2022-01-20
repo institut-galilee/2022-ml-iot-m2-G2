@@ -11,11 +11,17 @@ class MyWidget(QtWidgets.QWidget):
         self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
 
         self.button = QtWidgets.QPushButton("Click me!")
-        host_name = socket.gethostname()
-        ip_address = socket.gethostbyname(host_name)
-        self.ip_text = QtWidgets.QLabel(ip_address, alignment=QtCore.Qt.AlignTop)
+        socket_instance = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        socket_instance.settimeout(0)
+        try:
+            socket_instance.connect(("google.com", 443))
+            ip_address = socket_instance.getsockname()[0]
+            self.ip_text = QtWidgets.QLabel(ip_address, alignment=QtCore.Qt.AlignTop)
+        except Exception:
+            self.ip_text = QtWidgets.QLabel("Not connected", alignment=QtCore.Qt.AlignTop)
+        finally:
+            socket_instance.close()
         self.text = QtWidgets.QLabel("Hello World", alignment=QtCore.Qt.AlignCenter)
-
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.ip_text)
         self.layout.addWidget(self.text)
@@ -30,9 +36,7 @@ class MyWidget(QtWidgets.QWidget):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
-
     widget = MyWidget()
     widget.resize(800, 600)
     widget.show()
-
     sys.exit(app.exec())

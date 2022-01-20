@@ -2,6 +2,8 @@ from concurrent import futures
 import grpc
 import sink_pb2
 import sink_pb2_grpc
+from PIL import Image
+import io
 
 
 class ServiceListener(sink_pb2_grpc.SinkServiceServicer):
@@ -11,10 +13,12 @@ class ServiceListener(sink_pb2_grpc.SinkServiceServicer):
 
     def SendVideo(self, request, context):
         print(request)
+        image = Image.open(io.BytesIO(request.data))
+        image.show()
         return sink_pb2.Response(received=True)
 
     def SendAcceleration(self, request, context):
-        print(request)
+        print(request.x)
         return sink_pb2.Response(received=True)
 
 
