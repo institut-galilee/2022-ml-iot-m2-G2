@@ -4,25 +4,24 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.protobuf.ByteString;
-
 import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import mliot.sensors.callback.OnAccelerationCallback;
+import mliot.sensors.proto.RangeMessage;
 import mliot.sensors.proto.Response;
 import mliot.sensors.proto.SinkServiceGrpc;
-import mliot.sensors.proto.VideoMessage;
 import mliot.sensors.util.Prefs;
 
-public class GrpcVideoTask extends AsyncTask<ByteString, Void, Boolean> {
+public class GrpcAccRangeTask extends AsyncTask<Float, Void, Boolean> {
 
     public ManagedChannel channel;
     private SinkServiceGrpc.SinkServiceBlockingStub stub;
     private WeakReference<Activity> activityReference;
 
-    public GrpcVideoTask(Activity context) {
+    public GrpcAccRangeTask(Activity context) {
         this.activityReference = new WeakReference<>(context);
     }
 
@@ -34,10 +33,10 @@ public class GrpcVideoTask extends AsyncTask<ByteString, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(ByteString... data) {
+    protected Boolean doInBackground(Float... range) {
         try {
-            VideoMessage videoMessage = VideoMessage.newBuilder().setVideoFrame(data[0]).build();
-            Response response = stub.onVideoFrameAvailable(videoMessage);
+            RangeMessage rangeMessage = RangeMessage.newBuilder().setMaxRange(range[0]).build();
+            Response response = stub.setAccelerationMaxRange(rangeMessage);
             return response.getReceived();
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);

@@ -3,24 +3,29 @@ option java_multiple_files = true;
 option java_package = "mliot.sensors.proto";
 
 service SinkService {
-  rpc SendAudio(Audio) returns (Response) {}
-  rpc SendVideo(Video) returns (Response) {}
-  rpc SendAcceleration(Acceleration) returns (Response) {}
+  rpc onAudioFrameAvailable(AudioMessage) returns (Response) {}
+  rpc onVideoFrameAvailable(VideoMessage) returns (Response) {}
+  rpc onAccelerationValuesChanged(AccelerationMessage) returns (Response) {}
+  rpc setAccelerationMaxRange(RangeMessage) returns (Response) {}
 }
 
 message Response {
   bool received = 1;
 }
 
-message Audio {
-  bytes data = 1;
+message AudioMessage {
+  bytes audio_frame = 1;
 }
 
-message Video {
-  bytes data = 1;
+message VideoMessage {
+  bytes video_frame = 1;
 }
 
-message Acceleration {
+message RangeMessage {
+  float max_range = 1;
+}
+
+message AccelerationMessage {
   float x = 1;
   float y = 2;
   float z = 3;

@@ -1,36 +1,74 @@
-import sys
-import random
-import socket
 from PySide6 import QtCore, QtWidgets, QtGui
 
 
-class MyWidget(QtWidgets.QWidget):
+class AccelerationView(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
+        self.x_points = []
+        self.y_points = []
+        self.z_points = []
+
+        self.list = []
+        self.MAX_ITEM = 50
+        self.max_range = None
+
+        self.x_pen = QtGui.QPen(QtCore.Qt.blue, 1, QtCore.Qt.SolidLine)
+        self.y_pen = QtGui.QPen(QtCore.Qt.yellow, 1, QtCore.Qt.SolidLine)
+        self.z_pen = QtGui.QPen(QtCore.Qt.white, 1, QtCore.Qt.SolidLine)
+
+    def populate_acceleration(self, acceleration):
+        if len(self.list) == self.MAX_ITEM:
+            self.list.pop(0)
+        self.list.append(acceleration)
+        self.update()
+
+    def set_max_value(self, max_value):
+        self.max_range = max_value
+
     def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setPen(Qt.red)
 
-        painter.drawLine(10, 10, 100, 140)
+        if self.max_range is not None:
+            self.x_points.clear()
+            self.y_points.clear()
+            self.z_points.clear()
 
-        painter.setPen(Qt.blue)
-        painter.drawRect(120, 10, 80, 80)
+            for i in range(0, len(self.list) - 1):
+                self.x_points.append(
+                    QtCore.QLine(
+                        int((self.width() * i) / (len(self.list) - 1.0)),
+                        int((self.height() / 2.0) + ((self.list[i].x * self.height() * 2.0) / self.max_range)),
+                        int((self.width() * (i + 1.0)) / (len(self.list) - 1.0)),
+                        int((self.height() / 2.0) + ((self.list[i + 1].x * self.height() * 2.0) / self.max_range))
+                    )
+                )
+                self.y_points.append(
+                    QtCore.QLine(
+                        int((self.width() * i) / (len(self.list) - 1.0)),
+                        int((self.height() / 2.0) + ((self.list[i].y * self.height() * 2.0) / self.max_range)),
+                        int((self.width() * (i + 1.0)) / (len(self.list) - 1.0)),
+                        int((self.height() / 2.0) + ((self.list[i + 1].y * self.height() * 2.0) / self.max_range))
+                    )
+                )
+                self.z_points.append(
+                    QtCore.QLine(
+                        int((self.width() * i) / (len(self.list) - 1.0)),
+                        int((self.height() / 2.0) + ((self.list[i].z * self.height() * 2.0) / self.max_range)),
+                        int((self.width() * (i + 1.0)) / (len(self.list) - 1.0)),
+                        int((self.height() / 2.0) + ((self.list[i + 1].z * self.height() * 2.0) / self.max_range))
+                    )
+                )
+            qp = QtGui.QPainter()
+            qp.begin(self)
 
-        rectf = QRectF(230.0, 10.0, 80.0, 80.0)
-        painter.drawRoundedRect(rectf, 20, 20)
+            if min(len(self.x_points), len(self.y_points), len(self.z_points)) > 0:
+                print(self.x_points)
+                qp.setPen(self.x_pen)
+                qp.drawLines(self.x_points)
 
-        p1 = [QPoint(10, 100), QPoint(220, 110), QPoint(220, 190)]
-        painter.drawPolyline(QPolygon(p1))
+                qp.setPen(self.y_pen)
+                qp.drawLines(self.y_points)
 
-        p2 = [QPoint(120, 110), QPoint(220, 110), QPoint(220, 190)]
-        painter.drawPolygon(QPolygon(p2))
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-    widget = MyWidget()
-    widget.resize(800, 600)
-    widget.show()
-
-    sys.exit(app.exec())
+                qp.setPen(self.z_pen)
+                qp.drawLines(self.z_points)
+            qp.end()

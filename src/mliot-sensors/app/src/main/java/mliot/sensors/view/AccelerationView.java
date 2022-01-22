@@ -89,19 +89,19 @@ public class AccelerationView extends View {
 
         for (int i = 0; i < accelerationList.size() - 1; i++) {
             xPoints[i * 4] = (getWidth() * i) / (accelerationList.size() - 1f);
-            xPoints[i * 4 + 1] = (getHeight() / 2f) + (accelerationList.get(i).getX() * getHeight() * 2) / this.maxValue;
+            xPoints[i * 4 + 1] = (getHeight() / 2f) + ((accelerationList.get(i).getX() * getHeight() * 2) / this.maxValue);
             xPoints[i * 4 + 2] = (getWidth() * (i + 1f)) / (accelerationList.size() - 1f);
-            xPoints[i * 4 + 3] = (getHeight() / 2f) + (accelerationList.get(i + 1).getX() * getHeight() * 2) / this.maxValue;
+            xPoints[i * 4 + 3] = (getHeight() / 2f) +((accelerationList.get(i + 1).getX() * getHeight() * 2) / this.maxValue);
 
             yPoints[i * 4] = (getWidth() * i) / (accelerationList.size() - 1f);
-            yPoints[i * 4 + 1] = (getHeight() / 2f) + (accelerationList.get(i).getY() * getHeight() * 2) / this.maxValue;
+            yPoints[i * 4 + 1] = (getHeight() / 2f) + ((accelerationList.get(i).getY() * getHeight() * 2) / this.maxValue);
             yPoints[i * 4 + 2] = (getWidth() * (i + 1f)) / (accelerationList.size() - 1f);
-            yPoints[i * 4 + 3] = (getHeight() / 2f) + (accelerationList.get(i + 1).getY() * getHeight() * 2) / this.maxValue;
+            yPoints[i * 4 + 3] = (getHeight() / 2f) + ((accelerationList.get(i + 1).getY() * getHeight() * 2) / this.maxValue);
 
             zPoints[i * 4] = (getWidth() * i) / (accelerationList.size() - 1f);
-            zPoints[i * 4 + 1] = (getHeight() / 2f) + (accelerationList.get(i).getZ() * getHeight() * 2) / this.maxValue;
+            zPoints[i * 4 + 1] = (getHeight() / 2f) + ((accelerationList.get(i).getZ() * getHeight() * 2) / this.maxValue);
             zPoints[i * 4 + 2] = (getWidth() * (i + 1f)) / (accelerationList.size() - 1f);
-            zPoints[i * 4 + 3] = (getHeight() / 2f) + (accelerationList.get(i + 1).getZ() * getHeight() * 2) / this.maxValue;
+            zPoints[i * 4 + 3] = (getHeight() / 2f) + ((accelerationList.get(i + 1).getZ() * getHeight() * 2) / this.maxValue);
         }
         canvas.drawLines(xPoints, xPaint);
         canvas.drawLines(yPoints, yPaint);

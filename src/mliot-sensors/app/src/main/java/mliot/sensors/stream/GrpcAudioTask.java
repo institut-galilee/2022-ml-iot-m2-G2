@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import mliot.sensors.proto.Audio;
+import mliot.sensors.proto.AudioMessage;
 import mliot.sensors.proto.Response;
 import mliot.sensors.proto.SinkServiceGrpc;
 import mliot.sensors.util.Prefs;
@@ -36,8 +36,8 @@ public class GrpcAudioTask extends AsyncTask<ByteString, Void, Boolean> {
     @Override
     protected Boolean doInBackground(ByteString... data) {
         try {
-            Audio audio = Audio.newBuilder().setData(data[0]).build();
-            Response response = stub.sendAudio(audio);
+            AudioMessage audioMessage = AudioMessage.newBuilder().setAudioFrame(data[0]).build();
+            Response response = stub.onAudioFrameAvailable(audioMessage);
             return response.getReceived();
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);
