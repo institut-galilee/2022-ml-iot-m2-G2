@@ -11,8 +11,9 @@ class MyWidget(QtWidgets.QWidget):
         self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
 
         self.button = QtWidgets.QPushButton("Click me!")
-        host_name = socket.gethostname()
-        ip_address = socket.gethostbyname(host_name)
+        socket_instance = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        socket_instance.connect(("google.com", 443))
+        ip_address = socket_instance.getsockname()[0]
         self.ip_text = QtWidgets.QLabel(ip_address, alignment=QtCore.Qt.AlignTop)
         self.text = QtWidgets.QLabel("Hello World", alignment=QtCore.Qt.AlignCenter)
 
@@ -30,7 +31,6 @@ class MyWidget(QtWidgets.QWidget):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
-
     widget = MyWidget()
     widget.resize(800, 600)
     widget.show()
