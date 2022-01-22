@@ -1,6 +1,7 @@
 import sys
 
 from PySide6 import QtCore, QtWidgets
+from PySide6.QtGui import QPixmap
 
 import sink_pb2
 import sink_pb2_grpc
@@ -21,12 +22,15 @@ class MainWindow(QtWidgets.QWidget, sink_pb2_grpc.SinkServiceServicer):
             alignment=QtCore.Qt.AlignTop)
         self.text = QtWidgets.QLabel("Hello World", alignment=QtCore.Qt.AlignCenter)
 
+        self.image = QPixmap()
         self.audio_view = AudioView()
+        self.video_view = QtWidgets.QLabel()
         self.acceleration_view = AccelerationView()
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.ip_text)
         self.layout.addWidget(self.text)
         self.layout.addWidget(self.button)
+        self.layout.addWidget(self.video_view)
         self.layout.addWidget(self.audio_view)
         self.layout.addWidget(self.acceleration_view)
 
@@ -46,6 +50,8 @@ class MainWindow(QtWidgets.QWidget, sink_pb2_grpc.SinkServiceServicer):
         return sink_pb2.Response(received=True)
 
     def onVideoFrameAvailable(self, request, context):
+        self.image.loadFromData(request)
+        self.video_view.setPixmap(self.image)
         return sink_pb2.Response(received=True)
 
     def onAccelerationValuesChanged(self, request, context):

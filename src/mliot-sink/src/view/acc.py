@@ -62,7 +62,6 @@ class AccelerationView(QtWidgets.QWidget):
             qp.begin(self)
 
             if min(len(self.x_points), len(self.y_points), len(self.z_points)) > 0:
-                print(self.x_points)
                 qp.setPen(self.x_pen)
                 qp.drawLines(self.x_points)
 

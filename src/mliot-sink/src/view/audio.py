@@ -23,7 +23,7 @@ class AudioView(QtWidgets.QWidget):
                 self.point_array.append(
                     QtCore.QLine(
                         int((self.width() * i) / (len(self.waveform) - 1)),
-                        int((self.height() / 2.0) + (((self.waveform[i] + 128.0) * (self.height() / 2.0)) / 128.0)),
+                        int((self.height() / 2.0) + (((self.waveform[i]) + 128.0 * (self.height() / 2.0)) / 128.0)),
                         int((self.width() * (i + 1.0)) / (len(self.waveform) - 1)),
                         int((self.height() / 2.0) + (((self.waveform[i + 1] + 128.0) * (self.height() / 2.0)) / 128.0))
                     )
@@ -32,7 +32,6 @@ class AudioView(QtWidgets.QWidget):
             qp.begin(self)
 
             if len(self.point_array) > 0:
-                print(self.point_array)
                 qp.setPen(self.pen)
                 qp.drawLines(self.point_array)
             qp.end()
