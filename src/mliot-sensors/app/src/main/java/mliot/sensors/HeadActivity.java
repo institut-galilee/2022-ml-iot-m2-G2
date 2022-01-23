@@ -1,18 +1,18 @@
 package mliot.sensors;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
-import android.hardware.SensorEventListener;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -20,7 +20,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Display;
+import android.view.Surface;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.protobuf.ByteString;
 
@@ -78,7 +85,7 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
              */
             if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
                 camera = Camera.open();
-                camera.setDisplayOrientation(90);
+                //camera.setDisplayOrientation(90);
                 if (camera != null) {
                     CameraView cameraView = new CameraView(this, camera);
                     FrameLayout preview = findViewById(R.id.camera_preview);
@@ -150,9 +157,28 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Camera.Parameters parameters = camera.getParameters();
         Camera.Size size = parameters.getPreviewSize();
-        YuvImage yuvImage = new YuvImage(data, parameters.getPreviewFormat(), size.width, size.height, null);
-        yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), 0, outputStream);
-        new GrpcVideoTask(this).execute(ByteString.copyFrom(outputStream.toByteArray()));
+        YuvImage yuvImage = new YuvImage(data, ImageFormat.NV21, size.width, size.height, null);
+        yuvImage.compressToJpeg(new Rect(0, 0, size.width, size.height), 50, outputStream);
+        byte[] rawImage = outputStream.toByteArray();
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length);
+        ByteArrayOutputStream rotatedStream = new ByteArrayOutputStream();
+
+        Matrix matrix = new Matrix();
+
+        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = (windowManager).getDefaultDisplay();
+        if(display.getRotation() == Surface.ROTATION_0) {
+            matrix.postRotate(90);
+        }
+
+        if(display.getRotation() == Surface.ROTATION_270) {
+            matrix.postRotate(180);
+        }
+
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, size.width, size.height, matrix, false);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, rotatedStream);
+        new GrpcVideoTask(this).execute(ByteString.copyFrom(rotatedStream.toByteArray()));
     }
 
     @Override

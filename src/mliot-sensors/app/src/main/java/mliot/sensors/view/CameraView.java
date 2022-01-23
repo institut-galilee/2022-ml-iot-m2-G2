@@ -3,8 +3,11 @@ package mliot.sensors.view;
 import android.content.Context;
 import android.hardware.Camera;
 import android.util.Log;
+import android.view.Display;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
@@ -38,21 +41,35 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
         if (this.holder.getSurface() == null){
-            // preview surface does not exist
             return;
         }
-
-        // stop preview before making changes
         try {
             this.camera.stopPreview();
         } catch (Exception e){
-            // ignore: tried to stop a non-existent preview
+            Log.e(getClass().getCanonicalName(), "Tried to stop a non-existent preview");
         }
 
-        // set preview size and make any resize, rotate or
-        // reformatting changes here
+        Camera.Parameters parameters = this.camera.getParameters();
+        Display display = ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
-        // start preview with new settings
+        if(display.getRotation() == Surface.ROTATION_0) {
+            parameters.setPreviewSize(height, width);
+            this.camera.setDisplayOrientation(90);
+        }
+
+        if(display.getRotation() == Surface.ROTATION_90) {
+            parameters.setPreviewSize(width, height);
+        }
+
+        if(display.getRotation() == Surface.ROTATION_180) {
+            parameters.setPreviewSize(height, width);
+        }
+
+        if(display.getRotation() == Surface.ROTATION_270) {
+            parameters.setPreviewSize(width, height);
+            this.camera.setDisplayOrientation(180);
+        }
+
         try {
             this.camera.setPreviewDisplay(this.holder);
             this.camera.startPreview();

@@ -9,6 +9,7 @@ from network import NetworkHelper
 from server import Server
 from view.acc import AccelerationView
 from view.audio import AudioView
+from PIL import Image
 
 
 class MainWindow(QtWidgets.QWidget, sink_pb2_grpc.SinkServiceServicer):
@@ -16,31 +17,40 @@ class MainWindow(QtWidgets.QWidget, sink_pb2_grpc.SinkServiceServicer):
         super().__init__()
         self.setWindowTitle("REMOTE SAFE EXAM")
 
-        self.button = QtWidgets.QPushButton("Click me!")
-        self.ip_text = QtWidgets.QLabel(
-            "{0}:{1}".format(NetworkHelper.listening_address(), NetworkHelper.listening_port()),
-            alignment=QtCore.Qt.AlignTop)
-        self.text = QtWidgets.QLabel("Hello World", alignment=QtCore.Qt.AlignCenter)
+        # Show IP Address and Port
+        ip_port = QtWidgets.QLabel("IP ADDRESS: {0}".format(NetworkHelper.listening_port()))
+        ip_address = QtWidgets.QLabel("PORT NUMBER: {0}".format(NetworkHelper.listening_address()))
 
-        self.image = QPixmap()
+        # Setup Audio View
         self.audio_view = AudioView()
-        self.video_view = QtWidgets.QLabel()
-        self.acceleration_view = AccelerationView()
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self.ip_text)
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.button)
-        self.layout.addWidget(self.video_view)
-        self.layout.addWidget(self.audio_view)
-        self.layout.addWidget(self.acceleration_view)
 
-        self.button.clicked.connect(self.magic)
+        # Setup Video View
+        self.video_view = QtWidgets.QLabel()
+        self.video_view.setAlignment(QtCore.Qt.AlignLeft)
+
+        # Setup Acceleration View
+        self.acceleration_view = AccelerationView()
+
+        h1_layout = QtWidgets.QHBoxLayout()
+        h1_layout.addWidget(ip_address)
+        h1_layout.addWidget(ip_port)
+        h1_layout.setAlignment(QtCore.Qt.AlignTop)
+
+        v1_layout = QtWidgets.QVBoxLayout()
+        v1_layout.addWidget(self.audio_view)
+        v1_layout.addWidget(self.acceleration_view)
+
+        h2_layout = QtWidgets.QHBoxLayout()
+        h2_layout.addWidget(self.video_view)
+        h2_layout.addLayout(v1_layout)
+
+        v2_layout = QtWidgets.QVBoxLayout(self)
+        v2_layout.addLayout(h1_layout)
+        v2_layout.addLayout(h2_layout)
+
+        # Setup gRPC Server
         self.server = Server(self)
         self.server.start()
-
-    @QtCore.Slot()
-    def magic(self):
-        self.text.setText("random.choice(self.hello)")
 
     def close(self):
         self.server.stop()
@@ -50,8 +60,9 @@ class MainWindow(QtWidgets.QWidget, sink_pb2_grpc.SinkServiceServicer):
         return sink_pb2.Response(received=True)
 
     def onVideoFrameAvailable(self, request, context):
-        self.image.loadFromData(request)
-        self.video_view.setPixmap(self.image)
+        image = QPixmap()
+        image.loadFromData(request.video_frame)
+        self.video_view.setPixmap(image.scaled(320, 480))
         return sink_pb2.Response(received=True)
 
     def onAccelerationValuesChanged(self, request, context):
@@ -66,6 +77,7 @@ class MainWindow(QtWidgets.QWidget, sink_pb2_grpc.SinkServiceServicer):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
-    window.resize(800, 600)
+    window.setFixedWidth(720)
+    window.setFixedHeight(480)
     window.show()
     sys.exit(app.exec())
