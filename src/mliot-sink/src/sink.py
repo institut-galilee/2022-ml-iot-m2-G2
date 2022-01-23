@@ -9,17 +9,16 @@ from network import NetworkHelper
 from server import Server
 from view.acc import AccelerationView
 from view.audio import AudioView
-from PIL import Image
 
 
-class MainWindow(QtWidgets.QWidget, sink_pb2_grpc.SinkServiceServicer):
+class MainWindow(QtWidgets.QMainWindow, sink_pb2_grpc.SinkServiceServicer):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("REMOTE SAFE EXAM")
 
         # Show IP Address and Port
-        ip_port = QtWidgets.QLabel("IP ADDRESS: {0}".format(NetworkHelper.listening_port()))
-        ip_address = QtWidgets.QLabel("PORT NUMBER: {0}".format(NetworkHelper.listening_address()))
+        ip_port = QtWidgets.QLabel("PORT NUMBER: {0}".format(NetworkHelper.listening_port()))
+        ip_address = QtWidgets.QLabel("IP ADDRESS: {0}".format(NetworkHelper.listening_address()))
 
         # Setup Audio View
         self.audio_view = AudioView()
@@ -44,9 +43,14 @@ class MainWindow(QtWidgets.QWidget, sink_pb2_grpc.SinkServiceServicer):
         h2_layout.addWidget(self.video_view)
         h2_layout.addLayout(v1_layout)
 
-        v2_layout = QtWidgets.QVBoxLayout(self)
+        v2_layout = QtWidgets.QVBoxLayout()
         v2_layout.addLayout(h1_layout)
         v2_layout.addLayout(h2_layout)
+
+        # Add all views to the window
+        widget = QtWidgets.QWidget()
+        widget.setLayout(v2_layout)
+        self.setCentralWidget(widget)
 
         # Setup gRPC Server
         self.server = Server(self)
