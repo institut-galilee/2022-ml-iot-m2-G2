@@ -6,8 +6,13 @@ option java_package = "mliot.sensors.proto";
 service SinkService {
   rpc onAudioFrameAvailable(AudioMessage) returns (Response) {}
   rpc onVideoFrameAvailable(VideoMessage) returns (Response) {}
-  rpc onAccelerationValuesChanged(AccelerationMessage) returns (Response) {}
+  rpc onAccelerationChanged(AccelerationMessage) returns (Response) {}
   rpc setAccelerationMaxRange(RangeMessage) returns (Response) {}
+  rpc onStepDetected(RangeMessage) returns (Response) {}
+  rpc onMotionDetected(RangeMessage) returns (Response) {}
+  rpc onTemperatureChanged(RangeMessage) returns (Response) {}
+  rpc onHeartRateChanged(RangeMessage) returns (Response) {}
+  rpc onProximityChanged(RangeMessage) returns (Response) {}
 }
 
 message Response {

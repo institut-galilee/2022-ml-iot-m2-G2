@@ -1,3 +1,5 @@
+import ctypes
+
 from PySide6 import QtCore, QtWidgets, QtGui
 
 
@@ -8,7 +10,7 @@ class AudioView(QtWidgets.QWidget):
         self.point_array = []
         self.waveform = None
 
-        self.pen = QtGui.QPen(QtCore.Qt.white, 1, QtCore.Qt.SolidLine)
+        self.pen = QtGui.QPen(QtCore.Qt.green, 1, QtCore.Qt.SolidLine)
 
     def update_waveform(self, frame):
         self.waveform = frame
@@ -23,9 +25,9 @@ class AudioView(QtWidgets.QWidget):
                 self.point_array.append(
                     QtCore.QLine(
                         int((self.width() * i) / (len(self.waveform) - 1)),
-                        int((self.height() / 2.0) + (((self.waveform[i]) + 128.0 * (self.height() / 2.0)) / 128.0)),
+                        int((self.height() / 2.0) + ((ctypes.c_int8(self.waveform[i] + 128)).value * (self.height() / 2.0)) / 128.0),
                         int((self.width() * (i + 1.0)) / (len(self.waveform) - 1)),
-                        int((self.height() / 2.0) + (((self.waveform[i + 1] + 128.0) * (self.height() / 2.0)) / 128.0))
+                        int((self.height() / 2.0) + ((ctypes.c_int8(self.waveform[i + 1] + 128)).value * (self.height() / 2.0)) / 128.0)
                     )
                 )
             qp = QtGui.QPainter()

@@ -10,12 +10,12 @@ class AccelerationView(QtWidgets.QWidget):
         self.z_points = []
 
         self.list = []
-        self.MAX_ITEM = 50
+        self.MAX_ITEM = 500
         self.max_range = None
 
-        self.x_pen = QtGui.QPen(QtCore.Qt.blue, 1, QtCore.Qt.SolidLine)
-        self.y_pen = QtGui.QPen(QtCore.Qt.yellow, 1, QtCore.Qt.SolidLine)
-        self.z_pen = QtGui.QPen(QtCore.Qt.white, 1, QtCore.Qt.SolidLine)
+        self.x_pen = QtGui.QPen(QtCore.Qt.darkBlue, 1, QtCore.Qt.SolidLine)
+        self.y_pen = QtGui.QPen(QtCore.Qt.green, 1, QtCore.Qt.SolidLine)
+        self.z_pen = QtGui.QPen(QtCore.Qt.gray, 1, QtCore.Qt.SolidLine)
 
     def populate_acceleration(self, acceleration):
         if len(self.list) == self.MAX_ITEM:
