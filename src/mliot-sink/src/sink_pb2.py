@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\023mliot.sensors.protoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nsink.proto\"\x1c\n\x08Response\x12\x10\n\x08received\x18\x01 \x01(\x08\"#\n\x0c\x41udioMessage\x12\x13\n\x0b\x61udio_frame\x18\x01 \x01(\x0c\"#\n\x0cVideoMessage\x12\x13\n\x0bvideo_frame\x18\x01 \x01(\x0c\"!\n\x0cRangeMessage\x12\x11\n\tmax_range\x18\x01 \x01(\x02\"6\n\x13\x41\x63\x63\x65lerationMessage\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x32\xf0\x01\n\x0bSinkService\x12\x33\n\x15onAudioFrameAvailable\x12\r.AudioMessage\x1a\t.Response\"\x00\x12\x33\n\x15onVideoFrameAvailable\x12\r.VideoMessage\x1a\t.Response\"\x00\x12@\n\x1bonAccelerationValuesChanged\x12\x14.AccelerationMessage\x1a\t.Response\"\x00\x12\x35\n\x17setAccelerationMaxRange\x12\r.RangeMessage\x1a\t.Response\"\x00\x42\x17\n\x13mliot.sensors.protoP\x01\x62\x06proto3'
+  serialized_pb=b'\n\nsink.proto\"\x1f\n\x08Response\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\"#\n\x0c\x41udioMessage\x12\x13\n\x0b\x61udio_frame\x18\x01 \x01(\x0c\"#\n\x0cVideoMessage\x12\x13\n\x0bvideo_frame\x18\x01 \x01(\x0c\"!\n\x0cRangeMessage\x12\x11\n\tmax_range\x18\x01 \x01(\x02\"&\n\x10HeartBeatMessage\x12\x12\n\nheart_rate\x18\x01 \x01(\x02\"$\n\x10ProximityMessage\x12\x10\n\x08\x64istance\x18\x01 \x01(\x02\"%\n\x12TemperatureMessage\x12\x0f\n\x07\x64\x65grees\x18\x01 \x01(\x02\"6\n\x13\x41\x63\x63\x65lerationMessage\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"*\n\x14StepDetectionMessage\x12\x12\n\nisDetected\x18\x01 \x01(\x08\"-\n\x16MotionDetectionMessage\x12\x13\n\x0bis_detected\x18\x01 \x01(\x08\x32\x80\x04\n\x0bSinkService\x12\x34\n\x0eonStepDetected\x12\x15.StepDetectionMessage\x1a\t.Response\"\x00\x12\x33\n\x15onVideoFrameAvailable\x12\r.VideoMessage\x1a\t.Response\"\x00\x12\x33\n\x15onAudioFrameAvailable\x12\r.AudioMessage\x1a\t.Response\"\x00\x12\x34\n\x12onProximityChanged\x12\x11.ProximityMessage\x1a\t.Response\"\x00\x12\x34\n\x12onHeartRateChanged\x12\x11.HeartBeatMessage\x1a\t.Response\"\x00\x12\x35\n\x17setAccelerationMaxRange\x12\r.RangeMessage\x1a\t.Response\"\x00\x12\x38\n\x10onMotionDetected\x12\x17.MotionDetectionMessage\x1a\t.Response\"\x00\x12\x38\n\x14onTemperatureChanged\x12\x13.TemperatureMessage\x1a\t.Response\"\x00\x12:\n\x15onAccelerationChanged\x12\x14.AccelerationMessage\x1a\t.Response\"\x00\x42\x17\n\x13mliot.sensors.protoP\x01\x62\x06proto3'
 )
 
 
@@ -34,7 +34,7 @@ _RESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='received', full_name='Response.received', index=0,
+      name='is_received', full_name='Response.is_received', index=0,
       number=1, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -53,7 +53,7 @@ _RESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=14,
-  serialized_end=42,
+  serialized_end=45,
 )
 
 
@@ -84,8 +84,8 @@ _AUDIOMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=44,
-  serialized_end=79,
+  serialized_start=47,
+  serialized_end=82,
 )
 
 
@@ -116,8 +116,8 @@ _VIDEOMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=81,
-  serialized_end=116,
+  serialized_start=84,
+  serialized_end=119,
 )
 
 
@@ -148,8 +148,104 @@ _RANGEMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=118,
-  serialized_end=151,
+  serialized_start=121,
+  serialized_end=154,
+)
+
+
+_HEARTBEATMESSAGE = _descriptor.Descriptor(
+  name='HeartBeatMessage',
+  full_name='HeartBeatMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='heart_rate', full_name='HeartBeatMessage.heart_rate', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=156,
+  serialized_end=194,
+)
+
+
+_PROXIMITYMESSAGE = _descriptor.Descriptor(
+  name='ProximityMessage',
+  full_name='ProximityMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='distance', full_name='ProximityMessage.distance', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=196,
+  serialized_end=232,
+)
+
+
+_TEMPERATUREMESSAGE = _descriptor.Descriptor(
+  name='TemperatureMessage',
+  full_name='TemperatureMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='degrees', full_name='TemperatureMessage.degrees', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=234,
+  serialized_end=271,
 )
 
 
@@ -194,15 +290,84 @@ _ACCELERATIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=153,
-  serialized_end=207,
+  serialized_start=273,
+  serialized_end=327,
+)
+
+
+_STEPDETECTIONMESSAGE = _descriptor.Descriptor(
+  name='StepDetectionMessage',
+  full_name='StepDetectionMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='isDetected', full_name='StepDetectionMessage.isDetected', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=329,
+  serialized_end=371,
+)
+
+
+_MOTIONDETECTIONMESSAGE = _descriptor.Descriptor(
+  name='MotionDetectionMessage',
+  full_name='MotionDetectionMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='is_detected', full_name='MotionDetectionMessage.is_detected', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=373,
+  serialized_end=418,
 )
 
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
 DESCRIPTOR.message_types_by_name['AudioMessage'] = _AUDIOMESSAGE
 DESCRIPTOR.message_types_by_name['VideoMessage'] = _VIDEOMESSAGE
 DESCRIPTOR.message_types_by_name['RangeMessage'] = _RANGEMESSAGE
+DESCRIPTOR.message_types_by_name['HeartBeatMessage'] = _HEARTBEATMESSAGE
+DESCRIPTOR.message_types_by_name['ProximityMessage'] = _PROXIMITYMESSAGE
+DESCRIPTOR.message_types_by_name['TemperatureMessage'] = _TEMPERATUREMESSAGE
 DESCRIPTOR.message_types_by_name['AccelerationMessage'] = _ACCELERATIONMESSAGE
+DESCRIPTOR.message_types_by_name['StepDetectionMessage'] = _STEPDETECTIONMESSAGE
+DESCRIPTOR.message_types_by_name['MotionDetectionMessage'] = _MOTIONDETECTIONMESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), {
@@ -233,12 +398,47 @@ RangeMessage = _reflection.GeneratedProtocolMessageType('RangeMessage', (_messag
   })
 _sym_db.RegisterMessage(RangeMessage)
 
+HeartBeatMessage = _reflection.GeneratedProtocolMessageType('HeartBeatMessage', (_message.Message,), {
+  'DESCRIPTOR' : _HEARTBEATMESSAGE,
+  '__module__' : 'sink_pb2'
+  # @@protoc_insertion_point(class_scope:HeartBeatMessage)
+  })
+_sym_db.RegisterMessage(HeartBeatMessage)
+
+ProximityMessage = _reflection.GeneratedProtocolMessageType('ProximityMessage', (_message.Message,), {
+  'DESCRIPTOR' : _PROXIMITYMESSAGE,
+  '__module__' : 'sink_pb2'
+  # @@protoc_insertion_point(class_scope:ProximityMessage)
+  })
+_sym_db.RegisterMessage(ProximityMessage)
+
+TemperatureMessage = _reflection.GeneratedProtocolMessageType('TemperatureMessage', (_message.Message,), {
+  'DESCRIPTOR' : _TEMPERATUREMESSAGE,
+  '__module__' : 'sink_pb2'
+  # @@protoc_insertion_point(class_scope:TemperatureMessage)
+  })
+_sym_db.RegisterMessage(TemperatureMessage)
+
 AccelerationMessage = _reflection.GeneratedProtocolMessageType('AccelerationMessage', (_message.Message,), {
   'DESCRIPTOR' : _ACCELERATIONMESSAGE,
   '__module__' : 'sink_pb2'
   # @@protoc_insertion_point(class_scope:AccelerationMessage)
   })
 _sym_db.RegisterMessage(AccelerationMessage)
+
+StepDetectionMessage = _reflection.GeneratedProtocolMessageType('StepDetectionMessage', (_message.Message,), {
+  'DESCRIPTOR' : _STEPDETECTIONMESSAGE,
+  '__module__' : 'sink_pb2'
+  # @@protoc_insertion_point(class_scope:StepDetectionMessage)
+  })
+_sym_db.RegisterMessage(StepDetectionMessage)
+
+MotionDetectionMessage = _reflection.GeneratedProtocolMessageType('MotionDetectionMessage', (_message.Message,), {
+  'DESCRIPTOR' : _MOTIONDETECTIONMESSAGE,
+  '__module__' : 'sink_pb2'
+  # @@protoc_insertion_point(class_scope:MotionDetectionMessage)
+  })
+_sym_db.RegisterMessage(MotionDetectionMessage)
 
 
 DESCRIPTOR._options = None
@@ -250,15 +450,15 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=210,
-  serialized_end=450,
+  serialized_start=421,
+  serialized_end=933,
   methods=[
   _descriptor.MethodDescriptor(
-    name='onAudioFrameAvailable',
-    full_name='SinkService.onAudioFrameAvailable',
+    name='onStepDetected',
+    full_name='SinkService.onStepDetected',
     index=0,
     containing_service=None,
-    input_type=_AUDIOMESSAGE,
+    input_type=_STEPDETECTIONMESSAGE,
     output_type=_RESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -274,11 +474,31 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='onAccelerationValuesChanged',
-    full_name='SinkService.onAccelerationValuesChanged',
+    name='onAudioFrameAvailable',
+    full_name='SinkService.onAudioFrameAvailable',
     index=2,
     containing_service=None,
-    input_type=_ACCELERATIONMESSAGE,
+    input_type=_AUDIOMESSAGE,
+    output_type=_RESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='onProximityChanged',
+    full_name='SinkService.onProximityChanged',
+    index=3,
+    containing_service=None,
+    input_type=_PROXIMITYMESSAGE,
+    output_type=_RESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='onHeartRateChanged',
+    full_name='SinkService.onHeartRateChanged',
+    index=4,
+    containing_service=None,
+    input_type=_HEARTBEATMESSAGE,
     output_type=_RESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -286,9 +506,39 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='setAccelerationMaxRange',
     full_name='SinkService.setAccelerationMaxRange',
-    index=3,
+    index=5,
     containing_service=None,
     input_type=_RANGEMESSAGE,
+    output_type=_RESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='onMotionDetected',
+    full_name='SinkService.onMotionDetected',
+    index=6,
+    containing_service=None,
+    input_type=_MOTIONDETECTIONMESSAGE,
+    output_type=_RESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='onTemperatureChanged',
+    full_name='SinkService.onTemperatureChanged',
+    index=7,
+    containing_service=None,
+    input_type=_TEMPERATUREMESSAGE,
+    output_type=_RESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='onAccelerationChanged',
+    full_name='SinkService.onAccelerationChanged',
+    index=8,
+    containing_service=None,
+    input_type=_ACCELERATIONMESSAGE,
     output_type=_RESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

@@ -1,33 +1,107 @@
 import sys
-import random
-import socket
-from PySide6 import QtCore, QtWidgets, QtGui
-from network import NetworkHelper
+
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtGui import QPixmap
+
+from src.grpc.sink import Sink
+from src import sink_pb2
+from src import sink_pb2_grpc
+from src.util.network import NetworkHelper
+from view.acc import AccelerationView
+from view.audio import AudioView
 
 
-class MyWidget(QtWidgets.QWidget):
+class MainWindow(QtWidgets.QMainWindow, sink_pb2_grpc.SinkServiceServicer):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("REMOTE SAFE EXAM")
 
-        self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
+        # Show IP Address and Port
+        ip_port = QtWidgets.QLabel("PORT NUMBER: {0}".format(NetworkHelper.listening_port()))
+        ip_address = QtWidgets.QLabel("IP ADDRESS: {0}".format(NetworkHelper.listening_address()))
 
-        self.button = QtWidgets.QPushButton("Click me!")
-        self.ip_text = QtWidgets.QLabel("{0}:{1}".format(NetworkHelper.listening_address(), NetworkHelper.listening_port()), alignment=QtCore.Qt.AlignTop)
-        self.text = QtWidgets.QLabel("Hello World", alignment=QtCore.Qt.AlignCenter)
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self.ip_text)
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.button)
+        # Setup Audio View
+        self.audio_view = AudioView()
 
-        self.button.clicked.connect(self.magic)
+        # Setup Video View
+        self.video_view = QtWidgets.QLabel()
+        self.video_view.setAlignment(QtCore.Qt.AlignLeft)
 
-    @QtCore.Slot()
-    def magic(self):
-        self.text.setText(random.choice(self.hello))
+        # Setup Acceleration View
+        self.acceleration_view = AccelerationView()
+
+        h1_layout = QtWidgets.QHBoxLayout()
+        h1_layout.addWidget(ip_address)
+        h1_layout.addWidget(ip_port)
+        h1_layout.setAlignment(QtCore.Qt.AlignTop)
+
+        v1_layout = QtWidgets.QVBoxLayout()
+        v1_layout.addWidget(self.audio_view)
+        v1_layout.addWidget(self.acceleration_view)
+
+        h2_layout = QtWidgets.QHBoxLayout()
+        h2_layout.addWidget(self.video_view)
+        h2_layout.addLayout(v1_layout)
+
+        v2_layout = QtWidgets.QVBoxLayout()
+        v2_layout.addLayout(h1_layout)
+        v2_layout.addLayout(h2_layout)
+
+        # Add all views to the window
+        widget = QtWidgets.QWidget()
+        widget.setLayout(v2_layout)
+        self.setCentralWidget(widget)
+
+        # Setup gRPC Sink
+        self.sink = Sink(self)
+        self.sink.start()
+
+    def close(self):
+        self.sink.stop()
+
+    def onAudioFrameAvailable(self, request, context):
+        self.audio_view.update_waveform(request.audio_frame)
+        return sink_pb2.Response(is_received=True)
+
+    def onVideoFrameAvailable(self, request, context):
+        image = QPixmap()
+        image.loadFromData(request.video_frame)
+        self.video_view.setPixmap(image.scaled(480, 720))
+        return sink_pb2.Response(is_received=True)
+
+    def onAccelerationChanged(self, request, context):
+        self.acceleration_view.populate_acceleration(request)
+        return sink_pb2.Response(is_received=self.acceleration_view.max_range is not None)
+
+    def setAccelerationMaxRange(self, request, context):
+        self.acceleration_view.max_range = request.max_range
+        return sink_pb2.Response(is_received=True)
+
+    def onStepDetected(self, request, context):
+        print("Step is detected")
+        return sink_pb2.Response(is_received=True)
+
+    def onProximityChanged(self, request, context):
+        print("Proximity distance detected is {0} cm".format(request.distance))
+        return sink_pb2.Response(is_received=True)
+
+    def onHeartRateChanged(self, request, context):
+        print(request.heart_rate)
+        return sink_pb2.Response(is_received=True)
+
+    def onMotionDetected(self, request, context):
+        print("Movement is detected")
+        return sink_pb2.Response(is_received=True)
+
+    def onTemperatureChanged(self, request, context):
+        print(request.degrees)
+        return sink_pb2.Response(is_received=True)
+
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-    widget = MyWidget()
-    widget.resize(800, 600)
-    widget.show()
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWindow()
+    window.setFixedWidth(1440)
+    window.setFixedHeight(720)
+    window.show()
     sys.exit(app.exec())

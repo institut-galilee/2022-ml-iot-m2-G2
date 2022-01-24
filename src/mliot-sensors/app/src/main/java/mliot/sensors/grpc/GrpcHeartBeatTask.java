@@ -1,4 +1,4 @@
-package mliot.sensors.stream;
+package mliot.sensors.grpc;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -9,22 +9,19 @@ import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import mliot.sensors.callback.OnAccelerationCallback;
-import mliot.sensors.proto.AccelerationMessage;
+import mliot.sensors.proto.HeartBeatMessage;
 import mliot.sensors.proto.Response;
 import mliot.sensors.proto.SinkServiceGrpc;
 import mliot.sensors.util.Prefs;
 
-public class GrpcAccTask extends AsyncTask<Float, Void, Boolean> {
+public class GrpcHeartBeatTask extends AsyncTask<Float, Void, Boolean> {
 
     public ManagedChannel channel;
     private SinkServiceGrpc.SinkServiceBlockingStub stub;
-    private WeakReference<Activity> activityReference;
-    private OnAccelerationCallback onAccelerationCallback;
+    private final WeakReference<Activity> activityReference;
 
-    public GrpcAccTask(Activity context, OnAccelerationCallback onAccelerationCallback) {
+    public GrpcHeartBeatTask(Activity context) {
         this.activityReference = new WeakReference<>(context);
-        this.onAccelerationCallback = onAccelerationCallback;
     }
 
     @Override
@@ -35,14 +32,11 @@ public class GrpcAccTask extends AsyncTask<Float, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Float... acc) {
+    protected Boolean doInBackground(Float... heartRate) {
         try {
-            float x = acc[0];
-            float y = acc[1];
-            float z = acc[2];
-            AccelerationMessage accelerationMessage = AccelerationMessage.newBuilder().setX(x).setY(y).setZ(z).build();
-            Response response = stub.onAccelerationValuesChanged(accelerationMessage);
-            return response.getReceived();
+            HeartBeatMessage heartBeatMessage = HeartBeatMessage.newBuilder().setHeartRate(heartRate[0]).build();
+            Response response = stub.onHeartRateChanged(heartBeatMessage);
+            return response.getIsReceived();
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);
             return false;
@@ -51,7 +45,6 @@ public class GrpcAccTask extends AsyncTask<Float, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean received) {
-        onAccelerationCallback.onAccelerationReceived(received);
         try {
             channel.shutdown().awaitTermination(1, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

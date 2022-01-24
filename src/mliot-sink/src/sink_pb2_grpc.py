@@ -14,9 +14,9 @@ class SinkServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.onAudioFrameAvailable = channel.unary_unary(
-                '/SinkService/onAudioFrameAvailable',
-                request_serializer=sink__pb2.AudioMessage.SerializeToString,
+        self.onStepDetected = channel.unary_unary(
+                '/SinkService/onStepDetected',
+                request_serializer=sink__pb2.StepDetectionMessage.SerializeToString,
                 response_deserializer=sink__pb2.Response.FromString,
                 )
         self.onVideoFrameAvailable = channel.unary_unary(
@@ -24,9 +24,19 @@ class SinkServiceStub(object):
                 request_serializer=sink__pb2.VideoMessage.SerializeToString,
                 response_deserializer=sink__pb2.Response.FromString,
                 )
-        self.onAccelerationValuesChanged = channel.unary_unary(
-                '/SinkService/onAccelerationValuesChanged',
-                request_serializer=sink__pb2.AccelerationMessage.SerializeToString,
+        self.onAudioFrameAvailable = channel.unary_unary(
+                '/SinkService/onAudioFrameAvailable',
+                request_serializer=sink__pb2.AudioMessage.SerializeToString,
+                response_deserializer=sink__pb2.Response.FromString,
+                )
+        self.onProximityChanged = channel.unary_unary(
+                '/SinkService/onProximityChanged',
+                request_serializer=sink__pb2.ProximityMessage.SerializeToString,
+                response_deserializer=sink__pb2.Response.FromString,
+                )
+        self.onHeartRateChanged = channel.unary_unary(
+                '/SinkService/onHeartRateChanged',
+                request_serializer=sink__pb2.HeartBeatMessage.SerializeToString,
                 response_deserializer=sink__pb2.Response.FromString,
                 )
         self.setAccelerationMaxRange = channel.unary_unary(
@@ -34,12 +44,27 @@ class SinkServiceStub(object):
                 request_serializer=sink__pb2.RangeMessage.SerializeToString,
                 response_deserializer=sink__pb2.Response.FromString,
                 )
+        self.onMotionDetected = channel.unary_unary(
+                '/SinkService/onMotionDetected',
+                request_serializer=sink__pb2.MotionDetectionMessage.SerializeToString,
+                response_deserializer=sink__pb2.Response.FromString,
+                )
+        self.onTemperatureChanged = channel.unary_unary(
+                '/SinkService/onTemperatureChanged',
+                request_serializer=sink__pb2.TemperatureMessage.SerializeToString,
+                response_deserializer=sink__pb2.Response.FromString,
+                )
+        self.onAccelerationChanged = channel.unary_unary(
+                '/SinkService/onAccelerationChanged',
+                request_serializer=sink__pb2.AccelerationMessage.SerializeToString,
+                response_deserializer=sink__pb2.Response.FromString,
+                )
 
 
 class SinkServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def onAudioFrameAvailable(self, request, context):
+    def onStepDetected(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -51,7 +76,19 @@ class SinkServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def onAccelerationValuesChanged(self, request, context):
+    def onAudioFrameAvailable(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def onProximityChanged(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def onHeartRateChanged(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -63,12 +100,30 @@ class SinkServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def onMotionDetected(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def onTemperatureChanged(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def onAccelerationChanged(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SinkServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'onAudioFrameAvailable': grpc.unary_unary_rpc_method_handler(
-                    servicer.onAudioFrameAvailable,
-                    request_deserializer=sink__pb2.AudioMessage.FromString,
+            'onStepDetected': grpc.unary_unary_rpc_method_handler(
+                    servicer.onStepDetected,
+                    request_deserializer=sink__pb2.StepDetectionMessage.FromString,
                     response_serializer=sink__pb2.Response.SerializeToString,
             ),
             'onVideoFrameAvailable': grpc.unary_unary_rpc_method_handler(
@@ -76,14 +131,39 @@ def add_SinkServiceServicer_to_server(servicer, server):
                     request_deserializer=sink__pb2.VideoMessage.FromString,
                     response_serializer=sink__pb2.Response.SerializeToString,
             ),
-            'onAccelerationValuesChanged': grpc.unary_unary_rpc_method_handler(
-                    servicer.onAccelerationValuesChanged,
-                    request_deserializer=sink__pb2.AccelerationMessage.FromString,
+            'onAudioFrameAvailable': grpc.unary_unary_rpc_method_handler(
+                    servicer.onAudioFrameAvailable,
+                    request_deserializer=sink__pb2.AudioMessage.FromString,
+                    response_serializer=sink__pb2.Response.SerializeToString,
+            ),
+            'onProximityChanged': grpc.unary_unary_rpc_method_handler(
+                    servicer.onProximityChanged,
+                    request_deserializer=sink__pb2.ProximityMessage.FromString,
+                    response_serializer=sink__pb2.Response.SerializeToString,
+            ),
+            'onHeartRateChanged': grpc.unary_unary_rpc_method_handler(
+                    servicer.onHeartRateChanged,
+                    request_deserializer=sink__pb2.HeartBeatMessage.FromString,
                     response_serializer=sink__pb2.Response.SerializeToString,
             ),
             'setAccelerationMaxRange': grpc.unary_unary_rpc_method_handler(
                     servicer.setAccelerationMaxRange,
                     request_deserializer=sink__pb2.RangeMessage.FromString,
+                    response_serializer=sink__pb2.Response.SerializeToString,
+            ),
+            'onMotionDetected': grpc.unary_unary_rpc_method_handler(
+                    servicer.onMotionDetected,
+                    request_deserializer=sink__pb2.MotionDetectionMessage.FromString,
+                    response_serializer=sink__pb2.Response.SerializeToString,
+            ),
+            'onTemperatureChanged': grpc.unary_unary_rpc_method_handler(
+                    servicer.onTemperatureChanged,
+                    request_deserializer=sink__pb2.TemperatureMessage.FromString,
+                    response_serializer=sink__pb2.Response.SerializeToString,
+            ),
+            'onAccelerationChanged': grpc.unary_unary_rpc_method_handler(
+                    servicer.onAccelerationChanged,
+                    request_deserializer=sink__pb2.AccelerationMessage.FromString,
                     response_serializer=sink__pb2.Response.SerializeToString,
             ),
     }
@@ -97,7 +177,7 @@ class SinkService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def onAudioFrameAvailable(request,
+    def onStepDetected(request,
             target,
             options=(),
             channel_credentials=None,
@@ -107,8 +187,8 @@ class SinkService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SinkService/onAudioFrameAvailable',
-            sink__pb2.AudioMessage.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/SinkService/onStepDetected',
+            sink__pb2.StepDetectionMessage.SerializeToString,
             sink__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -131,7 +211,7 @@ class SinkService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def onAccelerationValuesChanged(request,
+    def onAudioFrameAvailable(request,
             target,
             options=(),
             channel_credentials=None,
@@ -141,8 +221,42 @@ class SinkService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SinkService/onAccelerationValuesChanged',
-            sink__pb2.AccelerationMessage.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/SinkService/onAudioFrameAvailable',
+            sink__pb2.AudioMessage.SerializeToString,
+            sink__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def onProximityChanged(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SinkService/onProximityChanged',
+            sink__pb2.ProximityMessage.SerializeToString,
+            sink__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def onHeartRateChanged(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SinkService/onHeartRateChanged',
+            sink__pb2.HeartBeatMessage.SerializeToString,
             sink__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -160,6 +274,57 @@ class SinkService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SinkService/setAccelerationMaxRange',
             sink__pb2.RangeMessage.SerializeToString,
+            sink__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def onMotionDetected(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SinkService/onMotionDetected',
+            sink__pb2.MotionDetectionMessage.SerializeToString,
+            sink__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def onTemperatureChanged(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SinkService/onTemperatureChanged',
+            sink__pb2.TemperatureMessage.SerializeToString,
+            sink__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def onAccelerationChanged(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SinkService/onAccelerationChanged',
+            sink__pb2.AccelerationMessage.SerializeToString,
             sink__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -4,19 +4,19 @@ option java_multiple_files = true;
 option java_package = "mliot.sensors.proto";
 
 service SinkService {
-  rpc onAudioFrameAvailable(AudioMessage) returns (Response) {}
+  rpc onStepDetected(StepDetectionMessage) returns (Response) {}
   rpc onVideoFrameAvailable(VideoMessage) returns (Response) {}
-  rpc onAccelerationChanged(AccelerationMessage) returns (Response) {}
+  rpc onAudioFrameAvailable(AudioMessage) returns (Response) {}
+  rpc onProximityChanged(ProximityMessage) returns (Response) {}
+  rpc onHeartRateChanged(HeartBeatMessage) returns (Response) {}
   rpc setAccelerationMaxRange(RangeMessage) returns (Response) {}
-  rpc onStepDetected(RangeMessage) returns (Response) {}
-  rpc onMotionDetected(RangeMessage) returns (Response) {}
-  rpc onTemperatureChanged(RangeMessage) returns (Response) {}
-  rpc onHeartRateChanged(RangeMessage) returns (Response) {}
-  rpc onProximityChanged(RangeMessage) returns (Response) {}
+  rpc onMotionDetected(MotionDetectionMessage) returns (Response) {}
+  rpc onTemperatureChanged(TemperatureMessage) returns (Response) {}
+  rpc onAccelerationChanged(AccelerationMessage) returns (Response) {}
 }
 
 message Response {
-  bool received = 1;
+  bool is_received = 1;
 }
 
 message AudioMessage {
@@ -31,8 +31,28 @@ message RangeMessage {
   float max_range = 1;
 }
 
+message HeartBeatMessage {
+  float heart_rate = 1;
+}
+
+message ProximityMessage {
+  float distance = 1;
+}
+
+message TemperatureMessage {
+  float degrees = 1;
+}
+
 message AccelerationMessage {
   float x = 1;
   float y = 2;
   float z = 3;
+}
+
+message StepDetectionMessage {
+  bool isDetected = 1;
+}
+
+message MotionDetectionMessage {
+  bool is_detected = 1;
 }

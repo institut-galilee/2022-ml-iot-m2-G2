@@ -1,28 +1,26 @@
-package mliot.sensors.stream;
+package mliot.sensors.grpc;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.google.protobuf.ByteString;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import mliot.sensors.proto.AudioMessage;
 import mliot.sensors.proto.Response;
 import mliot.sensors.proto.SinkServiceGrpc;
+import mliot.sensors.proto.TemperatureMessage;
 import mliot.sensors.util.Prefs;
 
-public class GrpcAudioTask extends AsyncTask<ByteString, Void, Boolean> {
+public class GrpcTemperatureTask extends AsyncTask<Float, Void, Boolean> {
 
     public ManagedChannel channel;
     private SinkServiceGrpc.SinkServiceBlockingStub stub;
-    private WeakReference<Activity> activityReference;
+    private final WeakReference<Activity> activityReference;
 
-    public GrpcAudioTask(Activity context) {
+    public GrpcTemperatureTask(Activity context) {
         this.activityReference = new WeakReference<>(context);
     }
 
@@ -34,11 +32,11 @@ public class GrpcAudioTask extends AsyncTask<ByteString, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(ByteString... data) {
+    protected Boolean doInBackground(Float... degrees) {
         try {
-            AudioMessage audioMessage = AudioMessage.newBuilder().setAudioFrame(data[0]).build();
-            Response response = stub.onAudioFrameAvailable(audioMessage);
-            return response.getReceived();
+            TemperatureMessage temperatureMessage = TemperatureMessage.newBuilder().setDegrees(degrees[0]).build();
+            Response response = stub.onTemperatureChanged(temperatureMessage);
+            return response.getIsReceived();
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);
             return false;

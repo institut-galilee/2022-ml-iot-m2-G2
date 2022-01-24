@@ -9,53 +9,82 @@ class AccelerationView(QtWidgets.QWidget):
         self.y_points = []
         self.z_points = []
 
-        self.list = []
+        self.list_acceleration = []
         self.MAX_ITEM = 500
         self.max_range = None
 
-        self.x_pen = QtGui.QPen(QtCore.Qt.darkBlue, 1, QtCore.Qt.SolidLine)
-        self.y_pen = QtGui.QPen(QtCore.Qt.green, 1, QtCore.Qt.SolidLine)
-        self.z_pen = QtGui.QPen(QtCore.Qt.gray, 1, QtCore.Qt.SolidLine)
+        self.qf = QtGui.QFont()
+        self.qf.setPointSize(5)
+
+        self.x_pen = QtGui.QPen(QtGui.QColor(135, 100, 69, 255), 1, QtCore.Qt.SolidLine)
+        self.y_pen = QtGui.QPen(QtGui.QColor(23, 0, 85, 255), 1, QtCore.Qt.SolidLine)
+        self.z_pen = QtGui.QPen(QtGui.QColor(121, 0, 255, 255), 1, QtCore.Qt.SolidLine)
+        self.g_pen = QtGui.QPen(QtGui.QColor(136, 111, 111, 100), 1, QtCore.Qt.SolidLine)
+
+        self.vertical_lines = []
+        self.horizontal_lines = []
+        self.VERTICAL_SPACING = None
+        self.HORIZONTAL_SPACING = None
+        self.w = None
+        self.h = None
+
+    def get_usable_width(self):
+        width = 0
+        while self.HORIZONTAL_SPACING < (self.width() - width):
+            width += self.HORIZONTAL_SPACING
+        return width
+
+    def get_usable_height(self):
+        height = 0
+        while self.VERTICAL_SPACING < (self.height() - height):
+            height += self.HORIZONTAL_SPACING
+        return height
 
     def populate_acceleration(self, acceleration):
-        if len(self.list) == self.MAX_ITEM:
-            self.list.pop(0)
-        self.list.append(acceleration)
+        if len(self.list_acceleration) == self.MAX_ITEM:
+            self.list_acceleration.pop(0)
+        self.list_acceleration.append(acceleration)
         self.update()
 
     def set_max_value(self, max_value):
         self.max_range = max_value
 
-    def paintEvent(self, event):
+    def resizeEvent(self, event):
+        self.VERTICAL_SPACING = int(self.height() / 35)
+        self.HORIZONTAL_SPACING = int(((self.width() * self.VERTICAL_SPACING) / self.height()))
+        self.w = self.get_usable_width()
+        self.h = self.get_usable_height()
 
+    def paintEvent(self, event):
         if self.max_range is not None:
+            self.draw_grid(event)
             self.x_points.clear()
             self.y_points.clear()
             self.z_points.clear()
 
-            for i in range(0, len(self.list) - 1):
+            for i in range(0, len(self.list_acceleration) - 1):
                 self.x_points.append(
                     QtCore.QLine(
-                        int((self.width() * i) / (len(self.list) - 1.0)),
-                        int((self.height() / 2.0) + ((self.list[i].x * self.height() * 2.0) / self.max_range)),
-                        int((self.width() * (i + 1.0)) / (len(self.list) - 1.0)),
-                        int((self.height() / 2.0) + ((self.list[i + 1].x * self.height() * 2.0) / self.max_range))
+                        int(((self.w - self.HORIZONTAL_SPACING) * i) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
+                        int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i].x * self.h) / (self.max_range * 2.0))),
+                        int(((self.w - self.HORIZONTAL_SPACING) * (i + 1)) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
+                        int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i + 1].x * self.h) / (self.max_range * 2.0)))
                     )
                 )
                 self.y_points.append(
                     QtCore.QLine(
-                        int((self.width() * i) / (len(self.list) - 1.0)),
-                        int((self.height() / 2.0) + ((self.list[i].y * self.height() * 2.0) / self.max_range)),
-                        int((self.width() * (i + 1.0)) / (len(self.list) - 1.0)),
-                        int((self.height() / 2.0) + ((self.list[i + 1].y * self.height() * 2.0) / self.max_range))
+                        int(((self.w - self.HORIZONTAL_SPACING) * i) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
+                        int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i].y * self.h) / (self.max_range * 2.0))),
+                        int(((self.w - self.HORIZONTAL_SPACING) * (i + 1)) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
+                        int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i + 1].y * self.h) / (self.max_range * 2.0)))
                     )
                 )
                 self.z_points.append(
                     QtCore.QLine(
-                        int((self.width() * i) / (len(self.list) - 1.0)),
-                        int((self.height() / 2.0) + ((self.list[i].z * self.height() * 2.0) / self.max_range)),
-                        int((self.width() * (i + 1.0)) / (len(self.list) - 1.0)),
-                        int((self.height() / 2.0) + ((self.list[i + 1].z * self.height() * 2.0) / self.max_range))
+                        int(((self.w - self.HORIZONTAL_SPACING) * i) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
+                        int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i].z * self.h) / (self.max_range * 2.0))),
+                        int(((self.w - self.HORIZONTAL_SPACING) * (i + 1)) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
+                        int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i + 1].z * self.h) / (self.max_range * 2.0)))
                     )
                 )
             qp = QtGui.QPainter()
@@ -71,3 +100,35 @@ class AccelerationView(QtWidgets.QWidget):
                 qp.setPen(self.z_pen)
                 qp.drawLines(self.z_points)
             qp.end()
+
+    def draw_grid(self, event):
+        qp = QtGui.QPainter()
+        qp.begin(self)
+        qp.setFont(self.qf)
+        qp.setPen(self.g_pen)
+
+        interval = (self.max_range * self.VERTICAL_SPACING * 2) / self.h
+        current_value = self.max_range
+        for i in range(0, self.h, self.VERTICAL_SPACING):
+            qp.drawText(QtCore.QPointF(self.HORIZONTAL_SPACING / 4, self.VERTICAL_SPACING + i), "{:.1f}".format(current_value))
+            self.vertical_lines.append(
+                QtCore.QLine(
+                    self.HORIZONTAL_SPACING,
+                    self.VERTICAL_SPACING + i,
+                    self.w,
+                    self.VERTICAL_SPACING + i
+                )
+            )
+            current_value -= interval
+
+        for i in range(0, self.w, self.HORIZONTAL_SPACING):
+            self.vertical_lines.append(
+                QtCore.QLine(
+                    self.HORIZONTAL_SPACING + i,
+                    self.VERTICAL_SPACING,
+                    self.HORIZONTAL_SPACING + i,
+                    self.h
+                )
+            )
+        qp.drawLines(self.vertical_lines)
+        qp.end()

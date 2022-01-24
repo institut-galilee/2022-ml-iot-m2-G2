@@ -1,4 +1,4 @@
-package mliot.sensors.stream;
+package mliot.sensors.grpc;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -20,7 +20,7 @@ public class GrpcVideoTask extends AsyncTask<ByteString, Void, Boolean> {
 
     public ManagedChannel channel;
     private SinkServiceGrpc.SinkServiceBlockingStub stub;
-    private WeakReference<Activity> activityReference;
+    private final WeakReference<Activity> activityReference;
 
     public GrpcVideoTask(Activity context) {
         this.activityReference = new WeakReference<>(context);
@@ -38,7 +38,7 @@ public class GrpcVideoTask extends AsyncTask<ByteString, Void, Boolean> {
         try {
             VideoMessage videoMessage = VideoMessage.newBuilder().setVideoFrame(data[0]).build();
             Response response = stub.onVideoFrameAvailable(videoMessage);
-            return response.getReceived();
+            return response.getIsReceived();
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);
             return false;

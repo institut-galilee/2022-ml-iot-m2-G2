@@ -33,8 +33,8 @@ import com.google.protobuf.ByteString;
 
 import java.io.ByteArrayOutputStream;
 
-import mliot.sensors.stream.GrpcAudioTask;
-import mliot.sensors.stream.GrpcVideoTask;
+import mliot.sensors.grpc.GrpcAudioTask;
+import mliot.sensors.grpc.GrpcVideoTask;
 import mliot.sensors.view.AudioView;
 import mliot.sensors.view.CameraView;
 
