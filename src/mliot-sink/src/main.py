@@ -101,7 +101,7 @@ class MainWindow(QtWidgets.QMainWindow, sink_pb2_grpc.SinkServiceServicer):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
-    window.setFixedWidth(1440)
+    window.setFixedWidth(1280)
     window.setFixedHeight(720)
     window.show()
     sys.exit(app.exec())
