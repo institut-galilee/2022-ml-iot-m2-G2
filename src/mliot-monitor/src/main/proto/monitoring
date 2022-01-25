@@ -1,5 +1,0 @@
-syntax = "proto3";
-
-message Response {
-    bool is_received = 1;
-}
