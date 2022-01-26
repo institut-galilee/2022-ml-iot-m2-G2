@@ -78,11 +78,11 @@ class MainWindow(QtWidgets.QMainWindow, sink_pb2_grpc.SinkServiceServicer):
         return sink_pb2.Response(is_received=True)
 
     def onStepDetected(self, request, context):
-        print("Step is detected")
+        print("Un pas a été detecté")
         return sink_pb2.Response(is_received=True)
 
     def onProximityChanged(self, request, context):
-        print("Proximity distance detected is {0} cm".format(request.distance))
+        print("La proximité est estimé à {0} cm".format(request.distance))
         return sink_pb2.Response(is_received=True)
 
     def onHeartRateChanged(self, request, context):
@@ -90,7 +90,7 @@ class MainWindow(QtWidgets.QMainWindow, sink_pb2_grpc.SinkServiceServicer):
         return sink_pb2.Response(is_received=True)
 
     def onMotionDetected(self, request, context):
-        print("Movement is detected")
+        print("Mouvement detecté")
         return sink_pb2.Response(is_received=True)
 
     def onTemperatureChanged(self, request, context):
