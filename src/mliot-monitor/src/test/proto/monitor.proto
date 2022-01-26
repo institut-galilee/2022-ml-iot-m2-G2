@@ -1,0 +1,26 @@
+//  protoc --java_out="./src/main/java" "./src/main/proto/monitor.proto"
+syntax = "proto3";
+option java_package = "mliot.monitor.generated";
+option java_multiple_files = true;
+
+service MonitorService {
+  rpc onStepDetected(StepDetectionMessage) returns (MonitorResponse) {}
+  rpc onProximityDetected(ProximityMessage) returns (MonitorResponse) {}
+  rpc onMotionDetected(MotionDetectionMessage) returns (MonitorResponse) {}
+}
+
+message MonitorResponse {
+  bool is_received = 1;
+}
+
+message ProximityMessage {
+  float distance = 1;
+}
+
+message StepDetectionMessage {
+  bool isDetected = 1;
+}
+
+message MotionDetectionMessage {
+  bool is_detected = 1;
+}
