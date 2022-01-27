@@ -15,6 +15,7 @@ ext {
     junitVersion = '5.8.2'
 }
 
+
 def grpcVersion = '1.43.2' // CURRENT_GRPC_VERSION
 def protobufVersion = '3.19.3'
 def protocVersion = protobufVersion
@@ -46,8 +47,8 @@ protobuf {
 sourceSets {
     main {
         java {
-            srcDirs 'src/main/java'
-            srcDirs 'src/main/java'
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
         }
     }
 }
