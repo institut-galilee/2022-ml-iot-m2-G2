@@ -16,7 +16,7 @@ ext {
 }
 
 
-def grpcVersion = '1.43.2' // CURRENT_GRPC_VERSION
+def grpcVersion = '1.43.2'
 def protobufVersion = '3.19.3'
 def protocVersion = protobufVersion
 
@@ -29,6 +29,9 @@ dependencies {
     implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
 
     runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation 'commons-io:commons-io:2.11.0'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
@@ -62,4 +65,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-mainClassName = 'mliot.monitor.MainApp'
+mainClassName = 'mliot.monitor.MainApplication'

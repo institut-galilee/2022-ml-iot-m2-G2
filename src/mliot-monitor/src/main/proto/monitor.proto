@@ -4,9 +4,19 @@ option java_multiple_files = true;
 option java_package = "mliot.monitor.generated";
 
 service MonitorService {
+  rpc fetchKnownStudents(EmptyMessage) returns (stream KnownStudentResponse) {}
   rpc onStepDetected(StepDetectionMessage) returns (MonitorResponse) {}
   rpc onProximityDetected(ProximityMessage) returns (MonitorResponse) {}
   rpc onMotionDetected(MotionDetectionMessage) returns (MonitorResponse) {}
+}
+
+message EmptyMessage {}
+
+message KnownStudentResponse {
+  string first_name = 1;
+  string last_name = 2;
+  string card_number = 3;
+  bytes profile_photo = 4;
 }
 
 message MonitorResponse {

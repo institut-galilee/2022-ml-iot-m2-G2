@@ -15,6 +15,16 @@ public final class Monitor {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_EmptyMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_EmptyMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_KnownStudentResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_KnownStudentResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_MonitorResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -43,42 +53,59 @@ public final class Monitor {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmonitor.proto\"&\n\017MonitorResponse\022\023\n\013is" +
-      "_received\030\001 \001(\010\"$\n\020ProximityMessage\022\020\n\010d" +
-      "istance\030\001 \001(\002\"*\n\024StepDetectionMessage\022\022\n" +
-      "\nisDetected\030\001 \001(\010\"-\n\026MotionDetectionMess" +
-      "age\022\023\n\013is_detected\030\001 \001(\0102\314\001\n\016MonitorServ" +
-      "ice\022;\n\016onStepDetected\022\025.StepDetectionMes" +
-      "sage\032\020.MonitorResponse\"\000\022<\n\023onProximityD" +
-      "etected\022\021.ProximityMessage\032\020.MonitorResp" +
-      "onse\"\000\022?\n\020onMotionDetected\022\027.MotionDetec" +
-      "tionMessage\032\020.MonitorResponse\"\000B\033\n\027mliot" +
-      ".monitor.generatedP\001b\006proto3"
+      "\n\rmonitor.proto\"\016\n\014EmptyMessage\"i\n\024Known" +
+      "StudentResponse\022\022\n\nfirst_name\030\001 \001(\t\022\021\n\tl" +
+      "ast_name\030\002 \001(\t\022\023\n\013card_number\030\003 \001(\t\022\025\n\rp" +
+      "rofile_photo\030\004 \001(\014\"&\n\017MonitorResponse\022\023\n" +
+      "\013is_received\030\001 \001(\010\"$\n\020ProximityMessage\022\020" +
+      "\n\010distance\030\001 \001(\002\"*\n\024StepDetectionMessage" +
+      "\022\022\n\nisDetected\030\001 \001(\010\"-\n\026MotionDetectionM" +
+      "essage\022\023\n\013is_detected\030\001 \001(\0102\214\002\n\016MonitorS" +
+      "ervice\022>\n\022fetchKnownStudents\022\r.EmptyMess" +
+      "age\032\025.KnownStudentResponse\"\0000\001\022;\n\016onStep" +
+      "Detected\022\025.StepDetectionMessage\032\020.Monito" +
+      "rResponse\"\000\022<\n\023onProximityDetected\022\021.Pro" +
+      "ximityMessage\032\020.MonitorResponse\"\000\022?\n\020onM" +
+      "otionDetected\022\027.MotionDetectionMessage\032\020" +
+      ".MonitorResponse\"\000B\033\n\027mliot.monitor.gene" +
+      "ratedP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_MonitorResponse_descriptor =
+    internal_static_EmptyMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_EmptyMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_EmptyMessage_descriptor,
+        new java.lang.String[] { });
+    internal_static_KnownStudentResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_KnownStudentResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_KnownStudentResponse_descriptor,
+        new java.lang.String[] { "FirstName", "LastName", "CardNumber", "ProfilePhoto", });
+    internal_static_MonitorResponse_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_MonitorResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MonitorResponse_descriptor,
         new java.lang.String[] { "IsReceived", });
     internal_static_ProximityMessage_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_ProximityMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ProximityMessage_descriptor,
         new java.lang.String[] { "Distance", });
     internal_static_StepDetectionMessage_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_StepDetectionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StepDetectionMessage_descriptor,
         new java.lang.String[] { "IsDetected", });
     internal_static_MotionDetectionMessage_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_MotionDetectionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MotionDetectionMessage_descriptor,

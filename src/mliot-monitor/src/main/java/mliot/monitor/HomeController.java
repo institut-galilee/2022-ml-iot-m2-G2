@@ -16,8 +16,11 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
         label.setText(String.format(Locale.getDefault(), "gRPC Monitoring Server is running at %s:%d", Util.getIpAddress(), Util.MONITOR_PORT_NUMBER));
+    }
+
+    @FXML
+    protected void onHelloButtonClick() {
+        label.setText("Welcome to JavaFX Application!");
     }
 }

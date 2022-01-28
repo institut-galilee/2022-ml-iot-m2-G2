@@ -15,6 +15,37 @@ public final class MonitorServiceGrpc {
   public static final String SERVICE_NAME = "MonitorService";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.EmptyMessage,
+      mliot.monitor.generated.KnownStudentResponse> getFetchKnownStudentsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "fetchKnownStudents",
+      requestType = mliot.monitor.generated.EmptyMessage.class,
+      responseType = mliot.monitor.generated.KnownStudentResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.EmptyMessage,
+      mliot.monitor.generated.KnownStudentResponse> getFetchKnownStudentsMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.EmptyMessage, mliot.monitor.generated.KnownStudentResponse> getFetchKnownStudentsMethod;
+    if ((getFetchKnownStudentsMethod = MonitorServiceGrpc.getFetchKnownStudentsMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getFetchKnownStudentsMethod = MonitorServiceGrpc.getFetchKnownStudentsMethod) == null) {
+          MonitorServiceGrpc.getFetchKnownStudentsMethod = getFetchKnownStudentsMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.EmptyMessage, mliot.monitor.generated.KnownStudentResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "fetchKnownStudents"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.KnownStudentResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("fetchKnownStudents"))
+              .build();
+        }
+      }
+    }
+    return getFetchKnownStudentsMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.StepDetectionMessage,
       mliot.monitor.generated.MonitorResponse> getOnStepDetectedMethod;
 
@@ -158,6 +189,13 @@ public final class MonitorServiceGrpc {
 
     /**
      */
+    public void fetchKnownStudents(mliot.monitor.generated.EmptyMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.KnownStudentResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getFetchKnownStudentsMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void onStepDetected(mliot.monitor.generated.StepDetectionMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnStepDetectedMethod(), responseObserver);
@@ -179,6 +217,13 @@ public final class MonitorServiceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+          .addMethod(
+            getFetchKnownStudentsMethod(),
+            io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+              new MethodHandlers<
+                mliot.monitor.generated.EmptyMessage,
+                mliot.monitor.generated.KnownStudentResponse>(
+                  this, METHODID_FETCH_KNOWN_STUDENTS)))
           .addMethod(
             getOnStepDetectedMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -220,6 +265,14 @@ public final class MonitorServiceGrpc {
 
     /**
      */
+    public void fetchKnownStudents(mliot.monitor.generated.EmptyMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.KnownStudentResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getFetchKnownStudentsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void onStepDetected(mliot.monitor.generated.StepDetectionMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -255,6 +308,14 @@ public final class MonitorServiceGrpc {
     protected MonitorServiceBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new MonitorServiceBlockingStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public java.util.Iterator<mliot.monitor.generated.KnownStudentResponse> fetchKnownStudents(
+        mliot.monitor.generated.EmptyMessage request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getFetchKnownStudentsMethod(), getCallOptions(), request);
     }
 
     /**
@@ -318,9 +379,10 @@ public final class MonitorServiceGrpc {
     }
   }
 
-  private static final int METHODID_ON_STEP_DETECTED = 0;
-  private static final int METHODID_ON_PROXIMITY_DETECTED = 1;
-  private static final int METHODID_ON_MOTION_DETECTED = 2;
+  private static final int METHODID_FETCH_KNOWN_STUDENTS = 0;
+  private static final int METHODID_ON_STEP_DETECTED = 1;
+  private static final int METHODID_ON_PROXIMITY_DETECTED = 2;
+  private static final int METHODID_ON_MOTION_DETECTED = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -339,6 +401,10 @@ public final class MonitorServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_FETCH_KNOWN_STUDENTS:
+          serviceImpl.fetchKnownStudents((mliot.monitor.generated.EmptyMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.KnownStudentResponse>) responseObserver);
+          break;
         case METHODID_ON_STEP_DETECTED:
           serviceImpl.onStepDetected((mliot.monitor.generated.StepDetectionMessage) request,
               (io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse>) responseObserver);
@@ -412,6 +478,7 @@ public final class MonitorServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new MonitorServiceFileDescriptorSupplier())
+              .addMethod(getFetchKnownStudentsMethod())
               .addMethod(getOnStepDetectedMethod())
               .addMethod(getOnProximityDetectedMethod())
               .addMethod(getOnMotionDetectedMethod())
