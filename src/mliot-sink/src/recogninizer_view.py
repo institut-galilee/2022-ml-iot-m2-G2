@@ -5,6 +5,7 @@ import PIL.Image
 import cv2
 import dlib
 import numpy as np
+import pyttsx3
 from PySide6.QtCore import QTimer, Qt, QRect, QPoint
 from PySide6.QtGui import QImage, QPixmap, QCloseEvent, QPen, QPainter, QColor, QBrush
 from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout
@@ -45,12 +46,13 @@ class RecognizerView(QWidget):
         self.video_capture = cv2.VideoCapture(0)
         self.video_capture.set(3, 720)
         self.video_capture.set(4, 720)
-        self.timer.start(int(1000 / 24))
+        self.timer.start(5000)
         logger.info("Web camera well opened")
         logger.info("Starting of face detection…")
 
     def on_preview_frame(self):
         ret, frame = self.video_capture.read()
+        frame = cv2.resize(frame, (720, 720))
         frame = cv2.flip(frame, 1)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         image = QImage(frame, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
@@ -100,7 +102,7 @@ class RecognizerView(QWidget):
         face_names = []
         for face_encoding in face_encodings_list:
             if len(face_encoding) == 0:
-                return np.empty((0))
+                return np.empty(0)
             # CHECK DISTANCE BETWEEN KNOWN FACES AND FACES DETECTED
             vectors = np.linalg.norm(self.known_encoded_faces - face_encoding, axis=1)
             tolerance = 0.6
@@ -113,7 +115,9 @@ class RecognizerView(QWidget):
             if True in result:
                 first_match_index = result.index(True)
                 name = self.known_face_names[first_match_index]
-                logger.info(f"Hello {name}, you are allowed to sit for the exam")
+                logger.info(f"{name}'s face is recognized")
+                # Make the student hear that he/she is recognized via text to speech engine
+                pyttsx3.speak(f"Hello {name}, your identity is confirmed")
             else:
                 name = "Unknown"
             face_names.append(name)

@@ -77,6 +77,7 @@ public class MainApplication extends Application {
         this.monitor.shutDown();
     }
 
+    // --module-path /opt/javafx-sdk-17.0.2/lib/ --add-modules=javafx.controls,javafx.fxml
     public static void main(String[] args) {
         launch(args);
     }
