@@ -10,12 +10,12 @@ from PySide6.QtGui import QImage, QPixmap, QCloseEvent, QPen, QPainter, QColor, 
 from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout
 from imutils import face_utils
 
-from callback.facial_recognition_callback import StudentRecognitionCallback
+from callback.setup_callback import SinkSetupCallback
 from monitor_client import MonitorHelper
 
 
 class RecognizerView(QWidget):
-    def __init__(self, recognition_callback: StudentRecognitionCallback):
+    def __init__(self, recognition_callback: SinkSetupCallback):
         super().__init__()
 
         self.recognition_callback = recognition_callback

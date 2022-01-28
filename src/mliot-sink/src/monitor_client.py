@@ -10,9 +10,9 @@ class MonitorHelper:
     @staticmethod
     def fetch_known_students():
         known_students = []
-        ip_address = NetworkHelper.listening_address()
-        port_number = MONITOR_LISTENING_PORT
-        with grpc.insecure_channel("{0}:{1}".format("192.168.1.93", port_number)) as channel:
+        ip_address = NetworkHelper.get_monitor_listening_address()
+        port_number = NetworkHelper.get_monitor_listening_port_number()
+        with grpc.insecure_channel("{0}:{1}".format(ip_address, port_number)) as channel:
             stub = monitor_pb2_grpc.MonitorServiceStub(channel)
             try:
                 responses = stub.fetchKnownStudents(monitor_pb2.EmptyMessage())

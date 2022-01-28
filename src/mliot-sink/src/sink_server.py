@@ -12,7 +12,7 @@ logger.basicConfig(level=logger.INFO)
 class Sink:
     def __init__(self, listener):
         self.port_number = SINK_LISTENING_PORT
-        self.ip_address = NetworkHelper.listening_address()
+        self.ip_address = NetworkHelper.get_sink_listening_address()
         self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         add_SinkServiceServicer_to_server(listener, self.server)
         self.server.add_insecure_port("{0}:{1}".format(self.ip_address, self.port_number))

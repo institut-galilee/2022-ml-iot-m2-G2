@@ -1,38 +1,46 @@
 import sys
+import time
 
 import PySide6
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QStackedWidget
 
-from sink_server import Sink
+from callback.setup_callback import SinkSetupCallback
 from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
-from recogninizer_view import RecognizerView
-from src.callback.facial_recognition_callback import StudentRecognitionCallback
+from sink_server import Sink
+from src.recogninizer_view import RecognizerView
+from setup_view import MonitorView
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 from view.acceleration_view import AccelerationView
 from view.audio_view import AudioView
 
 
-class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer, StudentRecognitionCallback):
+class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer, SinkSetupCallback):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("REMOTE SAFE EXAM")
 
         # Show IP Address and Port
         ip_port = QtWidgets.QLabel("PORT NUMBER: {0}".format(SINK_LISTENING_PORT))
-        ip_address = QtWidgets.QLabel("IP ADDRESS: {0}".format(NetworkHelper.listening_address()))
+        ip_address = QtWidgets.QLabel("IP ADDRESS: {0}".format(NetworkHelper.get_sink_listening_address()))
 
         # Setup Audio View
         self.audio_view = AudioView()
 
         # Setup Video View
         #self.video_view = QtWidgets.QLabel()
-        self.video_view = RecognizerView(self)
+        self.recognizer_view = None
+        self.monitor_view = MonitorView(self)
         #self.video_view.setAlignment(QtCore.Qt.AlignLeft)
 
         # Setup Acceleration View
         self.acceleration_view = AccelerationView()
+
+        self.content_view = QStackedWidget()
+        self.setCentralWidget(self.content_view)
+        self.content_view.addWidget(self.monitor_view)
 
         h1_layout = QtWidgets.QHBoxLayout()
         h1_layout.addWidget(ip_address)
@@ -44,7 +52,7 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer, StudentRecognitionC
         v1_layout.addWidget(self.acceleration_view)
 
         h2_layout = QtWidgets.QHBoxLayout()
-        h2_layout.addWidget(self.video_view)
+        #h2_layout.addWidget(self.video_view)
         h2_layout.addLayout(v1_layout)
 
         v2_layout = QtWidgets.QVBoxLayout()
@@ -55,7 +63,6 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer, StudentRecognitionC
         widget = QtWidgets.QWidget()
         widget.setLayout(v2_layout)
         #self.setCentralWidget(widget)
-        self.setCentralWidget(self.video_view)
 
         # Setup gRPC Sink
         self.sink = Sink(self)
@@ -66,6 +73,12 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer, StudentRecognitionC
 
     def on_student_recognized(self, student):
         print(student)
+
+    def on_connection_interface_set(self, address, port):
+        NetworkHelper.set_monitor_listening_connection_interface(address, port)
+        self.recognizer_view = RecognizerView(self)
+        self.content_view.addWidget(self.recognizer_view)
+        self.content_view.setCurrentWidget(self.recognizer_view)
 
     def onAudioFrameAvailable(self, request, context):
         self.audio_view.update_waveform(request.audio_frame)
@@ -109,7 +122,7 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer, StudentRecognitionC
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
-    window.setFixedWidth(720)
-    window.setFixedHeight(720)
+    #window.setFixedWidth(720)
+    #window.setFixedHeight(720)
     window.show()
     sys.exit(app.exec())
