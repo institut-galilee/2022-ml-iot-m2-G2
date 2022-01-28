@@ -1,18 +1,16 @@
 import argparse
+import io
 import logging as logger
-import ntpath
-import os
-from pathlib import Path
 
 import PIL.Image
 import cv2
 import dlib
 import numpy as np
 from imutils import face_utils
+
 from monitor_client import MonitorHelper
+
 logger.basicConfig(level=logger.INFO)
-parser = argparse.ArgumentParser(description='Easy Facial Recognition App')
-parser.add_argument('-i', '--input', type=str, required=True, help='directory of input known faces')
 
 print('[INFO] Starting System...')
 print('[INFO] Importing pretrained model..')
@@ -46,7 +44,7 @@ def encode_face(image):
     return face_encodings_list, face_locations, landmarks_list
 
 
-def easy_face_reco(frame, known_face_encodings, known_face_names):
+def easy_face_reco(frame, known_encoded_faces, known_face_names):
     rgb_small_frame = frame[:, :, ::-1]
     # ENCODING FACE
     face_encodings_list, face_locations_list, landmarks_list = encode_face(rgb_small_frame)
@@ -55,7 +53,7 @@ def easy_face_reco(frame, known_face_encodings, known_face_names):
         if len(face_encoding) == 0:
             return np.empty((0))
         # CHECK DISTANCE BETWEEN KNOWN FACES AND FACES DETECTED
-        vectors = np.linalg.norm(known_face_encodings - face_encoding, axis=1)
+        vectors = np.linalg.norm(known_encoded_faces - face_encoding, axis=1)
         tolerance = 0.6
         result = []
         for vector in vectors:
@@ -66,7 +64,6 @@ def easy_face_reco(frame, known_face_encodings, known_face_names):
         if True in result:
             first_match_index = result.index(True)
             name = known_face_names[first_match_index]
-
         else:
             name = "Unknown"
         face_names.append(name)
@@ -86,33 +83,30 @@ def easy_face_reco(frame, known_face_encodings, known_face_names):
 
 
 if __name__ == '__main__':
-    args = parser.parse_args()
+
+    known_face_names = []
+    known_encoded_faces = []
 
     logger.info("Searching for students' faces…")
-    face_to_encode_path = Path(args.input)
-    files = [file_ for file_ in face_to_encode_path.rglob('*.jpg')]
-
-    for file_ in face_to_encode_path.rglob('*.png'):
-        files.append(file_)
-    if len(files) == 0:
-        raise ValueError('No faces detect in the directory: {}'.format(face_to_encode_path))
-    known_face_names = [os.path.splitext(ntpath.basename(file_))[0] for file_ in files]
-
-    known_face_encodings = []
-    for file_ in files:
-        image = PIL.Image.open(file_)
+    known_students = MonitorHelper.fetch_known_students()
+    if len(known_students) == 0:
+        raise ValueError('No student found as reference')
+    for known_student in known_students:
+        known_face_names.append(f"{known_student.first_name} {known_student.last_name}")
+        image = PIL.Image.open(io.BytesIO(known_student.profile_photo))
         image = np.array(image)
-        face_encoded = encode_face(image)[0][0]
-        known_face_encodings.append(face_encoded)
-
+        encoded_face = encode_face(image)[0][0]
+        known_encoded_faces.append(encoded_face)
     logger.info("Students' faces well imported")
+
     logger.info("Opening of web camera…")
     video_capture = cv2.VideoCapture(0)
     logger.info("Web camera well opened")
+
     logger.info("Starting of face detection…")
     while True:
         ret, frame = video_capture.read()
-        easy_face_reco(frame, known_face_encodings, known_face_names)
+        easy_face_reco(frame, known_encoded_faces, known_face_names)
         cv2.imshow('Easy Facial Recognition App', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
