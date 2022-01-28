@@ -1,4 +1,3 @@
-import argparse
 import io
 import logging as logger
 
@@ -83,7 +82,6 @@ def easy_face_reco(frame, known_encoded_faces, known_face_names):
 
 
 if __name__ == '__main__':
-
     known_face_names = []
     known_encoded_faces = []
 

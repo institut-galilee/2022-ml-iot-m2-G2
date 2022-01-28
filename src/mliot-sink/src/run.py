@@ -7,9 +7,10 @@ from PySide6.QtGui import QPixmap
 from sink_server import Sink
 from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
+from recogninizer_view import RecognizerView
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
-from view.acc import AccelerationView
-from view.audio import AudioView
+from view.acceleration_view import AccelerationView
+from view.audio_view import AudioView
 
 
 class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer):
@@ -25,8 +26,9 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer):
         self.audio_view = AudioView()
 
         # Setup Video View
-        self.video_view = QtWidgets.QLabel()
-        self.video_view.setAlignment(QtCore.Qt.AlignLeft)
+        #self.video_view = QtWidgets.QLabel()
+        self.video_view = RecognizerView()
+        #self.video_view.setAlignment(QtCore.Qt.AlignLeft)
 
         # Setup Acceleration View
         self.acceleration_view = AccelerationView()
@@ -51,7 +53,8 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer):
         # Add all views to the window
         widget = QtWidgets.QWidget()
         widget.setLayout(v2_layout)
-        self.setCentralWidget(widget)
+        #self.setCentralWidget(widget)
+        self.setCentralWidget(self.video_view)
 
         # Setup gRPC Sink
         self.sink = Sink(self)
@@ -102,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
-    window.setFixedWidth(1280)
+    window.setFixedWidth(720)
     window.setFixedHeight(720)
     window.show()
     sys.exit(app.exec())

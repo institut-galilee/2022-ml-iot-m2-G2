@@ -46,97 +46,35 @@ public final class MonitorServiceGrpc {
     return getFetchKnownStudentsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.StepDetectionMessage,
-      mliot.monitor.generated.MonitorResponse> getOnStepDetectedMethod;
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.MovementDetectionMessage,
+      mliot.monitor.generated.MonitorResponse> getOnMovementDetectedMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "onStepDetected",
-      requestType = mliot.monitor.generated.StepDetectionMessage.class,
+      fullMethodName = SERVICE_NAME + '/' + "onMovementDetected",
+      requestType = mliot.monitor.generated.MovementDetectionMessage.class,
       responseType = mliot.monitor.generated.MonitorResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<mliot.monitor.generated.StepDetectionMessage,
-      mliot.monitor.generated.MonitorResponse> getOnStepDetectedMethod() {
-    io.grpc.MethodDescriptor<mliot.monitor.generated.StepDetectionMessage, mliot.monitor.generated.MonitorResponse> getOnStepDetectedMethod;
-    if ((getOnStepDetectedMethod = MonitorServiceGrpc.getOnStepDetectedMethod) == null) {
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.MovementDetectionMessage,
+      mliot.monitor.generated.MonitorResponse> getOnMovementDetectedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.MovementDetectionMessage, mliot.monitor.generated.MonitorResponse> getOnMovementDetectedMethod;
+    if ((getOnMovementDetectedMethod = MonitorServiceGrpc.getOnMovementDetectedMethod) == null) {
       synchronized (MonitorServiceGrpc.class) {
-        if ((getOnStepDetectedMethod = MonitorServiceGrpc.getOnStepDetectedMethod) == null) {
-          MonitorServiceGrpc.getOnStepDetectedMethod = getOnStepDetectedMethod =
-              io.grpc.MethodDescriptor.<mliot.monitor.generated.StepDetectionMessage, mliot.monitor.generated.MonitorResponse>newBuilder()
+        if ((getOnMovementDetectedMethod = MonitorServiceGrpc.getOnMovementDetectedMethod) == null) {
+          MonitorServiceGrpc.getOnMovementDetectedMethod = getOnMovementDetectedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.MovementDetectionMessage, mliot.monitor.generated.MonitorResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onStepDetected"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onMovementDetected"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  mliot.monitor.generated.StepDetectionMessage.getDefaultInstance()))
+                  mliot.monitor.generated.MovementDetectionMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   mliot.monitor.generated.MonitorResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onStepDetected"))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onMovementDetected"))
               .build();
         }
       }
     }
-    return getOnStepDetectedMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.ProximityMessage,
-      mliot.monitor.generated.MonitorResponse> getOnProximityDetectedMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "onProximityDetected",
-      requestType = mliot.monitor.generated.ProximityMessage.class,
-      responseType = mliot.monitor.generated.MonitorResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<mliot.monitor.generated.ProximityMessage,
-      mliot.monitor.generated.MonitorResponse> getOnProximityDetectedMethod() {
-    io.grpc.MethodDescriptor<mliot.monitor.generated.ProximityMessage, mliot.monitor.generated.MonitorResponse> getOnProximityDetectedMethod;
-    if ((getOnProximityDetectedMethod = MonitorServiceGrpc.getOnProximityDetectedMethod) == null) {
-      synchronized (MonitorServiceGrpc.class) {
-        if ((getOnProximityDetectedMethod = MonitorServiceGrpc.getOnProximityDetectedMethod) == null) {
-          MonitorServiceGrpc.getOnProximityDetectedMethod = getOnProximityDetectedMethod =
-              io.grpc.MethodDescriptor.<mliot.monitor.generated.ProximityMessage, mliot.monitor.generated.MonitorResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onProximityDetected"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  mliot.monitor.generated.ProximityMessage.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  mliot.monitor.generated.MonitorResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onProximityDetected"))
-              .build();
-        }
-      }
-    }
-    return getOnProximityDetectedMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.MotionDetectionMessage,
-      mliot.monitor.generated.MonitorResponse> getOnMotionDetectedMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "onMotionDetected",
-      requestType = mliot.monitor.generated.MotionDetectionMessage.class,
-      responseType = mliot.monitor.generated.MonitorResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<mliot.monitor.generated.MotionDetectionMessage,
-      mliot.monitor.generated.MonitorResponse> getOnMotionDetectedMethod() {
-    io.grpc.MethodDescriptor<mliot.monitor.generated.MotionDetectionMessage, mliot.monitor.generated.MonitorResponse> getOnMotionDetectedMethod;
-    if ((getOnMotionDetectedMethod = MonitorServiceGrpc.getOnMotionDetectedMethod) == null) {
-      synchronized (MonitorServiceGrpc.class) {
-        if ((getOnMotionDetectedMethod = MonitorServiceGrpc.getOnMotionDetectedMethod) == null) {
-          MonitorServiceGrpc.getOnMotionDetectedMethod = getOnMotionDetectedMethod =
-              io.grpc.MethodDescriptor.<mliot.monitor.generated.MotionDetectionMessage, mliot.monitor.generated.MonitorResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onMotionDetected"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  mliot.monitor.generated.MotionDetectionMessage.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  mliot.monitor.generated.MonitorResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onMotionDetected"))
-              .build();
-        }
-      }
-    }
-    return getOnMotionDetectedMethod;
+    return getOnMovementDetectedMethod;
   }
 
   /**
@@ -196,23 +134,9 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public void onStepDetected(mliot.monitor.generated.StepDetectionMessage request,
+    public void onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnStepDetectedMethod(), responseObserver);
-    }
-
-    /**
-     */
-    public void onProximityDetected(mliot.monitor.generated.ProximityMessage request,
-        io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnProximityDetectedMethod(), responseObserver);
-    }
-
-    /**
-     */
-    public void onMotionDetected(mliot.monitor.generated.MotionDetectionMessage request,
-        io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnMotionDetectedMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnMovementDetectedMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -225,26 +149,12 @@ public final class MonitorServiceGrpc {
                 mliot.monitor.generated.KnownStudentResponse>(
                   this, METHODID_FETCH_KNOWN_STUDENTS)))
           .addMethod(
-            getOnStepDetectedMethod(),
+            getOnMovementDetectedMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                mliot.monitor.generated.StepDetectionMessage,
+                mliot.monitor.generated.MovementDetectionMessage,
                 mliot.monitor.generated.MonitorResponse>(
-                  this, METHODID_ON_STEP_DETECTED)))
-          .addMethod(
-            getOnProximityDetectedMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                mliot.monitor.generated.ProximityMessage,
-                mliot.monitor.generated.MonitorResponse>(
-                  this, METHODID_ON_PROXIMITY_DETECTED)))
-          .addMethod(
-            getOnMotionDetectedMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                mliot.monitor.generated.MotionDetectionMessage,
-                mliot.monitor.generated.MonitorResponse>(
-                  this, METHODID_ON_MOTION_DETECTED)))
+                  this, METHODID_ON_MOVEMENT_DETECTED)))
           .build();
     }
   }
@@ -273,26 +183,10 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public void onStepDetected(mliot.monitor.generated.StepDetectionMessage request,
+    public void onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getOnStepDetectedMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public void onProximityDetected(mliot.monitor.generated.ProximityMessage request,
-        io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getOnProximityDetectedMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public void onMotionDetected(mliot.monitor.generated.MotionDetectionMessage request,
-        io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getOnMotionDetectedMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getOnMovementDetectedMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -320,23 +214,9 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public mliot.monitor.generated.MonitorResponse onStepDetected(mliot.monitor.generated.StepDetectionMessage request) {
+    public mliot.monitor.generated.MonitorResponse onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getOnStepDetectedMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public mliot.monitor.generated.MonitorResponse onProximityDetected(mliot.monitor.generated.ProximityMessage request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getOnProximityDetectedMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public mliot.monitor.generated.MonitorResponse onMotionDetected(mliot.monitor.generated.MotionDetectionMessage request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getOnMotionDetectedMethod(), getCallOptions(), request);
+          getChannel(), getOnMovementDetectedMethod(), getCallOptions(), request);
     }
   }
 
@@ -356,33 +236,15 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.MonitorResponse> onStepDetected(
-        mliot.monitor.generated.StepDetectionMessage request) {
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.MonitorResponse> onMovementDetected(
+        mliot.monitor.generated.MovementDetectionMessage request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getOnStepDetectedMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.MonitorResponse> onProximityDetected(
-        mliot.monitor.generated.ProximityMessage request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getOnProximityDetectedMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.MonitorResponse> onMotionDetected(
-        mliot.monitor.generated.MotionDetectionMessage request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getOnMotionDetectedMethod(), getCallOptions()), request);
+          getChannel().newCall(getOnMovementDetectedMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_FETCH_KNOWN_STUDENTS = 0;
-  private static final int METHODID_ON_STEP_DETECTED = 1;
-  private static final int METHODID_ON_PROXIMITY_DETECTED = 2;
-  private static final int METHODID_ON_MOTION_DETECTED = 3;
+  private static final int METHODID_ON_MOVEMENT_DETECTED = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -405,16 +267,8 @@ public final class MonitorServiceGrpc {
           serviceImpl.fetchKnownStudents((mliot.monitor.generated.EmptyMessage) request,
               (io.grpc.stub.StreamObserver<mliot.monitor.generated.KnownStudentResponse>) responseObserver);
           break;
-        case METHODID_ON_STEP_DETECTED:
-          serviceImpl.onStepDetected((mliot.monitor.generated.StepDetectionMessage) request,
-              (io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse>) responseObserver);
-          break;
-        case METHODID_ON_PROXIMITY_DETECTED:
-          serviceImpl.onProximityDetected((mliot.monitor.generated.ProximityMessage) request,
-              (io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse>) responseObserver);
-          break;
-        case METHODID_ON_MOTION_DETECTED:
-          serviceImpl.onMotionDetected((mliot.monitor.generated.MotionDetectionMessage) request,
+        case METHODID_ON_MOVEMENT_DETECTED:
+          serviceImpl.onMovementDetected((mliot.monitor.generated.MovementDetectionMessage) request,
               (io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse>) responseObserver);
           break;
         default:
@@ -479,9 +333,7 @@ public final class MonitorServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new MonitorServiceFileDescriptorSupplier())
               .addMethod(getFetchKnownStudentsMethod())
-              .addMethod(getOnStepDetectedMethod())
-              .addMethod(getOnProximityDetectedMethod())
-              .addMethod(getOnMotionDetectedMethod())
+              .addMethod(getOnMovementDetectedMethod())
               .build();
         }
       }

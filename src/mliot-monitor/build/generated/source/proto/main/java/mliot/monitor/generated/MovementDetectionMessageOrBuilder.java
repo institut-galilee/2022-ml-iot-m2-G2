@@ -3,12 +3,12 @@
 
 package mliot.monitor.generated;
 
-public interface StepDetectionMessageOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:StepDetectionMessage)
+public interface MovementDetectionMessageOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:MovementDetectionMessage)
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool isDetected = 1;</code>
+   * <code>bool is_detected = 1;</code>
    * @return The isDetected.
    */
   boolean getIsDetected();

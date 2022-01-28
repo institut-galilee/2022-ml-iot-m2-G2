@@ -5,9 +5,7 @@ option java_package = "mliot.monitor.generated";
 
 service MonitorService {
   rpc fetchKnownStudents(EmptyMessage) returns (stream KnownStudentResponse) {}
-  rpc onStepDetected(StepDetectionMessage) returns (MonitorResponse) {}
-  rpc onProximityDetected(ProximityMessage) returns (MonitorResponse) {}
-  rpc onMotionDetected(MotionDetectionMessage) returns (MonitorResponse) {}
+  rpc onMovementDetected(MovementDetectionMessage) returns (MonitorResponse) {}
 }
 
 message EmptyMessage {}
@@ -23,14 +21,6 @@ message MonitorResponse {
   bool is_received = 1;
 }
 
-message ProximityMessage {
-  float distance = 1;
-}
-
-message StepDetectionMessage {
-  bool isDetected = 1;
-}
-
-message MotionDetectionMessage {
+message MovementDetectionMessage {
   bool is_detected = 1;
 }

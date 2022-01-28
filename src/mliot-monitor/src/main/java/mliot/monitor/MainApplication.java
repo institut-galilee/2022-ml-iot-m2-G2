@@ -64,19 +64,7 @@ public class MainApplication extends Application {
             }
 
             @Override
-            public void onStepDetected(StepDetectionMessage request, StreamObserver<MonitorResponse> responseObserver) {
-                responseObserver.onNext(MonitorResponse.newBuilder().setIsReceived(true).build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onProximityDetected(ProximityMessage request, StreamObserver<MonitorResponse> responseObserver) {
-                responseObserver.onNext(MonitorResponse.newBuilder().setIsReceived(true).build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onMotionDetected(MotionDetectionMessage request, StreamObserver<MonitorResponse> responseObserver) {
+            public void onMovementDetected(MovementDetectionMessage request, StreamObserver<MonitorResponse> responseObserver) {
                 responseObserver.onNext(MonitorResponse.newBuilder().setIsReceived(true).build());
                 responseObserver.onCompleted();
             }

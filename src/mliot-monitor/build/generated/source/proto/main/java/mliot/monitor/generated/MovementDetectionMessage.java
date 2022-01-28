@@ -4,25 +4,25 @@
 package mliot.monitor.generated;
 
 /**
- * Protobuf type {@code MotionDetectionMessage}
+ * Protobuf type {@code MovementDetectionMessage}
  */
-public final class MotionDetectionMessage extends
+public final class MovementDetectionMessage extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:MotionDetectionMessage)
-    MotionDetectionMessageOrBuilder {
+    // @@protoc_insertion_point(message_implements:MovementDetectionMessage)
+    MovementDetectionMessageOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use MotionDetectionMessage.newBuilder() to construct.
-  private MotionDetectionMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use MovementDetectionMessage.newBuilder() to construct.
+  private MovementDetectionMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private MotionDetectionMessage() {
+  private MovementDetectionMessage() {
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new MotionDetectionMessage();
+    return new MovementDetectionMessage();
   }
 
   @java.lang.Override
@@ -30,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private MotionDetectionMessage(
+  private MovementDetectionMessage(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -74,15 +74,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return mliot.monitor.generated.Monitor.internal_static_MotionDetectionMessage_descriptor;
+    return mliot.monitor.generated.Monitor.internal_static_MovementDetectionMessage_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return mliot.monitor.generated.Monitor.internal_static_MotionDetectionMessage_fieldAccessorTable
+    return mliot.monitor.generated.Monitor.internal_static_MovementDetectionMessage_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            mliot.monitor.generated.MotionDetectionMessage.class, mliot.monitor.generated.MotionDetectionMessage.Builder.class);
+            mliot.monitor.generated.MovementDetectionMessage.class, mliot.monitor.generated.MovementDetectionMessage.Builder.class);
   }
 
   public static final int IS_DETECTED_FIELD_NUMBER = 1;
@@ -136,10 +136,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof mliot.monitor.generated.MotionDetectionMessage)) {
+    if (!(obj instanceof mliot.monitor.generated.MovementDetectionMessage)) {
       return super.equals(obj);
     }
-    mliot.monitor.generated.MotionDetectionMessage other = (mliot.monitor.generated.MotionDetectionMessage) obj;
+    mliot.monitor.generated.MovementDetectionMessage other = (mliot.monitor.generated.MovementDetectionMessage) obj;
 
     if (getIsDetected()
         != other.getIsDetected()) return false;
@@ -162,69 +162,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(byte[] data)
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(java.io.InputStream input)
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseDelimitedFrom(java.io.InputStream input)
+  public static mliot.monitor.generated.MovementDetectionMessage parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseDelimitedFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.MotionDetectionMessage parseFrom(
+  public static mliot.monitor.generated.MovementDetectionMessage parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -237,7 +237,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(mliot.monitor.generated.MotionDetectionMessage prototype) {
+  public static Builder newBuilder(mliot.monitor.generated.MovementDetectionMessage prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -253,26 +253,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code MotionDetectionMessage}
+   * Protobuf type {@code MovementDetectionMessage}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:MotionDetectionMessage)
-      mliot.monitor.generated.MotionDetectionMessageOrBuilder {
+      // @@protoc_insertion_point(builder_implements:MovementDetectionMessage)
+      mliot.monitor.generated.MovementDetectionMessageOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mliot.monitor.generated.Monitor.internal_static_MotionDetectionMessage_descriptor;
+      return mliot.monitor.generated.Monitor.internal_static_MovementDetectionMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mliot.monitor.generated.Monitor.internal_static_MotionDetectionMessage_fieldAccessorTable
+      return mliot.monitor.generated.Monitor.internal_static_MovementDetectionMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              mliot.monitor.generated.MotionDetectionMessage.class, mliot.monitor.generated.MotionDetectionMessage.Builder.class);
+              mliot.monitor.generated.MovementDetectionMessage.class, mliot.monitor.generated.MovementDetectionMessage.Builder.class);
     }
 
-    // Construct using mliot.monitor.generated.MotionDetectionMessage.newBuilder()
+    // Construct using mliot.monitor.generated.MovementDetectionMessage.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -298,17 +298,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return mliot.monitor.generated.Monitor.internal_static_MotionDetectionMessage_descriptor;
+      return mliot.monitor.generated.Monitor.internal_static_MovementDetectionMessage_descriptor;
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.MotionDetectionMessage getDefaultInstanceForType() {
-      return mliot.monitor.generated.MotionDetectionMessage.getDefaultInstance();
+    public mliot.monitor.generated.MovementDetectionMessage getDefaultInstanceForType() {
+      return mliot.monitor.generated.MovementDetectionMessage.getDefaultInstance();
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.MotionDetectionMessage build() {
-      mliot.monitor.generated.MotionDetectionMessage result = buildPartial();
+    public mliot.monitor.generated.MovementDetectionMessage build() {
+      mliot.monitor.generated.MovementDetectionMessage result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -316,8 +316,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.MotionDetectionMessage buildPartial() {
-      mliot.monitor.generated.MotionDetectionMessage result = new mliot.monitor.generated.MotionDetectionMessage(this);
+    public mliot.monitor.generated.MovementDetectionMessage buildPartial() {
+      mliot.monitor.generated.MovementDetectionMessage result = new mliot.monitor.generated.MovementDetectionMessage(this);
       result.isDetected_ = isDetected_;
       onBuilt();
       return result;
@@ -357,16 +357,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof mliot.monitor.generated.MotionDetectionMessage) {
-        return mergeFrom((mliot.monitor.generated.MotionDetectionMessage)other);
+      if (other instanceof mliot.monitor.generated.MovementDetectionMessage) {
+        return mergeFrom((mliot.monitor.generated.MovementDetectionMessage)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(mliot.monitor.generated.MotionDetectionMessage other) {
-      if (other == mliot.monitor.generated.MotionDetectionMessage.getDefaultInstance()) return this;
+    public Builder mergeFrom(mliot.monitor.generated.MovementDetectionMessage other) {
+      if (other == mliot.monitor.generated.MovementDetectionMessage.getDefaultInstance()) return this;
       if (other.getIsDetected() != false) {
         setIsDetected(other.getIsDetected());
       }
@@ -385,11 +385,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      mliot.monitor.generated.MotionDetectionMessage parsedMessage = null;
+      mliot.monitor.generated.MovementDetectionMessage parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (mliot.monitor.generated.MotionDetectionMessage) e.getUnfinishedMessage();
+        parsedMessage = (mliot.monitor.generated.MovementDetectionMessage) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -442,41 +442,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:MotionDetectionMessage)
+    // @@protoc_insertion_point(builder_scope:MovementDetectionMessage)
   }
 
-  // @@protoc_insertion_point(class_scope:MotionDetectionMessage)
-  private static final mliot.monitor.generated.MotionDetectionMessage DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:MovementDetectionMessage)
+  private static final mliot.monitor.generated.MovementDetectionMessage DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new mliot.monitor.generated.MotionDetectionMessage();
+    DEFAULT_INSTANCE = new mliot.monitor.generated.MovementDetectionMessage();
   }
 
-  public static mliot.monitor.generated.MotionDetectionMessage getDefaultInstance() {
+  public static mliot.monitor.generated.MovementDetectionMessage getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<MotionDetectionMessage>
-      PARSER = new com.google.protobuf.AbstractParser<MotionDetectionMessage>() {
+  private static final com.google.protobuf.Parser<MovementDetectionMessage>
+      PARSER = new com.google.protobuf.AbstractParser<MovementDetectionMessage>() {
     @java.lang.Override
-    public MotionDetectionMessage parsePartialFrom(
+    public MovementDetectionMessage parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new MotionDetectionMessage(input, extensionRegistry);
+      return new MovementDetectionMessage(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<MotionDetectionMessage> parser() {
+  public static com.google.protobuf.Parser<MovementDetectionMessage> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<MotionDetectionMessage> getParserForType() {
+  public com.google.protobuf.Parser<MovementDetectionMessage> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public mliot.monitor.generated.MotionDetectionMessage getDefaultInstanceForType() {
+  public mliot.monitor.generated.MovementDetectionMessage getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

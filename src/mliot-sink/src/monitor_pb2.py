@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\027mliot.monitor.generatedP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rmonitor.proto\"\x0e\n\x0c\x45mptyMessage\"i\n\x14KnownStudentResponse\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x03 \x01(\t\x12\x15\n\rprofile_photo\x18\x04 \x01(\x0c\"&\n\x0fMonitorResponse\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\"$\n\x10ProximityMessage\x12\x10\n\x08\x64istance\x18\x01 \x01(\x02\"*\n\x14StepDetectionMessage\x12\x12\n\nisDetected\x18\x01 \x01(\x08\"-\n\x16MotionDetectionMessage\x12\x13\n\x0bis_detected\x18\x01 \x01(\x08\x32\x8c\x02\n\x0eMonitorService\x12>\n\x12\x66\x65tchKnownStudents\x12\r.EmptyMessage\x1a\x15.KnownStudentResponse\"\x00\x30\x01\x12;\n\x0eonStepDetected\x12\x15.StepDetectionMessage\x1a\x10.MonitorResponse\"\x00\x12<\n\x13onProximityDetected\x12\x11.ProximityMessage\x1a\x10.MonitorResponse\"\x00\x12?\n\x10onMotionDetected\x12\x17.MotionDetectionMessage\x1a\x10.MonitorResponse\"\x00\x42\x1b\n\x17mliot.monitor.generatedP\x01\x62\x06proto3'
+  serialized_pb=b'\n\rmonitor.proto\"\x0e\n\x0c\x45mptyMessage\"i\n\x14KnownStudentResponse\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x03 \x01(\t\x12\x15\n\rprofile_photo\x18\x04 \x01(\x0c\"&\n\x0fMonitorResponse\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\"/\n\x18MovementDetectionMessage\x12\x13\n\x0bis_detected\x18\x01 \x01(\x08\x32\x95\x01\n\x0eMonitorService\x12>\n\x12\x66\x65tchKnownStudents\x12\r.EmptyMessage\x1a\x15.KnownStudentResponse\"\x00\x30\x01\x12\x43\n\x12onMovementDetected\x12\x19.MovementDetectionMessage\x1a\x10.MonitorResponse\"\x00\x42\x1b\n\x17mliot.monitor.generatedP\x01\x62\x06proto3'
 )
 
 
@@ -135,18 +135,18 @@ _MONITORRESPONSE = _descriptor.Descriptor(
 )
 
 
-_PROXIMITYMESSAGE = _descriptor.Descriptor(
-  name='ProximityMessage',
-  full_name='ProximityMessage',
+_MOVEMENTDETECTIONMESSAGE = _descriptor.Descriptor(
+  name='MovementDetectionMessage',
+  full_name='MovementDetectionMessage',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='distance', full_name='ProximityMessage.distance', index=0,
-      number=1, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
+      name='is_detected', full_name='MovementDetectionMessage.is_detected', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -163,79 +163,13 @@ _PROXIMITYMESSAGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=180,
-  serialized_end=216,
-)
-
-
-_STEPDETECTIONMESSAGE = _descriptor.Descriptor(
-  name='StepDetectionMessage',
-  full_name='StepDetectionMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='isDetected', full_name='StepDetectionMessage.isDetected', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=218,
-  serialized_end=260,
-)
-
-
-_MOTIONDETECTIONMESSAGE = _descriptor.Descriptor(
-  name='MotionDetectionMessage',
-  full_name='MotionDetectionMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='is_detected', full_name='MotionDetectionMessage.is_detected', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=262,
-  serialized_end=307,
+  serialized_end=227,
 )
 
 DESCRIPTOR.message_types_by_name['EmptyMessage'] = _EMPTYMESSAGE
 DESCRIPTOR.message_types_by_name['KnownStudentResponse'] = _KNOWNSTUDENTRESPONSE
 DESCRIPTOR.message_types_by_name['MonitorResponse'] = _MONITORRESPONSE
-DESCRIPTOR.message_types_by_name['ProximityMessage'] = _PROXIMITYMESSAGE
-DESCRIPTOR.message_types_by_name['StepDetectionMessage'] = _STEPDETECTIONMESSAGE
-DESCRIPTOR.message_types_by_name['MotionDetectionMessage'] = _MOTIONDETECTIONMESSAGE
+DESCRIPTOR.message_types_by_name['MovementDetectionMessage'] = _MOVEMENTDETECTIONMESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 EmptyMessage = _reflection.GeneratedProtocolMessageType('EmptyMessage', (_message.Message,), {
@@ -259,26 +193,12 @@ MonitorResponse = _reflection.GeneratedProtocolMessageType('MonitorResponse', (_
   })
 _sym_db.RegisterMessage(MonitorResponse)
 
-ProximityMessage = _reflection.GeneratedProtocolMessageType('ProximityMessage', (_message.Message,), {
-  'DESCRIPTOR' : _PROXIMITYMESSAGE,
+MovementDetectionMessage = _reflection.GeneratedProtocolMessageType('MovementDetectionMessage', (_message.Message,), {
+  'DESCRIPTOR' : _MOVEMENTDETECTIONMESSAGE,
   '__module__' : 'monitor_pb2'
-  # @@protoc_insertion_point(class_scope:ProximityMessage)
+  # @@protoc_insertion_point(class_scope:MovementDetectionMessage)
   })
-_sym_db.RegisterMessage(ProximityMessage)
-
-StepDetectionMessage = _reflection.GeneratedProtocolMessageType('StepDetectionMessage', (_message.Message,), {
-  'DESCRIPTOR' : _STEPDETECTIONMESSAGE,
-  '__module__' : 'monitor_pb2'
-  # @@protoc_insertion_point(class_scope:StepDetectionMessage)
-  })
-_sym_db.RegisterMessage(StepDetectionMessage)
-
-MotionDetectionMessage = _reflection.GeneratedProtocolMessageType('MotionDetectionMessage', (_message.Message,), {
-  'DESCRIPTOR' : _MOTIONDETECTIONMESSAGE,
-  '__module__' : 'monitor_pb2'
-  # @@protoc_insertion_point(class_scope:MotionDetectionMessage)
-  })
-_sym_db.RegisterMessage(MotionDetectionMessage)
+_sym_db.RegisterMessage(MovementDetectionMessage)
 
 
 DESCRIPTOR._options = None
@@ -290,8 +210,8 @@ _MONITORSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=310,
-  serialized_end=578,
+  serialized_start=230,
+  serialized_end=379,
   methods=[
   _descriptor.MethodDescriptor(
     name='fetchKnownStudents',
@@ -304,31 +224,11 @@ _MONITORSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='onStepDetected',
-    full_name='MonitorService.onStepDetected',
+    name='onMovementDetected',
+    full_name='MonitorService.onMovementDetected',
     index=1,
     containing_service=None,
-    input_type=_STEPDETECTIONMESSAGE,
-    output_type=_MONITORRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='onProximityDetected',
-    full_name='MonitorService.onProximityDetected',
-    index=2,
-    containing_service=None,
-    input_type=_PROXIMITYMESSAGE,
-    output_type=_MONITORRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='onMotionDetected',
-    full_name='MonitorService.onMotionDetected',
-    index=3,
-    containing_service=None,
-    input_type=_MOTIONDETECTIONMESSAGE,
+    input_type=_MOVEMENTDETECTIONMESSAGE,
     output_type=_MONITORRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

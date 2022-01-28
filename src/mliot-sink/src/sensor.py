@@ -1,7 +1,6 @@
 import grpc
 
-import monitor_pb2
-import monitor_pb2_grpc
+from src import monitor_pb2_grpc, monitor_pb2
 
 
 def run():

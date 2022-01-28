@@ -19,19 +19,9 @@ class MonitorServiceStub(object):
                 request_serializer=monitor__pb2.EmptyMessage.SerializeToString,
                 response_deserializer=monitor__pb2.KnownStudentResponse.FromString,
                 )
-        self.onStepDetected = channel.unary_unary(
-                '/MonitorService/onStepDetected',
-                request_serializer=monitor__pb2.StepDetectionMessage.SerializeToString,
-                response_deserializer=monitor__pb2.MonitorResponse.FromString,
-                )
-        self.onProximityDetected = channel.unary_unary(
-                '/MonitorService/onProximityDetected',
-                request_serializer=monitor__pb2.ProximityMessage.SerializeToString,
-                response_deserializer=monitor__pb2.MonitorResponse.FromString,
-                )
-        self.onMotionDetected = channel.unary_unary(
-                '/MonitorService/onMotionDetected',
-                request_serializer=monitor__pb2.MotionDetectionMessage.SerializeToString,
+        self.onMovementDetected = channel.unary_unary(
+                '/MonitorService/onMovementDetected',
+                request_serializer=monitor__pb2.MovementDetectionMessage.SerializeToString,
                 response_deserializer=monitor__pb2.MonitorResponse.FromString,
                 )
 
@@ -45,19 +35,7 @@ class MonitorServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def onStepDetected(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def onProximityDetected(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def onMotionDetected(self, request, context):
+    def onMovementDetected(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -71,19 +49,9 @@ def add_MonitorServiceServicer_to_server(servicer, server):
                     request_deserializer=monitor__pb2.EmptyMessage.FromString,
                     response_serializer=monitor__pb2.KnownStudentResponse.SerializeToString,
             ),
-            'onStepDetected': grpc.unary_unary_rpc_method_handler(
-                    servicer.onStepDetected,
-                    request_deserializer=monitor__pb2.StepDetectionMessage.FromString,
-                    response_serializer=monitor__pb2.MonitorResponse.SerializeToString,
-            ),
-            'onProximityDetected': grpc.unary_unary_rpc_method_handler(
-                    servicer.onProximityDetected,
-                    request_deserializer=monitor__pb2.ProximityMessage.FromString,
-                    response_serializer=monitor__pb2.MonitorResponse.SerializeToString,
-            ),
-            'onMotionDetected': grpc.unary_unary_rpc_method_handler(
-                    servicer.onMotionDetected,
-                    request_deserializer=monitor__pb2.MotionDetectionMessage.FromString,
+            'onMovementDetected': grpc.unary_unary_rpc_method_handler(
+                    servicer.onMovementDetected,
+                    request_deserializer=monitor__pb2.MovementDetectionMessage.FromString,
                     response_serializer=monitor__pb2.MonitorResponse.SerializeToString,
             ),
     }
@@ -114,7 +82,7 @@ class MonitorService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def onStepDetected(request,
+    def onMovementDetected(request,
             target,
             options=(),
             channel_credentials=None,
@@ -124,42 +92,8 @@ class MonitorService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/MonitorService/onStepDetected',
-            monitor__pb2.StepDetectionMessage.SerializeToString,
-            monitor__pb2.MonitorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def onProximityDetected(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/MonitorService/onProximityDetected',
-            monitor__pb2.ProximityMessage.SerializeToString,
-            monitor__pb2.MonitorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def onMotionDetected(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/MonitorService/onMotionDetected',
-            monitor__pb2.MotionDetectionMessage.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/MonitorService/onMovementDetected',
+            monitor__pb2.MovementDetectionMessage.SerializeToString,
             monitor__pb2.MonitorResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
