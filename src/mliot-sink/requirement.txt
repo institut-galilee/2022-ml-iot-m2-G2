@@ -1,7 +1,7 @@
-python3 pip install pyside6
-python3 -m pip install grpcio
-python3 -m pip install grpcio-tools
-pip install pillow
+python3 pip3 install pyside6
+python3 -m pip3 install grpcio
+python3 -m pip3 install grpcio-tools
+pip3 install pillow
 pip3 install opencv-python
 pip3 install dlib
 pip3 install numpy
