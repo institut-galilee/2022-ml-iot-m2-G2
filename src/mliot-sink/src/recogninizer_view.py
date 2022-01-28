@@ -5,19 +5,20 @@ import PIL.Image
 import cv2
 import dlib
 import numpy as np
-import pyttsx3
 from PySide6.QtCore import QTimer, Qt, QRect, QPoint
 from PySide6.QtGui import QImage, QPixmap, QCloseEvent, QPen, QPainter, QColor, QBrush
 from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout
 from imutils import face_utils
 
+from callback.facial_recognition_callback import StudentRecognitionCallback
 from monitor_client import MonitorHelper
 
 
 class RecognizerView(QWidget):
-    def __init__(self):
+    def __init__(self, recognition_callback: StudentRecognitionCallback):
         super().__init__()
 
+        self.recognition_callback = recognition_callback
         # Enable logging with info mode
         logger.basicConfig(level=logger.INFO)
 
@@ -32,7 +33,7 @@ class RecognizerView(QWidget):
         layout = QVBoxLayout(self)
         layout.addWidget(self.video_view)
 
-        self.known_face_names = []
+        self.known_students = []
         self.known_encoded_faces = []
 
         logger.info("Searching for students' faces…")
@@ -44,14 +45,16 @@ class RecognizerView(QWidget):
 
         logger.info("Opening of web camera…")
         self.video_capture = cv2.VideoCapture(0)
-        self.video_capture.set(3, 720)
-        self.video_capture.set(4, 720)
-        self.timer.start(5000)
+        self.dim = int(min(self.video_capture.get(3), self.video_capture.get(4)))
+        self.x = int((self.video_capture.get(4) - self.dim) / 2)
+        self.y = int((self.video_capture.get(3) - self.dim) / 2)
+        self.timer.start(1000)
         logger.info("Web camera well opened")
         logger.info("Starting of face detection…")
 
     def on_preview_frame(self):
         ret, frame = self.video_capture.read()
+        frame = frame[self.x:self.x + self.dim, self.y:self.y + self.dim]
         frame = cv2.resize(frame, (720, 720))
         frame = cv2.flip(frame, 1)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -61,11 +64,10 @@ class RecognizerView(QWidget):
         self.recognize_face(frame)
 
     def fetch_list_of_students(self):
-        known_students = MonitorHelper.fetch_known_students()
-        if len(known_students) == 0:
+        self.known_students = MonitorHelper.fetch_known_students()
+        if len(self.known_students) == 0:
             raise ValueError('No student found as reference')
-        for known_student in known_students:
-            self.known_face_names.append(f"{known_student.first_name} {known_student.last_name}")
+        for known_student in self.known_students:
             image = PIL.Image.open(io.BytesIO(known_student.profile_photo))
             image = np.array(image)
             encoded_face = self.encode_face(image)[0][0]
@@ -114,10 +116,11 @@ class RecognizerView(QWidget):
                     result.append(False)
             if True in result:
                 first_match_index = result.index(True)
-                name = self.known_face_names[first_match_index]
+                known_student = self.known_students[first_match_index]
+                name = f"{known_student.first_name} {known_student.last_name}"
                 logger.info(f"{name}'s face is recognized")
-                # Make the student hear that he/she is recognized via text to speech engine
-                pyttsx3.speak(f"Hello {name}, your identity is confirmed")
+                # Trigger a callback to notify that the student identity is confirmed
+                self.recognition_callback.on_student_recognized(known_student)
             else:
                 name = "Unknown"
             face_names.append(name)

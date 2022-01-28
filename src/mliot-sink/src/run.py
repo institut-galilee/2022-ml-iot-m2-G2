@@ -8,12 +8,13 @@ from sink_server import Sink
 from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
 from recogninizer_view import RecognizerView
+from src.callback.facial_recognition_callback import StudentRecognitionCallback
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 from view.acceleration_view import AccelerationView
 from view.audio_view import AudioView
 
 
-class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer):
+class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer, StudentRecognitionCallback):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("REMOTE SAFE EXAM")
@@ -27,7 +28,7 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer):
 
         # Setup Video View
         #self.video_view = QtWidgets.QLabel()
-        self.video_view = RecognizerView()
+        self.video_view = RecognizerView(self)
         #self.video_view.setAlignment(QtCore.Qt.AlignLeft)
 
         # Setup Acceleration View
@@ -62,6 +63,9 @@ class MainWindow(QtWidgets.QMainWindow, SinkServiceServicer):
 
     def closeEvent(self, event: PySide6.QtGui.QCloseEvent):
         self.sink.shut_down()
+
+    def on_student_recognized(self, student):
+        print(student)
 
     def onAudioFrameAvailable(self, request, context):
         self.audio_view.update_waveform(request.audio_frame)
