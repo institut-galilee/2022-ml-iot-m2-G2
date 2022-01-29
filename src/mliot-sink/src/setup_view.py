@@ -3,7 +3,7 @@ import re
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QHBoxLayout, QVBoxLayout
 
 from callback.setup_callback import SinkSetupCallback
-from src.util.network_util import NetworkHelper, SINK_LISTENING_PORT
+from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 
 
 class MonitorView(QWidget):
@@ -14,7 +14,12 @@ class MonitorView(QWidget):
 
         header_label = QLabel("SETUP THE INVIGILATOR'S CONNECTION INTERFACE")
         header_label.setAlignment(Qt.AlignCenter)
-        header_label.setStyleSheet("margin :15px 10px 20px 10px")
+        header_label.setStyleSheet("margin :15px 10px 20px 10px; font-size: 18px; font-weight: bold")
+
+        pixmap = QPixmap('resources/invigilator.jpg')
+        pixmap = pixmap.scaled(720, 720, Qt.KeepAspectRatio)
+        image_view = QLabel()
+        image_view.setPixmap(pixmap)
 
         self.address_field = QLineEdit()
         self.address_field.setFixedWidth(200)
@@ -37,11 +42,12 @@ class MonitorView(QWidget):
 
         grid_layout = QGridLayout(self)
         grid_layout.addWidget(header_label, 0, 0, 1, 2)
-        grid_layout.addWidget(address_label, 1, 0)
-        grid_layout.addWidget(self.address_field, 1, 1)
-        grid_layout.addWidget(port_number_label, 2, 0)
-        grid_layout.addWidget(self.port_number_field, 2, 1)
-        grid_layout.addWidget(next_button, 3, 0, 1, 2)
+        grid_layout.addWidget(image_view, 1, 0, 1, 2)
+        grid_layout.addWidget(address_label, 2, 0)
+        grid_layout.addWidget(self.address_field, 2, 1)
+        grid_layout.addWidget(port_number_label, 3, 0)
+        grid_layout.addWidget(self.port_number_field, 3, 1)
+        grid_layout.addWidget(next_button, 4, 1)
 
         address = NetworkHelper.get_monitor_listening_address()
         port_number = NetworkHelper.get_monitor_listening_port_number()
@@ -67,42 +73,44 @@ class SensorsView(QWidget):
         header_label.setStyleSheet("margin :15px 10px 20px 10px")
 
         pixmap = QPixmap('resources/sensors-config-screenshot.png')
-        pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
+        pixmap = pixmap.scaled(720, 720, Qt.KeepAspectRatio)
         image_view = QLabel()
         image_view.setPixmap(pixmap)
 
         address_field = QLineEdit()
         address_field.setEnabled(False)
         address_field.setFixedWidth(200)
-        address_field.setAlignment(Qt.AlignLeft)
+        address_field.setAlignment(Qt.AlignRight)
         address_field.setText(NetworkHelper.get_sink_listening_address())
-        address_label = QLabel("COMPUTER'S ADDRESS:")
+        address_label = QLabel("COMPUTER'S ADDRESS")
         address_label.setBuddy(address_field)
         address_label.setAlignment(Qt.AlignRight)
 
         port_number_field = QLineEdit()
         port_number_field.setEnabled(False)
         port_number_field.setFixedWidth(200)
-        port_number_field.setAlignment(Qt.AlignLeft)
+        port_number_field.setAlignment(Qt.AlignRight)
         port_number_field.setText(f"{SINK_LISTENING_PORT}")
-        port_number_label = QLabel("COMPUTER'S PORT NUMBER:")
+        port_number_label = QLabel("COMPUTER'S PORT NUMBER")
         port_number_label.setBuddy(port_number_field)
         port_number_label.setAlignment(Qt.AlignRight)
 
         next_button = QPushButton("NEXT")
         next_button.clicked.connect(self.next)
 
-        form_layout = QGridLayout()
-        form_layout.addWidget(address_label, 0, 0)
-        form_layout.addWidget(address_field, 0, 1)
-        form_layout.addWidget(port_number_label, 1, 0)
-        form_layout.addWidget(port_number_field, 1, 1)
+        form_layout = QVBoxLayout()
+        form_layout.addStretch()
+        form_layout.addWidget(address_label)
+        form_layout.addWidget(address_field)
+        form_layout.addWidget(port_number_label)
+        form_layout.addWidget(port_number_field)
+        form_layout.addStretch()
+        form_layout.addWidget(next_button)
 
         grid_layout = QGridLayout(self)
         grid_layout.addWidget(header_label, 0, 0, 1, 2)
         grid_layout.addWidget(image_view, 1, 0)
         grid_layout.addLayout(form_layout, 1, 1)
-        grid_layout.addWidget(next_button, 2, 0, 1, 2)
 
     def next(self):
-        self.connection_interface_callback.on_monitor_connection_interface_set(self.address_field.text().strip(), self.port_number_field.text().strip())
+        self.connection_interface_callback.on_sink_connection_interface_set()

@@ -3,14 +3,14 @@ import time
 
 import PySide6
 from PySide6 import QtCore, QtWidgets
-from PySide6.QtGui import QPixmap, QScreen
+from PySide6.QtGui import QPixmap, QScreen, QIcon
 from PySide6.QtWidgets import QStackedWidget, QApplication, QLabel, QHBoxLayout, QVBoxLayout, QWidget, QMainWindow
 
 from callback.setup_callback import SinkSetupCallback
 from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
 from sink_server import Sink
-from src.recogninizer_view import RecognizerView
+from recogninizer_view import RecognizerView
 from setup_view import MonitorView, SensorsView
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 from view.acceleration_view import AccelerationView
@@ -31,9 +31,9 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
 
         # Setup Video View
         #self.video_view = QLabel()
+        self.sensors_view = None
         self.recognizer_view = None
         self.monitor_view = MonitorView(self)
-        self.sensors_view = SensorsView(self)
         #self.video_view.setAlignment(QtCore.Qt.AlignLeft)
 
         # Setup Acceleration View
@@ -41,7 +41,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
 
         self.content_view = QStackedWidget()
         self.setCentralWidget(self.content_view)
-        self.content_view.addWidget(self.sensors_view)
+        self.content_view.addWidget(self.monitor_view)
 
         h1_layout = QHBoxLayout()
         h1_layout.addWidget(ip_address)
@@ -66,8 +66,8 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         #self.setCentralWidget(widget)
 
         # Setup gRPC Sink
-        self.sink = Sink(self)
-        self.sink.start()
+        #self.sink = Sink(self)
+        #self.sink.start()
 
     def center_window(self):
         # Center the window
@@ -80,7 +80,11 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.sink.shut_down()
 
     def on_student_recognized(self, student):
-        print(student)
+        self.recognizer_view.close()
+        self.sensors_view = SensorsView(self)
+        self.content_view.addWidget(self.sensors_view)
+        self.content_view.setCurrentWidget(self.sensors_view)
+        self.center_window()
 
     def on_monitor_connection_interface_set(self, address, port):
         NetworkHelper.set_monitor_listening_connection_interface(address, port)
@@ -88,6 +92,9 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.content_view.addWidget(self.recognizer_view)
         self.content_view.setCurrentWidget(self.recognizer_view)
         self.center_window()
+
+    def on_sink_connection_interface_set(self):
+        pass
 
     def onAudioFrameAvailable(self, request, context):
         self.audio_view.update_waveform(request.audio_frame)
@@ -130,9 +137,10 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon("resources/logo.png"))
     window = MainWindow()
-    #window.setFixedWidth(720)
-    #window.setFixedHeight(720)
+    window.setFixedWidth(720)
+    window.setFixedHeight(720)
     window.show()
     window.center_window()
     sys.exit(app.exec())
