@@ -2,13 +2,13 @@
     <string name="app_name">MLiOT SENSORS</string>
     <string name="app_name_head">VIDEO &amp; AUDIO</string>
     <string name="app_name_hand">ACCELEROMETER</string>
-    <string name="settings_server_address">Server\'s address</string>
-    <string name="settings_server_port">Server\'s port number</string>
+    <string name="settings_server_address">Computer\'s address</string>
+    <string name="settings_server_port">Computer\'s port number</string>
     <string name="settings_ime_action_label_next">Next</string>
     <string name="settings_ime_action_label_save">Save</string>
     <string name="settings_open">Open</string>
-    <string name="settings_server_address_mandatory">Server\‘s address is required</string>
-    <string name="settings_server_port_mandatory">Server\‘s port number is required</string>
+    <string name="settings_server_address_mandatory">Computer\‘s address is required</string>
+    <string name="settings_server_port_mandatory">Computer\‘s port number is required</string>
     <string name="settings_role_chooser">Choose phone role</string>
     <string name="settings_role_head">HEAD</string>
     <string name="settings_role_hand">HAND</string>

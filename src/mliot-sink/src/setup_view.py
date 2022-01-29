@@ -1,16 +1,16 @@
-from PySide6.QtGui import Qt
+from PySide6.QtGui import Qt, QPixmap
 import re
-from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton
+from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QHBoxLayout, QVBoxLayout
 
 from callback.setup_callback import SinkSetupCallback
-from src.util.network_util import NetworkHelper
+from src.util.network_util import NetworkHelper, SINK_LISTENING_PORT
 
 
 class MonitorView(QWidget):
-    def __init__(self, connection_interface_callback: SinkSetupCallback):
+    def __init__(self, monitor_connection_interface_callback: SinkSetupCallback):
         super().__init__()
 
-        self.connection_interface_callback = connection_interface_callback
+        self.monitor_connection_interface_callback = monitor_connection_interface_callback
 
         header_label = QLabel("SETUP THE INVIGILATOR'S CONNECTION INTERFACE")
         header_label.setAlignment(Qt.AlignCenter)
@@ -53,4 +53,56 @@ class MonitorView(QWidget):
         address_validator_regex = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
         port_number_validator_regex = "^()([1-9]|[1-5]?[0-9]{2,4}|6[1-4][0-9]{3}|65[1-4][0-9]{2}|655[1-2][0-9]|6553[1-5])$"
         if re.search(address_validator_regex, self.address_field.text().strip()) and re.search(port_number_validator_regex, self.port_number_field.text().strip()):
-            self.connection_interface_callback.on_connection_interface_set(self.address_field.text().strip(), self.port_number_field.text().strip())
+            self.monitor_connection_interface_callback.on_monitor_connection_interface_set(self.address_field.text().strip(), self.port_number_field.text().strip())
+
+
+class SensorsView(QWidget):
+    def __init__(self, connection_interface_callback: SinkSetupCallback):
+        super().__init__()
+
+        self.connection_interface_callback = connection_interface_callback
+
+        header_label = QLabel("SETUP YOUR HAND AND HEAD DEVICES")
+        header_label.setAlignment(Qt.AlignCenter)
+        header_label.setStyleSheet("margin :15px 10px 20px 10px")
+
+        pixmap = QPixmap('resources/sensors-config-screenshot.png')
+        pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
+        image_view = QLabel()
+        image_view.setPixmap(pixmap)
+
+        address_field = QLineEdit()
+        address_field.setEnabled(False)
+        address_field.setFixedWidth(200)
+        address_field.setAlignment(Qt.AlignLeft)
+        address_field.setText(NetworkHelper.get_sink_listening_address())
+        address_label = QLabel("COMPUTER'S ADDRESS:")
+        address_label.setBuddy(address_field)
+        address_label.setAlignment(Qt.AlignRight)
+
+        port_number_field = QLineEdit()
+        port_number_field.setEnabled(False)
+        port_number_field.setFixedWidth(200)
+        port_number_field.setAlignment(Qt.AlignLeft)
+        port_number_field.setText(f"{SINK_LISTENING_PORT}")
+        port_number_label = QLabel("COMPUTER'S PORT NUMBER:")
+        port_number_label.setBuddy(port_number_field)
+        port_number_label.setAlignment(Qt.AlignRight)
+
+        next_button = QPushButton("NEXT")
+        next_button.clicked.connect(self.next)
+
+        form_layout = QGridLayout()
+        form_layout.addWidget(address_label, 0, 0)
+        form_layout.addWidget(address_field, 0, 1)
+        form_layout.addWidget(port_number_label, 1, 0)
+        form_layout.addWidget(port_number_field, 1, 1)
+
+        grid_layout = QGridLayout(self)
+        grid_layout.addWidget(header_label, 0, 0, 1, 2)
+        grid_layout.addWidget(image_view, 1, 0)
+        grid_layout.addLayout(form_layout, 1, 1)
+        grid_layout.addWidget(next_button, 2, 0, 1, 2)
+
+    def next(self):
+        self.connection_interface_callback.on_monitor_connection_interface_set(self.address_field.text().strip(), self.port_number_field.text().strip())
