@@ -30,7 +30,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.audio_view = AudioView()
 
         # Setup Video View
-        #self.video_view = QLabel()
+        self.video_view = QLabel()
         self.sensors_view = None
         self.recognizer_view = None
         self.monitor_view = MonitorView(self)
@@ -40,8 +40,8 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.acceleration_view = AccelerationView()
 
         self.content_view = QStackedWidget()
-        self.setCentralWidget(self.content_view)
-        self.content_view.addWidget(self.monitor_view)
+        #self.setCentralWidget(self.content_view)
+        #self.content_view.addWidget(self.monitor_view)
 
         h1_layout = QHBoxLayout()
         h1_layout.addWidget(ip_address)
@@ -53,7 +53,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         v1_layout.addWidget(self.acceleration_view)
 
         h2_layout = QHBoxLayout()
-        #h2_layout.addWidget(self.video_view)
+        h2_layout.addWidget(self.video_view)
         h2_layout.addLayout(v1_layout)
 
         v2_layout = QVBoxLayout()
@@ -63,11 +63,11 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         # Add all views to the window
         widget = QWidget()
         widget.setLayout(v2_layout)
-        #self.setCentralWidget(widget)
+        self.setCentralWidget(widget)
 
         # Setup gRPC Sink
-        #self.sink = Sink(self)
-        #self.sink.start()
+        self.sink = Sink(self)
+        self.sink.start()
 
     def center_window(self):
         # Center the window
