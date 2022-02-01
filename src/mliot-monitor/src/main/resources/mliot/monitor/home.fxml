@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mliot.monitor.controller.HomeController">
-   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <ScrollPane prefHeight="480.0" prefWidth="720.0" HBox.hgrow="ALWAYS">
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
-         <GridPane fx:id="gridview" alignment="CENTER">
-            <rowConstraints>
-               <RowConstraints minHeight="10.0" prefHeight="30.0" />
-            </rowConstraints>
-         </GridPane>
-      </ScrollPane>
-   </HBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mliot.monitor.controller.HomeController">
+   <VBox alignment="CENTER" prefHeight="720.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <Label text="LIST OF STUDENTS READY TO SIT FOR EXAM">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Label>
+         <ScrollPane prefHeight="720.0" prefWidth="720.0">
+            <GridPane fx:id="gridView" alignment="CENTER" onMouseReleased="#onClickListener" prefHeight="0.0" prefWidth="0.0" style="-fx-padding: 5;">
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+               </rowConstraints>
+            </GridPane>
+         </ScrollPane>
+      </children>
+      <padding>
+         <Insets top="20.0" />
+      </padding>
+   </VBox>
 </AnchorPane>

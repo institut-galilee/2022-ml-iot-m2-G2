@@ -7,7 +7,10 @@ import io.grpc.stub.StreamObserver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import mliot.monitor.callback.HomeControllerCallback;
+import mliot.monitor.controller.HomeController;
 import mliot.monitor.generated.*;
 import mliot.monitor.impl.Monitor;
 import mliot.monitor.util.Util;
@@ -17,11 +20,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class MainApplication extends Application {
+public class MainApplication extends Application implements HomeControllerCallback {
 
     private Monitor monitor;
     private JsonArray studentArray;
     private static final Logger logger = Logger.getLogger(MainApplication.class.getCanonicalName());
+
+    @Override
+    public void onStudentRequested(JsonObject studentObject) {
+        System.out.printf(studentObject.toString());
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -31,10 +39,17 @@ public class MainApplication extends Application {
         if (cssUrl != null) {
             scene.getStylesheets().add(cssUrl.toExternalForm());
         }
+        URL iconUrl = MainApplication.class.getResource("asset/images/logo.png");
+        if (iconUrl != null) {
+            stage.getIcons().add(new Image(iconUrl.toExternalForm()));
+        }
         stage.setTitle("MLIoT Monitor");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
 
+        HomeController homeController = fxmlLoader.getController();
+        homeController.setHomeControllerCallback(this);
         /*
             Load students lists
          */
@@ -81,4 +96,5 @@ public class MainApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }
