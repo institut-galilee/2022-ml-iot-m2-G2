@@ -26,7 +26,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("home.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load());
         URL cssUrl = MainApplication.class.getResource("styles.css");
         if (cssUrl != null) {
             scene.getStylesheets().add(cssUrl.toExternalForm());
