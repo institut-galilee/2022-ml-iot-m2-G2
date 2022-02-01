@@ -53,7 +53,6 @@ public class HomeController implements Initializable {
                     gridview.setPrefHeight(Region.USE_COMPUTED_SIZE);
                     gridview.setMaxHeight(Region.USE_PREF_SIZE);
 
-                    GridPane.setMargin(anchorPane, new Insets(10));
                 }
             }
         } catch (Exception e) {

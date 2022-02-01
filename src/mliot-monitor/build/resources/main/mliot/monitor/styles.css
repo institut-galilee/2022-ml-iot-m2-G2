@@ -1,3 +1,9 @@
 .label {
     -fx-text-fill: blue;
 }
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+
