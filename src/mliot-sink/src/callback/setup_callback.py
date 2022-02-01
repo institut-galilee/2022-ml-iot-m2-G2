@@ -1,5 +1,6 @@
 
 class SinkSetupCallback(object):
+
     def __init__(self):
         pass
 
@@ -10,4 +11,7 @@ class SinkSetupCallback(object):
         raise Exception("NotImplementedException")
 
     def on_sink_connection_interface_set(self):
+        raise Exception("NotImplementedException")
+
+    def on_arm_device_set(self):
         raise Exception("NotImplementedException")

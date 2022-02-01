@@ -1,12 +1,13 @@
-from PySide6.QtGui import Qt, QPixmap
 import re
-from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QHBoxLayout, QVBoxLayout
+
+from PySide6.QtGui import Qt, QPixmap
+from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QVBoxLayout
 
 from callback.setup_callback import SinkSetupCallback
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 
 
-class MonitorView(QWidget):
+class InvigilatorView(QWidget):
     def __init__(self, monitor_connection_interface_callback: SinkSetupCallback):
         super().__init__()
 
@@ -14,11 +15,12 @@ class MonitorView(QWidget):
 
         header_label = QLabel("SETUP THE INVIGILATOR'S CONNECTION INTERFACE")
         header_label.setAlignment(Qt.AlignCenter)
-        header_label.setStyleSheet("margin :15px 10px 20px 10px; font-size: 18px; font-weight: bold")
+        header_label.setStyleSheet("margin-top: 25px; font-size: 18px; font-weight: bold")
 
-        pixmap = QPixmap('resources/invigilator.jpg')
-        pixmap = pixmap.scaled(720, 720, Qt.KeepAspectRatio)
+        pixmap = QPixmap('resources/invigilator.png')
+        pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
         image_view = QLabel()
+        image_view.setAlignment(Qt.AlignCenter)
         image_view.setPixmap(pixmap)
 
         self.address_field = QLineEdit()
@@ -42,7 +44,9 @@ class MonitorView(QWidget):
 
         grid_layout = QGridLayout(self)
         grid_layout.addWidget(header_label, 0, 0, 1, 2)
+        grid_layout.setRowStretch(1, 10)
         grid_layout.addWidget(image_view, 1, 0, 1, 2)
+        grid_layout.setRowStretch(1, 10)
         grid_layout.addWidget(address_label, 2, 0)
         grid_layout.addWidget(self.address_field, 2, 1)
         grid_layout.addWidget(port_number_label, 3, 0)
@@ -68,9 +72,9 @@ class SensorsView(QWidget):
 
         self.connection_interface_callback = connection_interface_callback
 
-        header_label = QLabel("SETUP YOUR HAND AND HEAD DEVICES")
+        header_label = QLabel("LINK YOUR BODY DEVICES TO YOUR COMPUTER")
         header_label.setAlignment(Qt.AlignCenter)
-        header_label.setStyleSheet("margin :15px 10px 20px 10px")
+        header_label.setStyleSheet("margin :15px 10px 20px 10px; font-size: 18px; font-weight: bold")
 
         pixmap = QPixmap('resources/sensors-config-screenshot.png')
         pixmap = pixmap.scaled(720, 720, Qt.KeepAspectRatio)
@@ -114,3 +118,46 @@ class SensorsView(QWidget):
 
     def next(self):
         self.connection_interface_callback.on_sink_connection_interface_set()
+
+
+class HandView(QWidget):
+    def __init__(self, arm_device_callback: SinkSetupCallback):
+        super().__init__()
+
+        self.arm_device_callback = arm_device_callback
+
+        header_label = QLabel("WEAR AND SETUP YOUR HAND DEVICE")
+        header_label.setAlignment(Qt.AlignCenter)
+        header_label.setStyleSheet("margin-top: 25px; font-size: 18px; font-weight: bold")
+
+        pixmap = QPixmap('resources/arm.jpg')
+        pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
+        image_view = QLabel()
+        image_view.setAlignment(Qt.AlignCenter)
+        image_view.setPixmap(pixmap)
+
+        address_label = QLabel("OPEN HAND DEVICE AND WAIT UNTIL THE NEXT BUTTON IS ACTIVE.")
+        address_label.setAlignment(Qt.AlignCenter)
+
+        self.next_button = QPushButton("NEXT")
+        self.next_button.setEnabled(False)
+        self.next_button.setFixedWidth(200)
+        self.next_button.clicked.connect(self.next)
+
+        grid_layout = QGridLayout(self)
+        grid_layout.addWidget(header_label, 0, 0, 1, 2)
+        grid_layout.setRowStretch(1, 10)
+        grid_layout.addWidget(image_view, 1, 0, 1, 2)
+        grid_layout.setRowStretch(1, 10)
+        grid_layout.addWidget(address_label, 2, 0, 1, 2)
+        grid_layout.setRowStretch(1, 10)
+        grid_layout.addWidget(self.next_button, 4, 1)
+
+    def set_proximity(self, distance):
+        if int(distance) == 0:
+            self.next_button.setEnabled(True)
+        else:
+            self.next_button.setEnabled(False)
+
+    def next(self):
+        self.arm_device_callback.on_arm_device_set()

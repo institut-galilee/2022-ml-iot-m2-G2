@@ -151,9 +151,7 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
 
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
-        /*
-         * Call gRPC service to receive camera stream
-         */
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Camera.Parameters parameters = camera.getParameters();
         Camera.Size size = parameters.getPreviewSize();
@@ -176,8 +174,11 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
             matrix.postRotate(180);
         }
 
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, size.width, size.height, matrix, false);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, Math.min(size.width, size.height), Math.min(size.width, size.height), matrix, false);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, rotatedStream);
+        /*
+         * Call gRPC service to receive camera stream
+         */
         new GrpcVideoTask(this).execute(ByteString.copyFrom(rotatedStream.toByteArray()));
     }
 

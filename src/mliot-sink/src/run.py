@@ -11,7 +11,7 @@ from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
 from sink_server import Sink
 from recogninizer_view import RecognizerView
-from setup_view import MonitorView, SensorsView
+from setup_view import InvigilatorView, SensorsView, HandView
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 from view.acceleration_view import AccelerationView
 from view.audio_view import AudioView
@@ -20,7 +20,7 @@ from view.audio_view import AudioView
 class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("REMOTE SAFE EXAM")
+        self.setWindowTitle("REMOTE PROCTORED EXAM")
 
         # Show IP Address and Port
         ip_port = QLabel("PORT NUMBER: {0}".format(SINK_LISTENING_PORT))
@@ -33,15 +33,16 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.video_view = QLabel()
         self.sensors_view = None
         self.recognizer_view = None
-        self.monitor_view = MonitorView(self)
+        self.hand_view = None
+        self.invigilator_view = InvigilatorView(self)
         #self.video_view.setAlignment(QtCore.Qt.AlignLeft)
 
         # Setup Acceleration View
         self.acceleration_view = AccelerationView()
 
         self.content_view = QStackedWidget()
-        #self.setCentralWidget(self.content_view)
-        #self.content_view.addWidget(self.monitor_view)
+        self.setCentralWidget(self.content_view)
+        self.content_view.addWidget(self.invigilator_view)
 
         h1_layout = QHBoxLayout()
         h1_layout.addWidget(ip_address)
@@ -63,7 +64,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         # Add all views to the window
         widget = QWidget()
         widget.setLayout(v2_layout)
-        self.setCentralWidget(widget)
+        #self.setCentralWidget(widget)
 
         # Setup gRPC Sink
         self.sink = Sink(self)
@@ -78,6 +79,11 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
 
     def closeEvent(self, event: PySide6.QtGui.QCloseEvent):
         self.sink.shut_down()
+        for i in range(0, self.content_view.count()):
+            self.content_view.widget(i).close()
+
+    def on_arm_device_set(self):
+        pass
 
     def on_student_recognized(self, student):
         self.recognizer_view.close()
@@ -94,7 +100,10 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.center_window()
 
     def on_sink_connection_interface_set(self):
-        pass
+        self.hand_view = HandView(self)
+        self.content_view.addWidget(self.hand_view)
+        self.content_view.setCurrentWidget(self.hand_view)
+        self.center_window()
 
     def onAudioFrameAvailable(self, request, context):
         self.audio_view.update_waveform(request.audio_frame)
@@ -103,11 +112,11 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
     def onVideoFrameAvailable(self, request, context):
         image = QPixmap()
         image.loadFromData(request.video_frame)
-        self.video_view.setPixmap(image.scaled(480, 720))
+        self.video_view.setPixmap(image.scaled(480, 480))
         return Response(is_received=True)
 
     def onAccelerationChanged(self, request, context):
-        self.acceleration_view.populate_acceleration(request)
+        #self.acceleration_view.populate_acceleration(request)
         return Response(is_received=self.acceleration_view.max_range is not None)
 
     def setAccelerationMaxRange(self, request, context):
@@ -119,6 +128,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         return Response(is_received=True)
 
     def onProximityChanged(self, request, context):
+        self.hand_view.set_proximity(request.distance)
         print("La proximité est estimé à {0} cm".format(request.distance))
         return Response(is_received=True)
 
