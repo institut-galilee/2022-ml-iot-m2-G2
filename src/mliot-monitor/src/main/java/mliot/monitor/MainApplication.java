@@ -38,7 +38,7 @@ public class MainApplication extends Application {
         /*
             Load students lists
          */
-        studentArray = Util.loadListOfStudents();
+        studentArray = Util.loadArrayOfStudents();
 
         this.monitor = new Monitor(new MonitorServiceGrpc.MonitorServiceImplBase() {
             @Override

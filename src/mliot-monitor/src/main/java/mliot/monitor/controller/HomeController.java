@@ -28,7 +28,7 @@ public class HomeController implements Initializable {
         int row = 1;
         int column = 0;
         try {
-            JsonArray studentArray = Util.loadListOfStudents();
+            JsonArray studentArray = Util.loadArrayOfStudents();
             if (studentArray != null) {
                 for (int i = 0; i < studentArray.size(); i++) {
                     JsonObject studentObject = studentArray.get(i).getAsJsonObject();

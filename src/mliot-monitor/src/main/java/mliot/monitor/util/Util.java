@@ -1,7 +1,10 @@
 package mliot.monitor.util;
 
+import com.google.common.collect.Iterators;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import mliot.monitor.MainApplication;
 import org.apache.commons.io.FileUtils;
 
@@ -12,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +41,7 @@ public class Util {
         }
     }
 
-    public static JsonArray loadListOfStudents() {
+    public static JsonArray loadArrayOfStudents() {
         try {
             String fileName = String.format(Locale.getDefault(), "asset%s%s", File.separator, STUDENT_FILE_NAME);
             URL studentUrl = MainApplication.class.getResource(fileName);
@@ -50,6 +55,14 @@ public class Util {
             logger.log(Level.SEVERE, "Error while reading the list of students from a file", e);
             return null;
         }
+    }
+
+    public static List<JsonElement> loadListOfStudents() {
+        JsonArray studentArray = loadArrayOfStudents();
+        if (studentArray != null) {
+            return Arrays.asList(Iterators.toArray(studentArray.iterator(), JsonElement.class));
+        }
+        return null;
     }
 
     public static byte[] readImage(String imageName) {
