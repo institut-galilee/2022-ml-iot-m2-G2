@@ -10,7 +10,7 @@ from callback.setup_callback import SinkSetupCallback
 from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
 from sink_server import Sink
-from recogninizer_view import RecognizerView
+from recognizer_view import RecognizerView
 from setup_view import InvigilatorView, SensorsView, HandView
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 from view.acceleration_view import AccelerationView
