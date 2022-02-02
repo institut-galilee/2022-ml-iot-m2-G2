@@ -13,5 +13,8 @@ class SinkSetupCallback(object):
     def on_sink_connection_interface_set(self):
         raise Exception("NotImplementedException")
 
-    def on_arm_device_set(self):
+    def on_hand_device_set(self):
+        raise Exception("NotImplementedException")
+
+    def on_head_device_set(self):
         raise Exception("NotImplementedException")

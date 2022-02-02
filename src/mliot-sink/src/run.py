@@ -82,7 +82,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         for i in range(0, self.content_view.count()):
             self.content_view.widget(i).close()
 
-    def on_arm_device_set(self):
+    def on_hand_device_set(self):
         pass
 
     def on_student_recognized(self, student):
@@ -94,9 +94,13 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
 
     def on_monitor_connection_interface_set(self, address, port):
         NetworkHelper.set_monitor_listening_connection_interface(address, port)
-        self.recognizer_view = RecognizerView(self)
-        self.content_view.addWidget(self.recognizer_view)
-        self.content_view.setCurrentWidget(self.recognizer_view)
+        #self.recognizer_view = RecognizerView(self)
+        #self.content_view.addWidget(self.recognizer_view)
+        #self.content_view.setCurrentWidget(self.recognizer_view)
+        #self.center_window()
+        self.hand_view = HandView(self)
+        self.content_view.addWidget(self.hand_view)
+        self.content_view.setCurrentWidget(self.hand_view)
         self.center_window()
 
     def on_sink_connection_interface_set(self):

@@ -1,7 +1,7 @@
 import re
 
 from PySide6.QtGui import Qt, QPixmap
-from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QVBoxLayout
+from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
 
 from callback.setup_callback import SinkSetupCallback
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
@@ -76,9 +76,10 @@ class SensorsView(QWidget):
         header_label.setAlignment(Qt.AlignCenter)
         header_label.setStyleSheet("margin :15px 10px 20px 10px; font-size: 18px; font-weight: bold")
 
-        pixmap = QPixmap('resources/sensors-config-screenshot.png')
-        pixmap = pixmap.scaled(720, 720, Qt.KeepAspectRatio)
+        pixmap = QPixmap('resources/connection-config.png')
+        pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
         image_view = QLabel()
+        image_view.setAlignment(Qt.AlignCenter)
         image_view.setPixmap(pixmap)
 
         address_field = QLineEdit()
@@ -121,37 +122,41 @@ class SensorsView(QWidget):
 
 
 class HandView(QWidget):
-    def __init__(self, arm_device_callback: SinkSetupCallback):
+    def __init__(self, hand_device_callback: SinkSetupCallback):
         super().__init__()
 
-        self.arm_device_callback = arm_device_callback
+        self.hand_device_callback = hand_device_callback
 
-        header_label = QLabel("WEAR AND SETUP YOUR HAND DEVICE")
+        header_label = QLabel("WEAR AND SETUP YOUR HAND DEVICE UNTIL THE NEXT BUTTON IS ACTIVE")
         header_label.setAlignment(Qt.AlignCenter)
         header_label.setStyleSheet("margin-top: 25px; font-size: 18px; font-weight: bold")
 
-        pixmap = QPixmap('resources/arm.jpg')
+        pixmap = QPixmap('resources/hand-config.png')
         pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
-        image_view = QLabel()
-        image_view.setAlignment(Qt.AlignCenter)
-        image_view.setPixmap(pixmap)
+        hand_view = QLabel()
+        hand_view.setAlignment(Qt.AlignCenter)
+        hand_view.setPixmap(pixmap)
 
-        address_label = QLabel("OPEN HAND DEVICE AND WAIT UNTIL THE NEXT BUTTON IS ACTIVE.")
-        address_label.setAlignment(Qt.AlignCenter)
+        pixmap = QPixmap('resources/wrist-pouch-setup.png')
+        pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
+        wrist_pouch_view = QLabel()
+        wrist_pouch_view.setAlignment(Qt.AlignCenter)
+        wrist_pouch_view.setPixmap(pixmap)
 
         self.next_button = QPushButton("NEXT")
         self.next_button.setEnabled(False)
         self.next_button.setFixedWidth(200)
         self.next_button.clicked.connect(self.next)
 
-        grid_layout = QGridLayout(self)
-        grid_layout.addWidget(header_label, 0, 0, 1, 2)
-        grid_layout.setRowStretch(1, 10)
-        grid_layout.addWidget(image_view, 1, 0, 1, 2)
-        grid_layout.setRowStretch(1, 10)
-        grid_layout.addWidget(address_label, 2, 0, 1, 2)
-        grid_layout.setRowStretch(1, 10)
-        grid_layout.addWidget(self.next_button, 4, 1)
+        vertical_layout = QVBoxLayout(self)
+        vertical_layout.addWidget(header_label)
+        vertical_layout.addStretch()
+        horizontal_layout = QHBoxLayout()
+        horizontal_layout.addWidget(hand_view)
+        horizontal_layout.addWidget(wrist_pouch_view)
+        vertical_layout.addLayout(horizontal_layout)
+        vertical_layout.addStretch()
+        vertical_layout.addWidget(self.next_button, alignment=Qt.AlignRight)
 
     def set_proximity(self, distance):
         if int(distance) == 0:
@@ -160,4 +165,38 @@ class HandView(QWidget):
             self.next_button.setEnabled(False)
 
     def next(self):
-        self.arm_device_callback.on_arm_device_set()
+        self.hand_device_callback.on_hand_device_set()
+
+
+class HeadView(QWidget):
+
+    def __init__(self, head_device_callback: SinkSetupCallback):
+        super().__init__()
+
+        self.head_device_callback = head_device_callback
+
+        header_label = QLabel("WEAR AND SETUP YOUR HEAD DEVICE UNTIL THE NEXT BUTTON IS ACTIVE")
+        header_label.setAlignment(Qt.AlignCenter)
+        header_label.setStyleSheet("margin-top: 25px; font-size: 18px; font-weight: bold")
+
+        self.image_view = QLabel()
+
+        pixmap = QPixmap('resources/wrist-pouch-setup.png')
+        pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
+        wrist_pouch_view = QLabel()
+        wrist_pouch_view.setAlignment(Qt.AlignCenter)
+        wrist_pouch_view.setPixmap(pixmap)
+        self.frame = None
+        self.setAlignment(Qt.AlignCenter)
+
+    def update_frame(self, frame):
+        self.frame = frame
+        pixmap = QPixmap()
+        pixmap.loadFromData(frame)
+        self.update_image(pixmap)
+
+    def update_image(self, pixmap):
+        self.setPixmap(pixmap)
+
+    def find_current_frame(self):
+        return self.frame

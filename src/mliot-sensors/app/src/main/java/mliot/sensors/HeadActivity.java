@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Display;
 import android.view.Surface;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
@@ -33,12 +34,11 @@ import com.google.protobuf.ByteString;
 
 import java.io.ByteArrayOutputStream;
 
-import mliot.sensors.grpc.GrpcAudioTask;
 import mliot.sensors.grpc.GrpcVideoTask;
 import mliot.sensors.view.AudioView;
 import mliot.sensors.view.CameraView;
 
-public class HeadActivity extends AppCompatActivity implements Runnable, Camera.PreviewCallback {
+public class HeadActivity extends AppCompatActivity implements Runnable, Camera.PreviewCallback, View.OnClickListener {
 
     /**
      * Hardware representative sensors
@@ -72,6 +72,12 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
      */
     private AudioView audioModulationView;
 
+    /**
+     *  Default camera
+     */
+    private FrameLayout preview;
+    private int  currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+
     @Override
     @TargetApi(Build.VERSION_CODES.M)
     @SuppressLint("MissingPermission")
@@ -84,14 +90,9 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
              * Check if any camera exists and initialize it
              */
             if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-                camera = Camera.open();
-                //camera.setDisplayOrientation(90);
-                if (camera != null) {
-                    CameraView cameraView = new CameraView(this, camera);
-                    FrameLayout preview = findViewById(R.id.camera_preview);
-                    preview.addView(cameraView);
-                    camera.setPreviewCallback(this);
-                }
+                findViewById(R.id.switcher).setOnClickListener(this);
+                preview = findViewById(R.id.camera_preview);
+                setupCamera();
             }
             /*
              * Check if if any microphone exists and initialize it
@@ -131,6 +132,8 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
             audioRecord = null;
             recordingProcess = null;
         }
+
+        stopPreviewAndFreeCamera();
     }
 
     @Override
@@ -147,6 +150,11 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
             finish();
             startActivity(getIntent());
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        setupCamera();
     }
 
     @Override
@@ -191,7 +199,29 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
             /*
              * Call gRPC service to receive audio stream
              */
-            new GrpcAudioTask(this).execute(ByteString.copyFrom(data));
+            //new GrpcAudioTask(this).execute(ByteString.copyFrom(data));
+        }
+    }
+
+    private void setupCamera() {
+        stopPreviewAndFreeCamera();
+        currentCameraId = currentCameraId != Camera.CameraInfo.CAMERA_FACING_BACK ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT;
+        camera = Camera.open(currentCameraId);
+        //camera.setDisplayOrientation(90);
+        if (camera != null) {
+            CameraView cameraView = new CameraView(this, camera);
+            preview.removeAllViews();
+            preview.addView(cameraView);
+            camera.setPreviewCallback(this);
+        }
+    }
+
+    private void stopPreviewAndFreeCamera() {
+        if (camera != null) {
+            camera.setPreviewCallback(null);
+            camera.stopPreview();
+            camera.release();
+            camera = null;
         }
     }
 
