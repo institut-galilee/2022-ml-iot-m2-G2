@@ -1,10 +1,15 @@
+import io
 import re
 
+import numpy as np
 from PySide6.QtGui import Qt, QPixmap
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
 
 from callback.setup_callback import SinkSetupCallback
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
+
+from PIL import Image
+import cv2
 
 
 class InvigilatorView(QWidget):
@@ -179,24 +184,54 @@ class HeadView(QWidget):
         header_label.setAlignment(Qt.AlignCenter)
         header_label.setStyleSheet("margin-top: 25px; font-size: 18px; font-weight: bold")
 
-        self.image_view = QLabel()
-
-        pixmap = QPixmap('resources/wrist-pouch-setup.png')
+        pixmap = QPixmap('resources/head-config.png')
         pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
-        wrist_pouch_view = QLabel()
-        wrist_pouch_view.setAlignment(Qt.AlignCenter)
-        wrist_pouch_view.setPixmap(pixmap)
-        self.frame = None
-        self.setAlignment(Qt.AlignCenter)
+        head_view = QLabel()
+        head_view.setAlignment(Qt.AlignCenter)
+        head_view.setPixmap(pixmap)
+
+        pixmap = QPixmap('resources/front-phone-holder-setup.png')
+        pixmap = pixmap.scaled(480, 480, Qt.KeepAspectRatio)
+        front_holder_view = QLabel()
+        front_holder_view.setAlignment(Qt.AlignCenter)
+        front_holder_view.setPixmap(pixmap)
+
+        self.next_button = QPushButton("NEXT")
+        self.next_button.setEnabled(False)
+        self.next_button.setFixedWidth(200)
+        self.next_button.clicked.connect(self.next)
+
+        vertical_layout = QVBoxLayout(self)
+        vertical_layout.addWidget(header_label)
+        vertical_layout.addStretch()
+        horizontal_layout = QHBoxLayout()
+        horizontal_layout.addWidget(head_view)
+        horizontal_layout.addWidget(front_holder_view)
+        vertical_layout.addLayout(horizontal_layout)
+        vertical_layout.addStretch()
+        vertical_layout.addWidget(self.next_button, alignment=Qt.AlignRight)
 
     def update_frame(self, frame):
-        self.frame = frame
-        pixmap = QPixmap()
-        pixmap.loadFromData(frame)
-        self.update_image(pixmap)
+        # read image
 
-    def update_image(self, pixmap):
-        self.setPixmap(pixmap)
+        image = cv2.imread(Image.open(io.BytesIO(frame)))
+        # convert it to gray
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        # apply some dilation and erosion to remove some noise
+        kernel = np.ones((1, 1), np.uint8)
+        image = cv2.dilate(image, kernel, iterations=1)
+        image = cv2.erode(image, kernel, iterations=1)
+        # save image
+        cv2.imwrite(os.getcwd() + "/img2.png", img)
 
-    def find_current_frame(self):
-        return self.frame
+        # apply threshold to get image only with black&white color
+        img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+        # save image
+        cv2.imwrite(os.getcwd() + "/img3.png", img)
+
+        # read text from images
+        result = pytesseract.image_to_string(Image.open(os.getcwd() + "/img3.png"))
+        pass
+
+    def next(self):
+        self.head_device_callback.on_head_device_set()

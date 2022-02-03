@@ -11,7 +11,7 @@ from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
 from sink_server import Sink
 from recognizer_view import RecognizerView
-from setup_view import InvigilatorView, SensorsView, HandView
+from setup_view import InvigilatorView, SensorsView, HandView, HeadView
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 from view.acceleration_view import AccelerationView
 from view.audio_view import AudioView
@@ -34,6 +34,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.sensors_view = None
         self.recognizer_view = None
         self.hand_view = None
+        self.head_view = None
         self.invigilator_view = InvigilatorView(self)
         #self.video_view.setAlignment(QtCore.Qt.AlignLeft)
 
@@ -82,6 +83,9 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         for i in range(0, self.content_view.count()):
             self.content_view.widget(i).close()
 
+    def on_head_device_set(self):
+        pass
+
     def on_hand_device_set(self):
         pass
 
@@ -98,9 +102,9 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         #self.content_view.addWidget(self.recognizer_view)
         #self.content_view.setCurrentWidget(self.recognizer_view)
         #self.center_window()
-        self.hand_view = HandView(self)
-        self.content_view.addWidget(self.hand_view)
-        self.content_view.setCurrentWidget(self.hand_view)
+        self.head_view = HeadView(self)
+        self.content_view.addWidget(self.head_view)
+        self.content_view.setCurrentWidget(self.head_view)
         self.center_window()
 
     def on_sink_connection_interface_set(self):

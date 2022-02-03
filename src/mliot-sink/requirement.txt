@@ -7,3 +7,4 @@ pip3 install dlib
 pip3 install numpy
 pip3 install imutils
 pip3 install sounddevice
+pip3 install pytesseract

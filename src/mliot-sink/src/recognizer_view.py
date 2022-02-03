@@ -166,7 +166,7 @@ class Recognizer(threading.Thread):
                 return np.empty(0)
             # CHECK DISTANCE BETWEEN KNOWN FACES AND FACES DETECTED
             vectors = np.linalg.norm(self.known_encoded_faces - face_encoding, axis=1)
-            tolerance = 0.8
+            tolerance = 0.6
             result = []
             for vector in vectors:
                 if vector <= tolerance:
