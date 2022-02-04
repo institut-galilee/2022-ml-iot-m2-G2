@@ -1,245 +1,392 @@
 package mliot.sensors;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
-import android.graphics.Matrix;
-import android.graphics.Rect;
-import android.graphics.YuvImage;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.media.AudioFormat;
-import android.media.AudioRecord;
-import android.media.MediaRecorder;
-import android.net.Uri;
-import android.os.Build;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCaptureSession;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraDevice;
+import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CameraMetadata;
+import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.TotalCaptureResult;
+import android.hardware.camera2.params.StreamConfigurationMap;
+import android.media.Image;
+import android.media.ImageReader;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.view.Display;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.util.Log;
+import android.util.Size;
+import android.util.SparseIntArray;
 import android.view.Surface;
+import android.view.TextureView;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
 
 import com.google.protobuf.ByteString;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import mliot.sensors.grpc.GrpcVideoTask;
-import mliot.sensors.view.AudioView;
-import mliot.sensors.view.CameraView;
+public class HeadActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener, View.OnClickListener, ImageReader.OnImageAvailableListener {
 
-public class HeadActivity extends AppCompatActivity implements Runnable, Camera.PreviewCallback, View.OnClickListener {
+    private static final String TAG = "AndroidCameraApi";
+    private TextureView textureView;
+    private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
-    /**
-     * Hardware representative sensors
-     */
-    private Camera camera;
-    private AudioRecord audioRecord;
+    static {
+        ORIENTATIONS.append(Surface.ROTATION_0, 90);
+        ORIENTATIONS.append(Surface.ROTATION_90, 0);
+        ORIENTATIONS.append(Surface.ROTATION_180, 270);
+        ORIENTATIONS.append(Surface.ROTATION_270, 180);
+    }
 
-    /**
-     * Audio recorder settings
-     */
-    private static final int SAMPLE_RATE = 44100;
-    private static final int CHANNELS = AudioFormat.CHANNEL_IN_MONO;
-    private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_8BIT;
-    private static final int AUDIO_SOURCE = MediaRecorder.AudioSource.VOICE_COMMUNICATION;
-    private static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNELS, AUDIO_FORMAT);
+    private String cameraId;
+    protected CameraDevice cameraDevice;
+    protected CameraCaptureSession cameraCaptureSessions;
+    protected CaptureRequest.Builder captureRequestBuilder;
+    private Size imageDimension;
+    private ImageReader imageReader;
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
+    private Handler mBackgroundHandler;
+    private HandlerThread mBackgroundThread;
 
-    /**
-     * Processes
-     */
-    private Thread recordingProcess;
-    private boolean isRecording = false;
+    private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
+        @Override
+        public void onOpened(CameraDevice camera) {
+            //This is called when the camera is open
+            Log.e(TAG, "onOpened");
+            cameraDevice = camera;
+            createCameraPreview();
+        }
 
-    /**
-     * Required runtime permissions
-     */
-    private final int PERMISSION_REQUEST_CODE = 0x0;
-    private final static String[] REQUESTED_PERMISSION_ARRAY = new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
+        @Override
+        public void onDisconnected(CameraDevice camera) {
+            cameraDevice.close();
+        }
 
-    /**
-     * Audio & Acceleration visualizer custom view
-     */
-    private AudioView audioModulationView;
-
-    /**
-     *  Default camera
-     */
-    private FrameLayout preview;
-    private int  currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+        @Override
+        public void onError(CameraDevice camera, int error) {
+            cameraDevice.close();
+            cameraDevice = null;
+        }
+    };
 
     @Override
-    @TargetApi(Build.VERSION_CODES.M)
-    @SuppressLint("MissingPermission")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head);
+        textureView = (TextureView) findViewById(R.id.texture);
+        assert textureView != null;
+        textureView.setSurfaceTextureListener(this);
+        findViewById(R.id.switcher).setOnClickListener(this);
+    }
 
-        if (!willRequestRuntimePermission()) {
-            /*
-             * Check if any camera exists and initialize it
-             */
-            if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-                findViewById(R.id.switcher).setOnClickListener(this);
-                preview = findViewById(R.id.camera_preview);
-                setupCamera();
-            }
-            /*
-             * Check if if any microphone exists and initialize it
-             */
-            if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
-                audioRecord = new AudioRecord.Builder()
-                        .setAudioSource(AUDIO_SOURCE)
-                        .setAudioFormat(new AudioFormat.Builder()
-                                .setEncoding(AUDIO_FORMAT)
-                                .setSampleRate(SAMPLE_RATE)
-                                .setChannelMask(CHANNELS)
-                                .build())
-                        .setBufferSizeInBytes(BUFFER_SIZE)
-                        .build();
-                audioRecord.startRecording();
-                recordingProcess = new Thread(this);
-                recordingProcess.start();
-                isRecording = true;
-
-                /*
-                 * Retrieve the audio visualizer view reference from the XML layout
-                 */
-                audioModulationView = findViewById(R.id.audio_preview);
-            }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG, "onStart");
+        startBackgroundThread();
+        if (textureView.isAvailable()) {
+            openCamera();
         } else {
-            requestPermissions(REQUESTED_PERMISSION_ARRAY, PERMISSION_REQUEST_CODE);
+            textureView.setSurfaceTextureListener(this);
         }
     }
 
     @Override
     protected void onStop() {
+        Log.e(TAG, "onPause");
+        closeCamera();
+        this.stopBackgroundThread();
         super.onStop();
-        isRecording = false;
-        if (audioRecord != null) {
-            audioRecord.stop();
-            audioRecord.release();
-            audioRecord = null;
-            recordingProcess = null;
-        }
-
-        stopPreviewAndFreeCamera();
     }
 
     @Override
-    @TargetApi(Build.VERSION_CODES.M)
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            for (int i = 0; i < Math.min(permissions.length, grantResults.length); i++) {
-                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    openAppSettings();
-                    return;
-                }
-            }
-            finish();
-            startActivity(getIntent());
-        }
+    protected void onDestroy() {
+        this.closeCamera();
+        super.onDestroy();
     }
 
     @Override
     public void onClick(View view) {
-        setupCamera();
+
     }
 
     @Override
-    public void onPreviewFrame(byte[] data, Camera camera) {
+    public void onImageAvailable(ImageReader imageReader) {
+        Image image = imageReader.acquireLatestImage();
+        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+        byte[] bytes = new byte[buffer.capacity()];
+        buffer.get(bytes);
+        buffer.clear();
+        image.close();
+        Log.e("this", "onImageAvailable");
+    }
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        Camera.Parameters parameters = camera.getParameters();
-        Camera.Size size = parameters.getPreviewSize();
-        YuvImage yuvImage = new YuvImage(data, ImageFormat.NV21, size.width, size.height, null);
-        yuvImage.compressToJpeg(new Rect(0, 0, size.width, size.height), 50, outputStream);
-        byte[] rawImage = outputStream.toByteArray();
+    protected void startBackgroundThread() {
+        mBackgroundThread = new HandlerThread("Camera Background");
+        mBackgroundThread.start();
+        mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
+    }
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length);
-        ByteArrayOutputStream rotatedStream = new ByteArrayOutputStream();
-
-        Matrix matrix = new Matrix();
-
-        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        Display display = (windowManager).getDefaultDisplay();
-        if(display.getRotation() == Surface.ROTATION_0) {
-            matrix.postRotate(90);
+    protected void stopBackgroundThread() {
+        mBackgroundThread.quitSafely();
+        try {
+            mBackgroundThread.join();
+            mBackgroundThread = null;
+            mBackgroundHandler = null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+    }
 
-        if(display.getRotation() == Surface.ROTATION_270) {
-            matrix.postRotate(180);
+    protected void takePicture() {
+        if (null == cameraDevice) {
+            Log.e(TAG, "cameraDevice is null");
+            return;
         }
+        CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        try {
+            CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
+            Size[] jpegSizes = null;
+            if (characteristics != null) {
+                jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
+            }
+            int width = 640;
+            int height = 480;
+            if (jpegSizes != null && 0 < jpegSizes.length) {
+                width = jpegSizes[0].getWidth();
+                height = jpegSizes[0].getHeight();
+            }
+            ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
+            List<Surface> outputSurfaces = new ArrayList<>(2);
+            outputSurfaces.add(reader.getSurface());
+            outputSurfaces.add(new Surface(textureView.getSurfaceTexture()));
+            final CaptureRequest.Builder captureBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
+            captureBuilder.addTarget(reader.getSurface());
+            captureBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
+            // Orientation
+            int rotation = getWindowManager().getDefaultDisplay().getRotation();
+            captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
+            final File file = new File(Environment.getExternalStorageDirectory() + "/pic.jpg");
+            ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
+                @Override
+                public void onImageAvailable(ImageReader reader) {
+                    Image image = null;
+                    try {
+                        image = reader.acquireLatestImage();
+                        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+                        byte[] bytes = new byte[buffer.capacity()];
+                        buffer.get(bytes);
+                        save(bytes);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (image != null) {
+                            image.close();
+                        }
+                    }
+                }
 
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, Math.min(size.width, size.height), Math.min(size.width, size.height), matrix, false);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, rotatedStream);
-        /*
-         * Call gRPC service to receive camera stream
-         */
-        //new GrpcVideoTask(this).execute(ByteString.copyFrom(rotatedStream.toByteArray()));
+                private void save(byte[] bytes) throws IOException {
+                    OutputStream output = null;
+                    try {
+                        output = new FileOutputStream(file);
+                        output.write(bytes);
+                    } finally {
+                        if (null != output) {
+                            output.close();
+                        }
+                    }
+                }
+            };
+            reader.setOnImageAvailableListener(readerListener, mBackgroundHandler);
+            final CameraCaptureSession.CaptureCallback captureListener = new CameraCaptureSession.CaptureCallback() {
+                @Override
+                public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
+                    super.onCaptureCompleted(session, request, result);
+                    Toast.makeText(HeadActivity.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
+                    createCameraPreview();
+                }
+            };
+            cameraDevice.createCaptureSession(outputSurfaces, new CameraCaptureSession.StateCallback() {
+                @Override
+                public void onConfigured(CameraCaptureSession session) {
+                    try {
+                        session.capture(captureBuilder.build(), captureListener, mBackgroundHandler);
+                    } catch (CameraAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onConfigureFailed(CameraCaptureSession session) {
+                }
+            }, mBackgroundHandler);
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void createCameraPreview() {
+        try {
+
+            CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+            CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
+            Size[] jpegSizes = null;
+            if (characteristics != null) {
+                jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
+            }
+            int width = 640;
+            int height = 480;
+            if (jpegSizes != null && 0 < jpegSizes.length) {
+                width = jpegSizes[0].getWidth();
+                height = jpegSizes[0].getHeight();
+            }
+            ImageReader imageReader = ImageReader.newInstance(Math.min(width, height), Math.min(width, height), ImageFormat.JPEG, 1);
+            imageReader.setOnImageAvailableListener(this, mBackgroundHandler);
+
+            SurfaceTexture texture = textureView.getSurfaceTexture();
+            assert texture != null;
+            texture.setDefaultBufferSize(imageDimension.getWidth(), imageDimension.getHeight());
+            Surface surface = new Surface(texture);
+            captureRequestBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
+            //captureRequestBuilder.addTarget(surface);
+            captureRequestBuilder.addTarget(imageReader.getSurface());
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+            // Orientation
+            int rotation = getWindowManager().getDefaultDisplay().getRotation();
+            captureRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
+            final CameraCaptureSession.CaptureCallback captureListener = new CameraCaptureSession.CaptureCallback() {
+                @Override
+                public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
+                    super.onCaptureCompleted(session, request, result);
+                    Log.e("thiss", "onCaptureCompleted");
+                    //createCameraPreview();
+                }
+            };
+            cameraDevice.createCaptureSession(Arrays.asList(surface, imageReader.getSurface()), new CameraCaptureSession.StateCallback() {
+                @Override
+                public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
+                    Log.e("thiss", "onConfigured");
+                    //The camera is already closed
+                    if (null == cameraDevice) {
+                        return;
+                    }
+                    // When the session is ready, we start displaying the preview.
+                    HeadActivity.this.cameraCaptureSessions = cameraCaptureSession;
+                    HeadActivity.this.captureRequestBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
+                    try {
+                        HeadActivity.this.cameraCaptureSessions.setRepeatingRequest(HeadActivity.this.captureRequestBuilder.build(), captureListener, HeadActivity.this.mBackgroundHandler);
+                    } catch (CameraAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onConfigureFailed(@NonNull CameraCaptureSession cameraCaptureSession) {
+                    Toast.makeText(HeadActivity.this, "Configuration change", Toast.LENGTH_SHORT).show();
+                }
+            }, mBackgroundHandler);
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openCamera() {
+        CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        Log.e(TAG, "is camera open");
+        try {
+            cameraId = manager.getCameraIdList()[0];
+            CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
+            StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+            assert map != null;
+            imageDimension = map.getOutputSizes(SurfaceTexture.class)[0];
+            // Add permission for camera and let user grant the permission
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(HeadActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+                return;
+            }
+            manager.openCamera(cameraId, stateCallback, null);
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
+        Log.e(TAG, "openCamera X");
+    }
+
+    protected void updatePreview() {
+        if (null == cameraDevice) {
+            Log.e(TAG, "updatePreview error, return");
+        }
+        captureRequestBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
+        try {
+            cameraCaptureSessions.setRepeatingRequest(captureRequestBuilder.build(), null, mBackgroundHandler);
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeCamera() {
+        if (null != cameraDevice) {
+            cameraDevice.close();
+            cameraDevice = null;
+        }
+        if (null != imageReader) {
+            imageReader.close();
+            imageReader = null;
+        }
     }
 
     @Override
-    public void run() {
-        while (isRecording) {
-            byte []data = new byte[BUFFER_SIZE];
-            audioRecord.read(data, 0, BUFFER_SIZE);
-            runOnUiThread(() -> audioModulationView.updateWaveform(data));
-            /*
-             * Call gRPC service to receive audio stream
-             */
-            //new GrpcAudioTask(this).execute(ByteString.copyFrom(data));
-        }
-    }
-
-    private void setupCamera() {
-        stopPreviewAndFreeCamera();
-        currentCameraId = currentCameraId != Camera.CameraInfo.CAMERA_FACING_BACK ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT;
-        camera = Camera.open(currentCameraId);
-        //camera.setDisplayOrientation(90);
-        if (camera != null) {
-            CameraView cameraView = new CameraView(this, camera);
-            preview.removeAllViews();
-            preview.addView(cameraView);
-            camera.setPreviewCallback(this);
-        }
-    }
-
-    private void stopPreviewAndFreeCamera() {
-        if (camera != null) {
-            camera.setPreviewCallback(null);
-            camera.stopPreview();
-            camera.release();
-            camera = null;
-        }
-    }
-
-    private boolean willRequestRuntimePermission() {
-        for (String permission : REQUESTED_PERMISSION_ARRAY) {
-            if (!(ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED)) {
-                return true;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                // close the app
+                Toast.makeText(HeadActivity.this, "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show();
+                finish();
             }
         }
+    }
+
+    @Override
+    public void onSurfaceTextureAvailable(@NonNull SurfaceTexture surfaceTexture, int i, int i1) {
+        openCamera();
+    }
+
+    @Override
+    public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture surfaceTexture, int i, int i1) {
+
+    }
+
+    @Override
+    public boolean onSurfaceTextureDestroyed(@NonNull SurfaceTexture surfaceTexture) {
         return false;
     }
 
-    private void openAppSettings() {
-        Intent appSettingsIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
-        appSettingsIntent.addCategory(Intent.CATEGORY_DEFAULT);
-        appSettingsIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        appSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        appSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        startActivity(appSettingsIntent);
+    @Override
+    public void onSurfaceTextureUpdated(@NonNull SurfaceTexture surfaceTexture) {
+
     }
 }
