@@ -118,9 +118,10 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         return Response(is_received=True)
 
     def onVideoFrameAvailable(self, request, context):
-        image = QPixmap()
-        image.loadFromData(request.video_frame)
-        self.video_view.setPixmap(image.scaled(480, 480))
+        #image = QPixmap()
+       #image.loadFromData(request.video_frame)
+        #self.video_view.setPixmap(image.scaled(480, 480))
+        self.head_view.new_frame(request.video_frame)
         return Response(is_received=True)
 
     def onAccelerationChanged(self, request, context):

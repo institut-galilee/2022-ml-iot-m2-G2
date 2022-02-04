@@ -187,7 +187,7 @@ public class HeadActivity extends AppCompatActivity implements Runnable, Camera.
         /*
          * Call gRPC service to receive camera stream
          */
-        new GrpcVideoTask(this).execute(ByteString.copyFrom(rotatedStream.toByteArray()));
+        //new GrpcVideoTask(this).execute(ByteString.copyFrom(rotatedStream.toByteArray()));
     }
 
     @Override

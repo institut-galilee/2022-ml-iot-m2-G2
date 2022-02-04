@@ -4,6 +4,7 @@ import re
 import numpy as np
 from PySide6.QtGui import Qt, QPixmap
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
+from pytesseract import pytesseract
 
 from callback.setup_callback import SinkSetupCallback
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
@@ -211,10 +212,8 @@ class HeadView(QWidget):
         vertical_layout.addStretch()
         vertical_layout.addWidget(self.next_button, alignment=Qt.AlignRight)
 
-    def update_frame(self, frame):
-        # read image
-
-        image = cv2.imread(Image.open(io.BytesIO(frame)))
+    def new_frame(self, frame):
+        image = np.array(Image.open(io.BytesIO(frame)))
         # convert it to gray
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # apply some dilation and erosion to remove some noise
@@ -222,16 +221,16 @@ class HeadView(QWidget):
         image = cv2.dilate(image, kernel, iterations=1)
         image = cv2.erode(image, kernel, iterations=1)
         # save image
-        cv2.imwrite(os.getcwd() + "/img2.png", img)
+        #cv2.imwrite(os.getcwd() + "/img2.png", img)
 
         # apply threshold to get image only with black&white color
-        img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+        image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
         # save image
-        cv2.imwrite(os.getcwd() + "/img3.png", img)
+        #cv2.imwrite(os.getcwd() + "/img3.png", img)
 
         # read text from images
-        result = pytesseract.image_to_string(Image.open(os.getcwd() + "/img3.png"))
-        pass
+        result = pytesseract.image_to_string(image)
+        print(result)
 
     def next(self):
         self.head_device_callback.on_head_device_set()

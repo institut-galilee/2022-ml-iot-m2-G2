@@ -50,7 +50,16 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
         }
 
         Camera.Parameters parameters = this.camera.getParameters();
+        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
         Display display = ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+        int zoom = 6;
+        int maxZoom = parameters.getMaxZoom();
+        if (parameters.isZoomSupported()) {
+            if (zoom < maxZoom) {
+                parameters.setZoom(zoom);
+            }
+        }
 
         if(display.getRotation() == Surface.ROTATION_0) {
             parameters.setPreviewSize(height, width);
