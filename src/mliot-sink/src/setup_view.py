@@ -230,9 +230,9 @@ class HeadView(QWidget):
     def apply_ocr(self):
         if not self.is_processing and self.frame is not None:
             self.is_processing = True
-            extracted_text = MLHelper.apply_ocr(self.frame)
+            recognized_objects, frame = MLHelper.recognize_object(self.frame)
             self.is_processing = False
-            print(extracted_text)
+            print(recognized_objects)
 
     def next(self):
         self.dialog.showFullScreen()
