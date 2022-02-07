@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 
@@ -15,6 +16,8 @@ from setup_view import InvigilatorView, SensorsView, HandView, HeadView
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 from view.acceleration_view import AccelerationView
 from view.audio_view import AudioView
+
+import pyautogui
 
 
 class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
@@ -41,10 +44,6 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         # Setup Acceleration View
         self.acceleration_view = AccelerationView()
 
-        self.content_view = QStackedWidget()
-        self.setCentralWidget(self.content_view)
-        self.content_view.addWidget(self.invigilator_view)
-
         h1_layout = QHBoxLayout()
         h1_layout.addWidget(ip_address)
         h1_layout.addWidget(ip_port)
@@ -66,6 +65,10 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         widget = QWidget()
         widget.setLayout(v2_layout)
         #self.setCentralWidget(widget)
+
+        self.content_view = QStackedWidget()
+        self.setCentralWidget(self.content_view)
+        self.content_view.addWidget(self.invigilator_view)
 
         # Setup gRPC Sink
         self.sink = Sink(self)
@@ -119,7 +122,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
 
     def onVideoFrameAvailable(self, request, context):
         #image = QPixmap()
-       #image.loadFromData(request.video_frame)
+        #image.loadFromData(request.video_frame)
         #self.video_view.setPixmap(image.scaled(480, 480))
         self.head_view.new_frame(request.video_frame)
         return Response(is_received=True)
@@ -155,6 +158,8 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
 
 
 if __name__ == "__main__":
+    #myScreenshot = pyautogui.screenshot()
+    #myScreenshot.save(f"{os.getcwd()}/screenshot_1.png")
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("resources/logo.png"))
     window = MainWindow()

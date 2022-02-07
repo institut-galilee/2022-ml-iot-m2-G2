@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
 
@@ -46,41 +47,25 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
         try {
             this.camera.stopPreview();
         } catch (Exception e){
-            Log.e(getClass().getCanonicalName(), "Tried to stop a non-existent preview");
+            Log.e(getClass().getCanonicalName(), "Tried to stop a non-existent preview", e);
         }
 
         Camera.Parameters parameters = this.camera.getParameters();
-        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        parameters.setPreviewFrameRate(5);
+        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         Display display = ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
-        int zoom = 6;
-        int maxZoom = parameters.getMaxZoom();
-        if (parameters.isZoomSupported()) {
-            if (zoom < maxZoom) {
-                parameters.setZoom(zoom);
-            }
-        }
-
         if(display.getRotation() == Surface.ROTATION_0) {
-            parameters.setPreviewSize(height, width);
             this.camera.setDisplayOrientation(90);
         }
 
-        if(display.getRotation() == Surface.ROTATION_90) {
-            parameters.setPreviewSize(width, height);
-        }
-
-        if(display.getRotation() == Surface.ROTATION_180) {
-            parameters.setPreviewSize(height, width);
-        }
-
         if(display.getRotation() == Surface.ROTATION_270) {
-            parameters.setPreviewSize(width, height);
             this.camera.setDisplayOrientation(180);
         }
 
         try {
             this.camera.setPreviewDisplay(this.holder);
+            this.camera.setParameters(parameters);
             this.camera.startPreview();
         } catch (Exception e){
             Log.d(getClass().getCanonicalName(), "Error while starting camera preview", e);

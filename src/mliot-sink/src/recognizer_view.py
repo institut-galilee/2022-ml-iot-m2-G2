@@ -104,9 +104,9 @@ class Recognizer(threading.Thread):
         self.recognition_callback = recognition_callback
         logger.info("Importing pretrained model…")
         self.face_detector = dlib.get_frontal_face_detector()
-        self.pose_predictor_5_point = dlib.shape_predictor("pretrained_model/shape_predictor_5_face_landmarks.dat")
-        self.pose_predictor_68_point = dlib.shape_predictor("pretrained_model/shape_predictor_68_face_landmarks.dat")
-        self.face_encoder = dlib.face_recognition_model_v1("pretrained_model/dlib_face_recognition_resnet_model_v1.dat")
+        self.pose_predictor_5_point = dlib.shape_predictor("opencv_pretrained_model/shape_predictor_5_face_landmarks.dat")
+        self.pose_predictor_68_point = dlib.shape_predictor("opencv_pretrained_model/shape_predictor_68_face_landmarks.dat")
+        self.face_encoder = dlib.face_recognition_model_v1("opencv_pretrained_model/dlib_face_recognition_resnet_model_v1.dat")
 
         self.known_students = []
         self.known_encoded_faces = []

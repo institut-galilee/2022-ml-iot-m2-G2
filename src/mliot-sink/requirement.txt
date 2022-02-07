@@ -8,3 +8,6 @@ pip3 install numpy
 pip3 install imutils
 pip3 install sounddevice
 pip3 install pytesseract
+pip3 install pyautogui
+pip3 install SpeechRecognition
+pip3 install pyttsx3

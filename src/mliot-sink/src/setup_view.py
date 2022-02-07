@@ -1,16 +1,12 @@
-import io
 import re
 
-import numpy as np
+from PySide6.QtCore import QTimer
 from PySide6.QtGui import Qt, QPixmap
-from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
-from pytesseract import pytesseract
+from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QDialog
 
 from callback.setup_callback import SinkSetupCallback
+from ml_helper import MLHelper
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
-
-from PIL import Image
-import cv2
 
 
 class InvigilatorView(QWidget):
@@ -198,7 +194,7 @@ class HeadView(QWidget):
         front_holder_view.setPixmap(pixmap)
 
         self.next_button = QPushButton("NEXT")
-        self.next_button.setEnabled(False)
+        #self.next_button.setEnabled(False)
         self.next_button.setFixedWidth(200)
         self.next_button.clicked.connect(self.next)
 
@@ -212,25 +208,32 @@ class HeadView(QWidget):
         vertical_layout.addStretch()
         vertical_layout.addWidget(self.next_button, alignment=Qt.AlignRight)
 
+        self.test_text = "Bonjour"
+        dialog_label = QLabel(self.test_text)
+        dialog_label.setStyleSheet("font-size: 72px; font-weight: bold; color: black")
+        dialog_layout = QHBoxLayout()
+        dialog_layout.addWidget(dialog_label, alignment=Qt.AlignCenter)
+        self.dialog = QDialog()
+        self.dialog.setStyleSheet("background-color: white")
+        self.dialog.setAttribute(Qt.WA_DeleteOnClose)
+        self.dialog.setLayout(dialog_layout)
+
+        self.calibration_timer = QTimer()
+        self.calibration_timer.timeout.connect(self.apply_ocr)
+        self.calibration_timer.start(5000)
+        self.frame = None
+        self.is_processing = False
+
     def new_frame(self, frame):
-        image = np.array(Image.open(io.BytesIO(frame)))
-        # convert it to gray
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        # apply some dilation and erosion to remove some noise
-        kernel = np.ones((1, 1), np.uint8)
-        image = cv2.dilate(image, kernel, iterations=1)
-        image = cv2.erode(image, kernel, iterations=1)
-        # save image
-        #cv2.imwrite(os.getcwd() + "/img2.png", img)
+        self.frame = frame
 
-        # apply threshold to get image only with black&white color
-        image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
-        # save image
-        #cv2.imwrite(os.getcwd() + "/img3.png", img)
-
-        # read text from images
-        result = pytesseract.image_to_string(image)
-        print(result)
+    def apply_ocr(self):
+        if not self.is_processing and self.frame is not None:
+            self.is_processing = True
+            extracted_text = MLHelper.apply_ocr(self.frame)
+            self.is_processing = False
+            print(extracted_text)
 
     def next(self):
-        self.head_device_callback.on_head_device_set()
+        self.dialog.showFullScreen()
+        #self.head_device_callback.on_head_device_set()
