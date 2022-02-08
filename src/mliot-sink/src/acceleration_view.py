@@ -1,4 +1,5 @@
-from PySide6 import QtCore, QtGui
+from PySide6.QtCore import QLine, QPointF
+from PySide6.QtGui import QFont, QPen, QColor, Qt, QPainter
 from PySide6.QtWidgets import QWidget
 
 
@@ -14,13 +15,13 @@ class AccelerationView(QWidget):
         self.MAX_ITEM = 500
         self.max_range = None
 
-        self.qf = QtGui.QFont()
+        self.qf = QFont()
         self.qf.setPointSize(5)
 
-        self.x_pen = QtGui.QPen(QtGui.QColor(135, 100, 69, 255), 1, QtCore.Qt.SolidLine)
-        self.y_pen = QtGui.QPen(QtGui.QColor(23, 0, 85, 255), 1, QtCore.Qt.SolidLine)
-        self.z_pen = QtGui.QPen(QtGui.QColor(121, 0, 255, 255), 1, QtCore.Qt.SolidLine)
-        self.g_pen = QtGui.QPen(QtGui.QColor(136, 111, 111, 100), 1, QtCore.Qt.SolidLine)
+        self.x_pen = QPen(QColor(135, 100, 69, 255), 1, Qt.SolidLine)
+        self.y_pen = QPen(QColor(23, 0, 85, 255), 1, Qt.SolidLine)
+        self.z_pen = QPen(QColor(121, 0, 255, 255), 1, Qt.SolidLine)
+        self.g_pen = QPen(QColor(136, 111, 111, 100), 1, Qt.SolidLine)
 
         self.vertical_lines = []
         self.horizontal_lines = []
@@ -65,7 +66,7 @@ class AccelerationView(QWidget):
 
             for i in range(0, len(self.list_acceleration) - 1):
                 self.x_points.append(
-                    QtCore.QLine(
+                    QLine(
                         int(((self.w - self.HORIZONTAL_SPACING) * i) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
                         int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i].x * self.h) / (self.max_range * 2.0))),
                         int(((self.w - self.HORIZONTAL_SPACING) * (i + 1)) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
@@ -73,7 +74,7 @@ class AccelerationView(QWidget):
                     )
                 )
                 self.y_points.append(
-                    QtCore.QLine(
+                    QLine(
                         int(((self.w - self.HORIZONTAL_SPACING) * i) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
                         int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i].y * self.h) / (self.max_range * 2.0))),
                         int(((self.w - self.HORIZONTAL_SPACING) * (i + 1)) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
@@ -81,14 +82,14 @@ class AccelerationView(QWidget):
                     )
                 )
                 self.z_points.append(
-                    QtCore.QLine(
+                    QLine(
                         int(((self.w - self.HORIZONTAL_SPACING) * i) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
                         int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i].z * self.h) / (self.max_range * 2.0))),
                         int(((self.w - self.HORIZONTAL_SPACING) * (i + 1)) / (len(self.list_acceleration) - 1.0)) + self.HORIZONTAL_SPACING,
                         int(((self.h + self.VERTICAL_SPACING * 2.0) / 2.0) - ((self.list_acceleration[i + 1].z * self.h) / (self.max_range * 2.0)))
                     )
                 )
-            qp = QtGui.QPainter()
+            qp = QPainter()
             qp.begin(self)
 
             if min(len(self.x_points), len(self.y_points), len(self.z_points)) > 0:
@@ -103,7 +104,7 @@ class AccelerationView(QWidget):
             qp.end()
 
     def draw_grid(self, event):
-        qp = QtGui.QPainter()
+        qp = QPainter()
         qp.begin(self)
         qp.setFont(self.qf)
         qp.setPen(self.g_pen)
@@ -111,9 +112,9 @@ class AccelerationView(QWidget):
         interval = (self.max_range * self.VERTICAL_SPACING * 2) / self.h
         current_value = self.max_range
         for i in range(0, self.h, self.VERTICAL_SPACING):
-            qp.drawText(QtCore.QPointF(self.HORIZONTAL_SPACING / 4, self.VERTICAL_SPACING + i), "{:.1f}".format(current_value))
+            qp.drawText(QPointF(self.HORIZONTAL_SPACING / 4, self.VERTICAL_SPACING + i), "{:.1f}".format(current_value))
             self.vertical_lines.append(
-                QtCore.QLine(
+                QLine(
                     self.HORIZONTAL_SPACING,
                     self.VERTICAL_SPACING + i,
                     self.w,
@@ -124,7 +125,7 @@ class AccelerationView(QWidget):
 
         for i in range(0, self.w, self.HORIZONTAL_SPACING):
             self.vertical_lines.append(
-                QtCore.QLine(
+                QLine(
                     self.HORIZONTAL_SPACING + i,
                     self.VERTICAL_SPACING,
                     self.HORIZONTAL_SPACING + i,

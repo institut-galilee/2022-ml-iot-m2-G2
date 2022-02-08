@@ -9,17 +9,17 @@ import numpy as np
 from PySide6.QtCore import Qt, QPoint
 from PySide6.QtGui import QImage, QPixmap, QPen, QPainter, QColor
 
-from callback.face_recognition_callback import FaceRecognitionCallback
+from callback.recognition_callback import RecognitionCallback
 from ml_helper import MLHelper
 from monitor_client import MonitorHelper
 
 
-class Recognizer(threading.Thread):
+class FaceRecognizer(threading.Thread):
 
-    def __init__(self, recognition_callback: FaceRecognitionCallback):
+    def __init__(self, face_recognition_callback: RecognitionCallback):
         threading.Thread.__init__(self)
 
-        self.recognition_callback = recognition_callback
+        self.face_recognition_callback = face_recognition_callback
         logger.info("Importing pretrained model…")
         self.face_detector = dlib.get_frontal_face_detector()
         self.pose_predictor_5_point = dlib.shape_predictor("opencv_pretrained_model/shape_predictor_5_face_landmarks.dat")
@@ -35,10 +35,10 @@ class Recognizer(threading.Thread):
             logger.info("Students' faces well imported")
             logger.info("Searching for students' faces…")
             self.frame = None
-            self.is_not_recognized = True
+            self.is_not_stopped = True
 
     def run(self):
-        while self.is_not_recognized:
+        while self.is_not_stopped:
             if len(self.known_persons) > 0 and self.frame is not None:
                 self.recognize_face()
             time.sleep(1)
@@ -54,9 +54,8 @@ class Recognizer(threading.Thread):
     def recognize_face(self):
         known_person, top, right, bottom, left = MLHelper.recognize_face(self.frame, self.known_persons, self.known_encoded_faces, self.face_detector, self.pose_predictor_68_point, self.face_encoder)
         if known_person is not None:
-            self.is_not_recognized = False
-            known_person_name = f"{known_person.first_name} {known_person.last_name}"
-            logger.info(f"{known_person_name} is recognized.")
+            #known_person_name = f"{known_person.first_name} {known_person.last_name}"
+            #logger.info(f"{known_person_name} is recognized.")
             image = QImage(self.frame, self.frame.shape[1], self.frame.shape[0], QImage.Format_RGB888)
             pixmap = QPixmap.fromImage(image)
             painter = QPainter(pixmap)
@@ -67,4 +66,25 @@ class Recognizer(threading.Thread):
             painter.drawText(15, pixmap.height() - 30, f"Prénom: {known_person.first_name}")
             painter.drawText(15, pixmap.height() - 10, f"N° étudiant: {known_person.card_number}")
             painter.end()
-            self.recognition_callback.on_face_recognized(pixmap, known_person)
+            self.face_recognition_callback.on_face_recognized(pixmap, known_person)
+
+
+class ObjectRecognizer(threading.Thread):
+
+    def __init__(self, object_recognition_callback: RecognitionCallback):
+        threading.Thread.__init__(self)
+
+        self.object_recognition_callback = object_recognition_callback
+
+        self.frame = None
+        self.is_not_stopped = True
+
+    def run(self):
+        while self.is_not_stopped:
+            if self.frame is not None:
+                self.recognize_objects()
+            time.sleep(1)
+
+    def recognize_objects(self):
+        recognized_objects = MLHelper.recognize_object(self.frame)[0]
+        self.object_recognition_callback.on_objects_recognized(recognized_objects)

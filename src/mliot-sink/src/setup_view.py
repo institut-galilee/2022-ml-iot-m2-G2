@@ -9,12 +9,11 @@ from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QLineEdit, QVBoxLayout, QHBoxLayout
 from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QGridLayout
 
-from callback.face_recognition_callback import FaceRecognitionCallback
+from callback.recognition_callback import RecognitionCallback
 from callback.setup_callback import SinkSetupCallback
 from ml_helper import MLHelper
-from process import Recognizer
+from process import FaceRecognizer
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
-from view.video_view import VideoView
 
 
 class InvigilatorView(QWidget):
@@ -79,7 +78,7 @@ class InvigilatorView(QWidget):
             self.monitor_connection_interface_callback.on_monitor_connection_interface_set(self.address_field.text().strip(), self.port_number_field.text().strip())
 
 
-class AuthenticationView(QWidget, FaceRecognitionCallback):
+class AuthenticationView(QWidget, RecognitionCallback):
     def __init__(self, recognition_callback: SinkSetupCallback):
         super().__init__()
 
@@ -100,7 +99,7 @@ class AuthenticationView(QWidget, FaceRecognitionCallback):
         self.next_button.setFixedWidth(200)
         self.next_button.clicked.connect(self.next)
 
-        self.video_view = VideoView()
+        self.video_view = QLabel()
         grid_layout = QGridLayout(self)
         grid_layout.addWidget(header_label, 0, 0, 1, 2)
         grid_layout.setRowStretch(1, 10)
@@ -121,8 +120,8 @@ class AuthenticationView(QWidget, FaceRecognitionCallback):
         logger.info("Web camera well opened")
 
         logger.info("Starting of face detection…")
-        self.recognizer = Recognizer(self)
-        self.recognizer.start()
+        self.face_recognizer = FaceRecognizer(self)
+        self.face_recognizer.start()
 
         self.known_student = None
 
@@ -139,19 +138,20 @@ class AuthenticationView(QWidget, FaceRecognitionCallback):
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image = QImage(frame, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
             pixmap = QPixmap.fromImage(image)
-            self.video_view.update_image(pixmap.scaled(560, 560))
-            self.recognizer.frame = frame
+            self.video_view.setPixmap(pixmap.scaled(560, 560))
+            self.face_recognizer.frame = frame
         else:
             self.capture_timer.stop()
 
     def on_face_recognized(self, recognized_image, known_student):
+        self.face_recognizer.is_not_stopped = False
         self.next_button.setEnabled(True)
         self.known_student = known_student
         time.sleep(2)
         self.video_view.update_image(recognized_image.scaled(560, 560))
 
     def closeEvent(self, event: QCloseEvent):
-        self.recognizer.is_not_recognized = False
+        self.face_recognizer.is_not_stopped = False
         self.stop_recognition()
 
     def stop_recognition(self):

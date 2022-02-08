@@ -11,5 +11,4 @@ pip3 install pytesseract
 pip3 install pyautogui
 pip3 install SpeechRecognition
 pip3 install pyttsx3
-pip3 install keras numpy pillow scipy h5py matplotlib opencv-python keras-resnet
-pip3 install imageai (pip3 install tensorflow==2.4.0)
+pip3 install pyaudio
