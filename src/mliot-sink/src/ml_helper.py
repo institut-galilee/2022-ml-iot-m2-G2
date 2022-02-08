@@ -4,6 +4,7 @@ import cv2
 import imutils
 import numpy as np
 from PIL import Image
+from imutils import face_utils
 from pytesseract import pytesseract as ocr
 
 """
@@ -13,11 +14,12 @@ from pytesseract import pytesseract as ocr
 
 class MLHelper:
     """
-        This method take image as raw frame from camera and tries to extract any text from it.
-        It returns the extracted text
+        This method take image as bytes from camera and tries to extract any text from it.
+        It returns the extracted text.
     """
     @staticmethod
-    def apply_ocr(frame):
+    def extract_text(frame):
+
         # convert frame to numpy array
         bytes_image = io.BytesIO(frame)
         image = np.array(Image.open(bytes_image))
@@ -35,6 +37,10 @@ class MLHelper:
         extracted_text = ocr.image_to_string(image, lang="fra", config='--tessdata-dir tesseract_pretrained_model')
         return extracted_text.strip()
 
+    """
+        This method take image as bytes from camera and tries to recognize any object in it.
+        It returns the list of the recognized objects' name and the new frame on which identified objects are shown.
+    """
     @staticmethod
     def recognize_object(frame):
 
@@ -90,3 +96,49 @@ class MLHelper:
                 cv2.putText(image, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colors_list[idx], 2)
 
         return recognized_objects, image
+
+    """
+        This method take image as bytes from camera and tries to recognize or identify the person on it based on already known faces.
+        It returns the list of the recognized objects' name and the new frame on which identified objects are shown.
+    """
+    @staticmethod
+    def encode_face(image, face_detector, pose_predictor_68_point, face_encoder):
+        face_locations = face_detector(image, 1)
+        face_encodings_list = []
+        for face_location in face_locations:
+            # DETECT FACES
+            shape = pose_predictor_68_point(image, face_location)
+            face_encodings_list.append(np.array(face_encoder.compute_face_descriptor(image, shape, num_jitters=1)))
+            # GET LANDMARKS
+            shape = face_utils.shape_to_np(shape)
+        coord_faces = []
+        for face in face_locations:
+            rect = face.top(), face.right(), face.bottom(), face.left()
+            coord_face = max(rect[0], 0), min(rect[1], image.shape[1]), min(rect[2], image.shape[0]), max(rect[3], 0)
+            coord_faces.append(coord_face)
+        face_locations = coord_faces
+        return face_encodings_list, face_locations
+
+    @staticmethod
+    def recognize_face(frame, known_persons, known_encoded_faces, face_detector, pose_predictor_68_point, face_encoder):
+        rgb_small_frame = frame[:, :, ::-1]
+        # ENCODING FACE
+        face_encodings_list, face_locations_list = MLHelper.encode_face(rgb_small_frame, face_detector, pose_predictor_68_point, face_encoder)
+        for face_encoding in face_encodings_list:
+            if len(face_encoding) == 0:
+                return np.empty(0)
+            # CHECK DISTANCE BETWEEN KNOWN FACES AND FACES DETECTED
+            vectors = np.linalg.norm(known_encoded_faces - face_encoding, axis=1)
+            tolerance = 0.6
+            result = []
+            for vector in vectors:
+                if vector <= tolerance:
+                    result.append(True)
+                else:
+                    result.append(False)
+            if True in result:
+                first_match_index = result.index(True)
+                top, right, bottom, left = list(face_locations_list[0])
+                return known_persons[first_match_index], top, right, bottom, left
+
+        return None, None, None, None, None

@@ -16,7 +16,7 @@ class VideoView(QLabel):
         self.update_image(pixmap)
 
     def update_image(self, pixmap):
-        self.setPixmap(pixmap)
+        self.setPixmap(pixmap.scaledToWidth(self.width()))
 
     def find_current_frame(self):
         return self.frame

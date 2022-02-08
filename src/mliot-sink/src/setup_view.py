@@ -1,17 +1,28 @@
+import logging as logger
 import re
+import time
 
-from PySide6.QtCore import QTimer
-from PySide6.QtGui import Qt, QPixmap
-from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QDialog
+import cv2
+from PySide6.QtCore import QTimer, Qt
+from PySide6.QtGui import QImage, QPixmap, QCloseEvent
+from PySide6.QtGui import Qt
+from PySide6.QtWidgets import QLineEdit, QVBoxLayout, QHBoxLayout
+from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QGridLayout
 
+from callback.face_recognition_callback import FaceRecognitionCallback
 from callback.setup_callback import SinkSetupCallback
 from ml_helper import MLHelper
+from process import Recognizer
 from util.network_util import NetworkHelper, SINK_LISTENING_PORT
+from view.video_view import VideoView
 
 
 class InvigilatorView(QWidget):
     def __init__(self, monitor_connection_interface_callback: SinkSetupCallback):
         super().__init__()
+
+        self.setFixedWidth(720)
+        self.setFixedHeight(720)
 
         self.monitor_connection_interface_callback = monitor_connection_interface_callback
 
@@ -68,9 +79,93 @@ class InvigilatorView(QWidget):
             self.monitor_connection_interface_callback.on_monitor_connection_interface_set(self.address_field.text().strip(), self.port_number_field.text().strip())
 
 
+class AuthenticationView(QWidget, FaceRecognitionCallback):
+    def __init__(self, recognition_callback: SinkSetupCallback):
+        super().__init__()
+
+        self.setFixedWidth(720)
+        self.setFixedHeight(720)
+
+        self.recognition_callback = recognition_callback
+        # Enable logging with info mode
+        logger.basicConfig(level=logger.INFO)
+        logger.info("Starting face recognition system…")
+
+        header_label = QLabel("FACIAL IDENTIFICATION")
+        header_label.setAlignment(Qt.AlignCenter)
+        header_label.setStyleSheet("font-size: 18px; font-weight: bold")
+
+        self.next_button = QPushButton("NEXT")
+        self.next_button.setEnabled(False)
+        self.next_button.setFixedWidth(200)
+        self.next_button.clicked.connect(self.next)
+
+        self.video_view = VideoView()
+        grid_layout = QGridLayout(self)
+        grid_layout.addWidget(header_label, 0, 0, 1, 2)
+        grid_layout.setRowStretch(1, 10)
+        grid_layout.addWidget(self.video_view, 1, 0, 1, 2)
+        grid_layout.setRowStretch(1, 100)
+        grid_layout.addWidget(self.next_button, 2, 1)
+
+        # Create a capture timer to refresh images
+        self.capture_timer = QTimer()
+        self.capture_timer.timeout.connect(self.on_preview_frame)
+
+        logger.info("Opening of web camera…")
+        self.video_capture = cv2.VideoCapture(0)
+        self.dim = int(min(self.video_capture.get(3), self.video_capture.get(4)))
+        self.x = int((self.video_capture.get(4) - self.dim) / 2)
+        self.y = int((self.video_capture.get(3) - self.dim) / 2)
+        self.capture_timer.start(1)
+        logger.info("Web camera well opened")
+
+        logger.info("Starting of face detection…")
+        self.recognizer = Recognizer(self)
+        self.recognizer.start()
+
+        self.known_student = None
+
+    def next(self):
+        self.stop_recognition()
+        self.recognition_callback.on_student_recognized(self.known_student)
+
+    def on_preview_frame(self):
+        if self.known_student is None:
+            ret, frame = self.video_capture.read()
+            frame = frame[self.x:self.x + self.dim, self.y:self.y + self.dim]
+            frame = cv2.resize(frame, (560, 560))
+            frame = cv2.flip(frame, 1)
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            image = QImage(frame, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
+            pixmap = QPixmap.fromImage(image)
+            self.video_view.update_image(pixmap.scaled(560, 560))
+            self.recognizer.frame = frame
+        else:
+            self.capture_timer.stop()
+
+    def on_face_recognized(self, recognized_image, known_student):
+        self.next_button.setEnabled(True)
+        self.known_student = known_student
+        time.sleep(2)
+        self.video_view.update_image(recognized_image.scaled(560, 560))
+
+    def closeEvent(self, event: QCloseEvent):
+        self.recognizer.is_not_recognized = False
+        self.stop_recognition()
+
+    def stop_recognition(self):
+        self.capture_timer.stop()
+        logger.info("Shutting down the face recognition system…")
+        self.video_capture.release()
+
+
 class SensorsView(QWidget):
     def __init__(self, connection_interface_callback: SinkSetupCallback):
         super().__init__()
+
+        self.setFixedWidth(720)
+        self.setFixedHeight(720)
 
         self.connection_interface_callback = connection_interface_callback
 
@@ -127,6 +222,9 @@ class HandView(QWidget):
     def __init__(self, hand_device_callback: SinkSetupCallback):
         super().__init__()
 
+        self.setFixedWidth(720)
+        self.setFixedHeight(720)
+
         self.hand_device_callback = hand_device_callback
 
         header_label = QLabel("WEAR AND SETUP YOUR HAND DEVICE UNTIL THE NEXT BUTTON IS ACTIVE")
@@ -175,6 +273,9 @@ class HeadView(QWidget):
     def __init__(self, head_device_callback: SinkSetupCallback):
         super().__init__()
 
+        self.setFixedWidth(720)
+        self.setFixedHeight(720)
+
         self.head_device_callback = head_device_callback
 
         header_label = QLabel("WEAR AND SETUP YOUR HEAD DEVICE UNTIL THE NEXT BUTTON IS ACTIVE")
@@ -194,7 +295,7 @@ class HeadView(QWidget):
         front_holder_view.setPixmap(pixmap)
 
         self.next_button = QPushButton("NEXT")
-        #self.next_button.setEnabled(False)
+        self.next_button.setEnabled(False)
         self.next_button.setFixedWidth(200)
         self.next_button.clicked.connect(self.next)
 
@@ -208,19 +309,9 @@ class HeadView(QWidget):
         vertical_layout.addStretch()
         vertical_layout.addWidget(self.next_button, alignment=Qt.AlignRight)
 
-        self.test_text = "Bonjour"
-        dialog_label = QLabel(self.test_text)
-        dialog_label.setStyleSheet("font-size: 72px; font-weight: bold; color: black")
-        dialog_layout = QHBoxLayout()
-        dialog_layout.addWidget(dialog_label, alignment=Qt.AlignCenter)
-        self.dialog = QDialog()
-        self.dialog.setStyleSheet("background-color: white")
-        self.dialog.setAttribute(Qt.WA_DeleteOnClose)
-        self.dialog.setLayout(dialog_layout)
-
         self.calibration_timer = QTimer()
         self.calibration_timer.timeout.connect(self.apply_ocr)
-        self.calibration_timer.start(5000)
+        self.calibration_timer.start(1000)
         self.frame = None
         self.is_processing = False
 
@@ -231,9 +322,12 @@ class HeadView(QWidget):
         if not self.is_processing and self.frame is not None:
             self.is_processing = True
             recognized_objects, frame = MLHelper.recognize_object(self.frame)
+            if "moniteur" in recognized_objects:
+                self.next_button.setEnabled(True)
+                self.calibration_timer.stop()
             self.is_processing = False
-            print(recognized_objects)
+            if len(recognized_objects) > 0:
+                logger.info(f"Those objects are recognized: {recognized_objects}")
 
     def next(self):
-        self.dialog.showFullScreen()
-        #self.head_device_callback.on_head_device_set()
+        self.head_device_callback.on_head_device_set()
