@@ -19,9 +19,10 @@ class AccelerationView(QWidget):
         self.qf.setPointSize(5)
 
         self.x_pen = QPen(QColor(135, 100, 69, 255), 1, Qt.SolidLine)
-        self.y_pen = QPen(QColor(23, 0, 85, 255), 1, Qt.SolidLine)
+        self.y_pen = QPen(QColor(255, 255, 0, 255), 1, Qt.SolidLine)
         self.z_pen = QPen(QColor(121, 0, 255, 255), 1, Qt.SolidLine)
-        self.g_pen = QPen(QColor(136, 111, 111, 100), 1, Qt.SolidLine)
+        self.text_pen = QPen(QColor(255, 255, 255, 255), 1, Qt.SolidLine)
+        self.grid_pen = QPen(QColor(16, 86, 82, 255), 1, Qt.SolidLine)
 
         self.vertical_lines = []
         self.horizontal_lines = []
@@ -107,7 +108,7 @@ class AccelerationView(QWidget):
         qp = QPainter()
         qp.begin(self)
         qp.setFont(self.qf)
-        qp.setPen(self.g_pen)
+        qp.setPen(self.text_pen)
 
         interval = (self.max_range * self.VERTICAL_SPACING * 2) / self.h
         current_value = self.max_range
@@ -132,5 +133,6 @@ class AccelerationView(QWidget):
                     self.h
                 )
             )
+        qp.setPen(self.grid_pen)
         qp.drawLines(self.vertical_lines)
         qp.end()

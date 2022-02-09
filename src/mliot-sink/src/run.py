@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QStackedWidget, QApplication, QLabel, QMainWindow
 from callback.setup_callback import SinkSetupCallback
 from main_view import MainView
 from setup_view import AuthenticationView
-from setup_view import InvigilatorView, SensorsView, HandView, HeadView
+from setup_view import SensorsView, HandView, HeadView
 from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
 from sink_server import Sink
@@ -89,11 +89,6 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.content_view.setCurrentWidget(self.hand_view)
         self.center_window()
 
-    def onAudioFrameAvailable(self, request, context):
-        if not self.setup_is_ongoing and self.main_view is not None and self.main_view.isVisible():
-            self.main_view.update_waveform(request.audio_frame)
-        return Response(is_received=True)
-
     def onVideoFrameAvailable(self, request, context):
         if not self.setup_is_ongoing and self.main_view is not None and self.main_view.isVisible():
             self.main_view.update_phone_video(request.video_frame)
@@ -137,8 +132,6 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
 
 
 if __name__ == "__main__":
-    #myScreenshot = pyautogui.screenshot()
-    #myScreenshot.save(f"{os.getcwd()}/screenshot_1.png")
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("resources/logo.png"))
     window = MainWindow()

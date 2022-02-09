@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\023mliot.sensors.protoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nsink.proto\"\x1f\n\x08Response\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\"#\n\x0c\x41udioMessage\x12\x13\n\x0b\x61udio_frame\x18\x01 \x01(\x0c\"#\n\x0cVideoMessage\x12\x13\n\x0bvideo_frame\x18\x01 \x01(\x0c\"!\n\x0cRangeMessage\x12\x11\n\tmax_range\x18\x01 \x01(\x02\"&\n\x10HeartBeatMessage\x12\x12\n\nheart_rate\x18\x01 \x01(\x02\"$\n\x10ProximityMessage\x12\x10\n\x08\x64istance\x18\x01 \x01(\x02\"%\n\x12TemperatureMessage\x12\x0f\n\x07\x64\x65grees\x18\x01 \x01(\x02\"6\n\x13\x41\x63\x63\x65lerationMessage\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"*\n\x14StepDetectionMessage\x12\x12\n\nisDetected\x18\x01 \x01(\x08\"-\n\x16MotionDetectionMessage\x12\x13\n\x0bis_detected\x18\x01 \x01(\x08\x32\x80\x04\n\x0bSinkService\x12\x34\n\x0eonStepDetected\x12\x15.StepDetectionMessage\x1a\t.Response\"\x00\x12\x33\n\x15onVideoFrameAvailable\x12\r.VideoMessage\x1a\t.Response\"\x00\x12\x33\n\x15onAudioFrameAvailable\x12\r.AudioMessage\x1a\t.Response\"\x00\x12\x34\n\x12onProximityChanged\x12\x11.ProximityMessage\x1a\t.Response\"\x00\x12\x34\n\x12onHeartRateChanged\x12\x11.HeartBeatMessage\x1a\t.Response\"\x00\x12\x35\n\x17setAccelerationMaxRange\x12\r.RangeMessage\x1a\t.Response\"\x00\x12\x38\n\x10onMotionDetected\x12\x17.MotionDetectionMessage\x1a\t.Response\"\x00\x12\x38\n\x14onTemperatureChanged\x12\x13.TemperatureMessage\x1a\t.Response\"\x00\x12:\n\x15onAccelerationChanged\x12\x14.AccelerationMessage\x1a\t.Response\"\x00\x42\x17\n\x13mliot.sensors.protoP\x01\x62\x06proto3'
+  serialized_pb=b'\n\nsink.proto\"\x1f\n\x08Response\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\"#\n\x0cVideoMessage\x12\x13\n\x0bvideo_frame\x18\x01 \x01(\x0c\"!\n\x0cRangeMessage\x12\x11\n\tmax_range\x18\x01 \x01(\x02\"&\n\x10HeartBeatMessage\x12\x12\n\nheart_rate\x18\x01 \x01(\x02\"$\n\x10ProximityMessage\x12\x10\n\x08\x64istance\x18\x01 \x01(\x02\"%\n\x12TemperatureMessage\x12\x0f\n\x07\x64\x65grees\x18\x01 \x01(\x02\"6\n\x13\x41\x63\x63\x65lerationMessage\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"*\n\x14StepDetectionMessage\x12\x12\n\nisDetected\x18\x01 \x01(\x08\"-\n\x16MotionDetectionMessage\x12\x13\n\x0bis_detected\x18\x01 \x01(\x08\x32\xcb\x03\n\x0bSinkService\x12\x34\n\x0eonStepDetected\x12\x15.StepDetectionMessage\x1a\t.Response\"\x00\x12\x33\n\x15onVideoFrameAvailable\x12\r.VideoMessage\x1a\t.Response\"\x00\x12\x34\n\x12onProximityChanged\x12\x11.ProximityMessage\x1a\t.Response\"\x00\x12\x34\n\x12onHeartRateChanged\x12\x11.HeartBeatMessage\x1a\t.Response\"\x00\x12\x35\n\x17setAccelerationMaxRange\x12\r.RangeMessage\x1a\t.Response\"\x00\x12\x38\n\x10onMotionDetected\x12\x17.MotionDetectionMessage\x1a\t.Response\"\x00\x12\x38\n\x14onTemperatureChanged\x12\x13.TemperatureMessage\x1a\t.Response\"\x00\x12:\n\x15onAccelerationChanged\x12\x14.AccelerationMessage\x1a\t.Response\"\x00\x42\x17\n\x13mliot.sensors.protoP\x01\x62\x06proto3'
 )
 
 
@@ -57,38 +57,6 @@ _RESPONSE = _descriptor.Descriptor(
 )
 
 
-_AUDIOMESSAGE = _descriptor.Descriptor(
-  name='AudioMessage',
-  full_name='AudioMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='audio_frame', full_name='AudioMessage.audio_frame', index=0,
-      number=1, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"",
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=47,
-  serialized_end=82,
-)
-
-
 _VIDEOMESSAGE = _descriptor.Descriptor(
   name='VideoMessage',
   full_name='VideoMessage',
@@ -116,8 +84,8 @@ _VIDEOMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=84,
-  serialized_end=119,
+  serialized_start=47,
+  serialized_end=82,
 )
 
 
@@ -148,8 +116,8 @@ _RANGEMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=121,
-  serialized_end=154,
+  serialized_start=84,
+  serialized_end=117,
 )
 
 
@@ -180,8 +148,8 @@ _HEARTBEATMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=156,
-  serialized_end=194,
+  serialized_start=119,
+  serialized_end=157,
 )
 
 
@@ -212,8 +180,8 @@ _PROXIMITYMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=196,
-  serialized_end=232,
+  serialized_start=159,
+  serialized_end=195,
 )
 
 
@@ -244,8 +212,8 @@ _TEMPERATUREMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=234,
-  serialized_end=271,
+  serialized_start=197,
+  serialized_end=234,
 )
 
 
@@ -290,8 +258,8 @@ _ACCELERATIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=273,
-  serialized_end=327,
+  serialized_start=236,
+  serialized_end=290,
 )
 
 
@@ -322,8 +290,8 @@ _STEPDETECTIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=329,
-  serialized_end=371,
+  serialized_start=292,
+  serialized_end=334,
 )
 
 
@@ -354,12 +322,11 @@ _MOTIONDETECTIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=373,
-  serialized_end=418,
+  serialized_start=336,
+  serialized_end=381,
 )
 
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
-DESCRIPTOR.message_types_by_name['AudioMessage'] = _AUDIOMESSAGE
 DESCRIPTOR.message_types_by_name['VideoMessage'] = _VIDEOMESSAGE
 DESCRIPTOR.message_types_by_name['RangeMessage'] = _RANGEMESSAGE
 DESCRIPTOR.message_types_by_name['HeartBeatMessage'] = _HEARTBEATMESSAGE
@@ -376,13 +343,6 @@ Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Messag
   # @@protoc_insertion_point(class_scope:Response)
   })
 _sym_db.RegisterMessage(Response)
-
-AudioMessage = _reflection.GeneratedProtocolMessageType('AudioMessage', (_message.Message,), {
-  'DESCRIPTOR' : _AUDIOMESSAGE,
-  '__module__' : 'sink_pb2'
-  # @@protoc_insertion_point(class_scope:AudioMessage)
-  })
-_sym_db.RegisterMessage(AudioMessage)
 
 VideoMessage = _reflection.GeneratedProtocolMessageType('VideoMessage', (_message.Message,), {
   'DESCRIPTOR' : _VIDEOMESSAGE,
@@ -450,8 +410,8 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=421,
-  serialized_end=933,
+  serialized_start=384,
+  serialized_end=843,
   methods=[
   _descriptor.MethodDescriptor(
     name='onStepDetected',
@@ -474,19 +434,9 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='onAudioFrameAvailable',
-    full_name='SinkService.onAudioFrameAvailable',
-    index=2,
-    containing_service=None,
-    input_type=_AUDIOMESSAGE,
-    output_type=_RESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
     name='onProximityChanged',
     full_name='SinkService.onProximityChanged',
-    index=3,
+    index=2,
     containing_service=None,
     input_type=_PROXIMITYMESSAGE,
     output_type=_RESPONSE,
@@ -496,7 +446,7 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='onHeartRateChanged',
     full_name='SinkService.onHeartRateChanged',
-    index=4,
+    index=3,
     containing_service=None,
     input_type=_HEARTBEATMESSAGE,
     output_type=_RESPONSE,
@@ -506,7 +456,7 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='setAccelerationMaxRange',
     full_name='SinkService.setAccelerationMaxRange',
-    index=5,
+    index=4,
     containing_service=None,
     input_type=_RANGEMESSAGE,
     output_type=_RESPONSE,
@@ -516,7 +466,7 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='onMotionDetected',
     full_name='SinkService.onMotionDetected',
-    index=6,
+    index=5,
     containing_service=None,
     input_type=_MOTIONDETECTIONMESSAGE,
     output_type=_RESPONSE,
@@ -526,7 +476,7 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='onTemperatureChanged',
     full_name='SinkService.onTemperatureChanged',
-    index=7,
+    index=6,
     containing_service=None,
     input_type=_TEMPERATUREMESSAGE,
     output_type=_RESPONSE,
@@ -536,7 +486,7 @@ _SINKSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='onAccelerationChanged',
     full_name='SinkService.onAccelerationChanged',
-    index=8,
+    index=7,
     containing_service=None,
     input_type=_ACCELERATIONMESSAGE,
     output_type=_RESPONSE,

@@ -4,8 +4,11 @@ import threading
 import time
 
 import PIL.Image
+import cv2
 import dlib
 import numpy as np
+import pyautogui
+import speech_recognition as sr
 from PySide6.QtCore import Qt, QPoint
 from PySide6.QtGui import QImage, QPixmap, QPen, QPainter, QColor
 
@@ -54,8 +57,8 @@ class FaceRecognizer(threading.Thread):
     def recognize_face(self):
         known_person, top, right, bottom, left = MLHelper.recognize_face(self.frame, self.known_persons, self.known_encoded_faces, self.face_detector, self.pose_predictor_68_point, self.face_encoder)
         if known_person is not None:
-            #known_person_name = f"{known_person.first_name} {known_person.last_name}"
-            #logger.info(f"{known_person_name} is recognized.")
+            # known_person_name = f"{known_person.first_name} {known_person.last_name}"
+            # logger.info(f"{known_person_name} is recognized.")
             image = QImage(self.frame, self.frame.shape[1], self.frame.shape[0], QImage.Format_RGB888)
             pixmap = QPixmap.fromImage(image)
             painter = QPainter(pixmap)
@@ -71,10 +74,11 @@ class FaceRecognizer(threading.Thread):
 
 class ObjectRecognizer(threading.Thread):
 
-    def __init__(self, object_recognition_callback: RecognitionCallback):
+    def __init__(self, object_recognition_callback: RecognitionCallback, source):
         threading.Thread.__init__(self)
 
         self.object_recognition_callback = object_recognition_callback
+        self.source = source
 
         self.frame = None
         self.is_not_stopped = True
@@ -87,4 +91,44 @@ class ObjectRecognizer(threading.Thread):
 
     def recognize_objects(self):
         recognized_objects = MLHelper.recognize_object(self.frame)[0]
-        self.object_recognition_callback.on_objects_recognized(recognized_objects)
+        self.object_recognition_callback.on_objects_recognized(recognized_objects, self.source)
+
+
+class SpeechRecognizer(threading.Thread):
+    def __init__(self, speech_recognition_callback: RecognitionCallback):
+        threading.Thread.__init__(self)
+
+        self.speech_recognition_callback = speech_recognition_callback
+
+        self.speech_engine = sr.Recognizer()
+        self.is_recording = True
+
+    def run(self):
+        while self.is_recording:
+            with sr.Microphone() as source:
+                self.speech_engine.adjust_for_ambient_noise(source)
+                audio_data = self.speech_engine.record(source, duration=5)
+                try:
+                    extracted_text = self.speech_engine.recognize_google(audio_data, language="fr-FR")
+                    self.speech_recognition_callback.on_speech_recognized(extracted_text)
+                except sr.UnknownValueError:
+                    pass
+                except sr.RequestError:
+                    pass
+
+
+class TextRecognizer(threading.Thread):
+    def __init__(self, text_recognition_callback: RecognitionCallback):
+        threading.Thread.__init__(self)
+
+        self.text_recognition_callback = text_recognition_callback
+
+        self.speech_engine = sr.Recognizer()
+        self.is_screenshotting = True
+
+    def run(self):
+        while self.is_screenshotting:
+            screenshot = pyautogui.screenshot()
+            extracted_text = MLHelper.recognize_text(screenshot)
+            self.text_recognition_callback.on_text_recognized(extracted_text)
+            time.sleep(5)

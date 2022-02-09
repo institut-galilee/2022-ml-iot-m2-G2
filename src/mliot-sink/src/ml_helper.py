@@ -14,15 +14,14 @@ from pytesseract import pytesseract as ocr
 
 class MLHelper:
     """
-        This method take image as bytes from camera and tries to extract any text from it.
+        This method take Pillow Image as a screenshot and tries to extract any text from it.
         It returns the extracted text.
     """
     @staticmethod
-    def extract_text(frame):
+    def recognize_text(screenshot):
 
-        # convert frame to numpy array
-        bytes_image = io.BytesIO(frame)
-        image = np.array(Image.open(bytes_image))
+        # convert image to numpy array
+        image = np.array(screenshot)
 
         # convert it to gray
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -34,6 +33,7 @@ class MLHelper:
 
         # apply threshold to get image only with black&white color
         image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+        cv2.imwrite("ocr-capture.png", image)
         extracted_text = ocr.image_to_string(image, lang="fra", config='--tessdata-dir tesseract_pretrained_model')
         return extracted_text.strip()
 

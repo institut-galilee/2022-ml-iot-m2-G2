@@ -24,11 +24,6 @@ class SinkServiceStub(object):
                 request_serializer=sink__pb2.VideoMessage.SerializeToString,
                 response_deserializer=sink__pb2.Response.FromString,
                 )
-        self.onAudioFrameAvailable = channel.unary_unary(
-                '/SinkService/onAudioFrameAvailable',
-                request_serializer=sink__pb2.AudioMessage.SerializeToString,
-                response_deserializer=sink__pb2.Response.FromString,
-                )
         self.onProximityChanged = channel.unary_unary(
                 '/SinkService/onProximityChanged',
                 request_serializer=sink__pb2.ProximityMessage.SerializeToString,
@@ -71,12 +66,6 @@ class SinkServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def onVideoFrameAvailable(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def onAudioFrameAvailable(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -129,11 +118,6 @@ def add_SinkServiceServicer_to_server(servicer, server):
             'onVideoFrameAvailable': grpc.unary_unary_rpc_method_handler(
                     servicer.onVideoFrameAvailable,
                     request_deserializer=sink__pb2.VideoMessage.FromString,
-                    response_serializer=sink__pb2.Response.SerializeToString,
-            ),
-            'onAudioFrameAvailable': grpc.unary_unary_rpc_method_handler(
-                    servicer.onAudioFrameAvailable,
-                    request_deserializer=sink__pb2.AudioMessage.FromString,
                     response_serializer=sink__pb2.Response.SerializeToString,
             ),
             'onProximityChanged': grpc.unary_unary_rpc_method_handler(
@@ -206,23 +190,6 @@ class SinkService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SinkService/onVideoFrameAvailable',
             sink__pb2.VideoMessage.SerializeToString,
-            sink__pb2.Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def onAudioFrameAvailable(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SinkService/onAudioFrameAvailable',
-            sink__pb2.AudioMessage.SerializeToString,
             sink__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
