@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QStackedWidget, QApplication, QLabel, QMainWindow
 
 from callback.setup_callback import SinkSetupCallback
 from main_view import MainView
-from setup_view import AuthenticationView
+from setup_view import AuthenticationView, InvigilatorView
 from setup_view import SensorsView, HandView, HeadView
 from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
@@ -19,12 +19,8 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         super().__init__()
         self.setWindowTitle("REMOTE PROCTORED EXAM")
 
-        # Show IP Address and Port
-        ip_port = QLabel("PORT NUMBER: {0}".format(SINK_LISTENING_PORT))
-        ip_address = QLabel("IP ADDRESS: {0}".format(NetworkHelper.get_sink_listening_address()))
-
         # Views
-        #self.invigilator_view = InvigilatorView(self)
+        # self.invigilator_view = InvigilatorView(self)
         self.invigilator_view = None
         self.authentication_view = None
         self.sensors_view = None
@@ -35,14 +31,14 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.content_view = QStackedWidget()
         self.setCentralWidget(self.content_view)
         self.content_view.addWidget(self.main_view)
-        #self.content_view.addWidget(self.invigilator_view)
+        # self.content_view.addWidget(self.invigilator_view)
 
         # Setup gRPC Sink server
         self.sink = Sink(self)
         self.sink.start()
 
-        #self.setup_is_ongoing = True
-        self.setup_is_ongoing = False
+        self.setup_is_ongoing = True
+        # self.setup_is_ongoing = False
 
     def center_window(self):
         # Center the window

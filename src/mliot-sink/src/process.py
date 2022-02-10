@@ -1,14 +1,15 @@
+import asyncio
 import io
 import logging as logger
 import threading
 import time
 
 import PIL.Image
-import cv2
 import dlib
 import numpy as np
 import pyautogui
 import speech_recognition as sr
+from PIL import Image
 from PySide6.QtCore import Qt, QPoint
 from PySide6.QtGui import QImage, QPixmap, QPen, QPainter, QColor
 
@@ -91,7 +92,7 @@ class ObjectRecognizer(threading.Thread):
 
     def recognize_objects(self):
         recognized_objects = MLHelper.recognize_object(self.frame)[0]
-        self.object_recognition_callback.on_objects_recognized(recognized_objects, self.source)
+        self.object_recognition_callback.on_camera_objects_recognized(recognized_objects, self.source)
 
 
 class SpeechRecognizer(threading.Thread):
@@ -108,16 +109,19 @@ class SpeechRecognizer(threading.Thread):
             with sr.Microphone() as source:
                 self.speech_engine.adjust_for_ambient_noise(source)
                 audio_data = self.speech_engine.record(source, duration=5)
-                try:
-                    extracted_text = self.speech_engine.recognize_google(audio_data, language="fr-FR")
-                    self.speech_recognition_callback.on_speech_recognized(extracted_text)
-                except sr.UnknownValueError:
-                    pass
-                except sr.RequestError:
-                    pass
+                asyncio.run(self.recognize_text(audio_data))
+
+    async def recognize_text(self, audio):
+        try:
+            extracted_text = self.speech_engine.recognize_google(audio, language="fr-FR")
+            self.speech_recognition_callback.on_microphone_speech_recognized(extracted_text)
+        except sr.UnknownValueError:
+            pass
+        except sr.RequestError:
+            pass
 
 
-class TextRecognizer(threading.Thread):
+class ScreenshotTextRecognizer(threading.Thread):
     def __init__(self, text_recognition_callback: RecognitionCallback):
         threading.Thread.__init__(self)
 
@@ -129,6 +133,9 @@ class TextRecognizer(threading.Thread):
     def run(self):
         while self.is_screenshotting:
             screenshot = pyautogui.screenshot()
+            # results = decode(screenshot)
+            # for result in results:
+            # print(result.data.decode("UTF-8"))
             extracted_text = MLHelper.recognize_text(screenshot)
-            self.text_recognition_callback.on_text_recognized(extracted_text)
+            self.text_recognition_callback.on_screenshot_text_recognized(extracted_text)
             time.sleep(5)

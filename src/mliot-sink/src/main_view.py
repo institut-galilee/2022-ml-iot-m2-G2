@@ -2,10 +2,9 @@ import cv2
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QImage, QPixmap, QCloseEvent, Qt
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel
-
 from acceleration_view import AccelerationView
 from callback.recognition_callback import RecognitionCallback
-from src.process import SpeechRecognizer, TextRecognizer, FaceRecognizer, ObjectRecognizer
+from process import SpeechRecognizer, ScreenshotTextRecognizer, FaceRecognizer, ObjectRecognizer
 
 
 class MainView(QWidget, RecognitionCallback):
@@ -66,19 +65,19 @@ class MainView(QWidget, RecognitionCallback):
         self.speech_recognizer.start()
 
         # Start OCR process
-        self.text_recognizer = TextRecognizer(self)
+        self.text_recognizer = ScreenshotTextRecognizer(self)
         self.text_recognizer.start()
 
-    def on_speech_recognized(self, extracted_text):
-        pass
+    def on_microphone_speech_recognized(self, extracted_text):
+        print(extracted_text)
 
-    def on_text_recognized(self, extracted_text):
+    def on_screenshot_text_recognized(self, extracted_text):
         pass
 
     def on_face_recognized(self, recognized_image, known_student):
         pass
 
-    def on_objects_recognized(self, recognized_objects, source):
+    def on_camera_objects_recognized(self, recognized_objects, source):
         pass
 
     def closeEvent(self, event: QCloseEvent):

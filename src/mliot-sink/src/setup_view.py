@@ -100,6 +100,7 @@ class AuthenticationView(QWidget, RecognitionCallback):
         self.next_button.clicked.connect(self.next)
 
         self.video_view = QLabel()
+        self.video_view.setAlignment(Qt.AlignCenter)
         grid_layout = QGridLayout(self)
         grid_layout.addWidget(header_label, 0, 0, 1, 2)
         grid_layout.setRowStretch(1, 10)
@@ -148,7 +149,7 @@ class AuthenticationView(QWidget, RecognitionCallback):
         self.next_button.setEnabled(True)
         self.known_student = known_student
         time.sleep(2)
-        self.video_view.update_image(recognized_image.scaled(560, 560))
+        self.video_view.setPixmap(recognized_image.scaled(560, 560))
 
     def closeEvent(self, event: QCloseEvent):
         self.face_recognizer.is_not_stopped = False
