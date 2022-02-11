@@ -7,6 +7,9 @@ class RecognitionCallback(object):
     def on_face_recognized(self, recognized_image, known_student):
         raise Exception("NotImplementedException")
 
+    def on_face_not_recognized(self):
+        raise Exception("NotImplementedException")
+
     def on_microphone_speech_recognized(self, extracted_text):
         raise Exception("NotImplementedException")
 

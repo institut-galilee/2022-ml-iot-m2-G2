@@ -5,7 +5,19 @@ option java_package = "mliot.monitor.generated";
 
 service MonitorService {
   rpc fetchKnownStudents(EmptyMessage) returns (stream KnownStudentResponse) {}
+  rpc onStudentConnected(StudentConnectionMessage) returns (StudentConnectionResponse) {}
   rpc onMovementDetected(MovementDetectionMessage) returns (MonitorResponse) {}
+}
+
+message StudentConnectionMessage {
+  string card_number = 1;
+  string address = 2;
+  int32 port_number = 3;
+}
+
+message StudentConnectionResponse {
+  string exam_url = 1;
+  string api_url = 2;
 }
 
 message EmptyMessage {}

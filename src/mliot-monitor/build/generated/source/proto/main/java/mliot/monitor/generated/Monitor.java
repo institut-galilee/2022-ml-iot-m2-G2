@@ -15,6 +15,16 @@ public final class Monitor {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_StudentConnectionMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_StudentConnectionMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_StudentConnectionResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_StudentConnectionResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_EmptyMessage_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -43,42 +53,60 @@ public final class Monitor {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmonitor.proto\"\016\n\014EmptyMessage\"i\n\024Known" +
-      "StudentResponse\022\022\n\nfirst_name\030\001 \001(\t\022\021\n\tl" +
-      "ast_name\030\002 \001(\t\022\023\n\013card_number\030\003 \001(\t\022\025\n\rp" +
-      "rofile_photo\030\004 \001(\014\"&\n\017MonitorResponse\022\023\n" +
-      "\013is_received\030\001 \001(\010\"/\n\030MovementDetectionM" +
-      "essage\022\023\n\013is_detected\030\001 \001(\0102\225\001\n\016MonitorS" +
-      "ervice\022>\n\022fetchKnownStudents\022\r.EmptyMess" +
-      "age\032\025.KnownStudentResponse\"\0000\001\022C\n\022onMove" +
-      "mentDetected\022\031.MovementDetectionMessage\032" +
-      "\020.MonitorResponse\"\000B\033\n\027mliot.monitor.gen" +
-      "eratedP\001b\006proto3"
+      "\n\rmonitor.proto\"U\n\030StudentConnectionMess" +
+      "age\022\023\n\013card_number\030\001 \001(\t\022\017\n\007address\030\002 \001(" +
+      "\t\022\023\n\013port_number\030\003 \001(\005\">\n\031StudentConnect" +
+      "ionResponse\022\020\n\010exam_url\030\001 \001(\t\022\017\n\007api_url" +
+      "\030\002 \001(\t\"\016\n\014EmptyMessage\"i\n\024KnownStudentRe" +
+      "sponse\022\022\n\nfirst_name\030\001 \001(\t\022\021\n\tlast_name\030" +
+      "\002 \001(\t\022\023\n\013card_number\030\003 \001(\t\022\025\n\rprofile_ph" +
+      "oto\030\004 \001(\014\"&\n\017MonitorResponse\022\023\n\013is_recei" +
+      "ved\030\001 \001(\010\"/\n\030MovementDetectionMessage\022\023\n" +
+      "\013is_detected\030\001 \001(\0102\344\001\n\016MonitorService\022>\n" +
+      "\022fetchKnownStudents\022\r.EmptyMessage\032\025.Kno" +
+      "wnStudentResponse\"\0000\001\022M\n\022onStudentConnec" +
+      "ted\022\031.StudentConnectionMessage\032\032.Student" +
+      "ConnectionResponse\"\000\022C\n\022onMovementDetect" +
+      "ed\022\031.MovementDetectionMessage\032\020.MonitorR" +
+      "esponse\"\000B\033\n\027mliot.monitor.generatedP\001b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_EmptyMessage_descriptor =
+    internal_static_StudentConnectionMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_StudentConnectionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_StudentConnectionMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Address", "PortNumber", });
+    internal_static_StudentConnectionResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_StudentConnectionResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_StudentConnectionResponse_descriptor,
+        new java.lang.String[] { "ExamUrl", "ApiUrl", });
+    internal_static_EmptyMessage_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_EmptyMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EmptyMessage_descriptor,
         new java.lang.String[] { });
     internal_static_KnownStudentResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_KnownStudentResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_KnownStudentResponse_descriptor,
         new java.lang.String[] { "FirstName", "LastName", "CardNumber", "ProfilePhoto", });
     internal_static_MonitorResponse_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_MonitorResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MonitorResponse_descriptor,
         new java.lang.String[] { "IsReceived", });
     internal_static_MovementDetectionMessage_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_MovementDetectionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MovementDetectionMessage_descriptor,

@@ -8,8 +8,16 @@ from process import SpeechRecognizer, ScreenshotTextRecognizer, FaceRecognizer, 
 
 
 class MainView(QWidget, RecognitionCallback):
-    def __init__(self):
+    def __init__(self, current_student):
         super().__init__()
+
+        # Thresholds
+        self.face_not_recognized_threshold = 3
+
+        # Counters
+        self.face_recognizer_counter = 0
+
+        self.current_student = current_student
 
         self.setFixedWidth(1080)
         self.setFixedHeight(780)
@@ -75,10 +83,29 @@ class MainView(QWidget, RecognitionCallback):
         pass
 
     def on_face_recognized(self, recognized_image, known_student):
-        pass
+        self.face_recognizer_counter = 0
+        # if self.known_student
+
+    def on_face_not_recognized(self):
+        self.face_recognizer_counter += 1
+        if self.face_recognizer_counter == self.face_not_recognized_threshold:
+            print("cheat")
+            self.face_recognizer_counter = 0
 
     def on_camera_objects_recognized(self, recognized_objects, source):
-        pass
+        print(f"{source}: {recognized_objects}")
+        if source == "web_camera":
+            if "person" not in recognized_objects:
+                print("cheat")
+            elif recognized_objects.count("person") > 1:
+                print("cheat")
+        if source == "phone_camera":
+            if "tvmonitor" not in recognized_objects or "laptop" not in recognized_objects:
+                print("cheat")
+            elif recognized_objects.count("tvmonitor") > 1 or recognized_objects.count("laptop") > 1:
+                print("cheat")
+            if "book" in recognized_objects:
+                print("cheat")
 
     def closeEvent(self, event: QCloseEvent):
         # Stop all processes before closing the window
@@ -103,7 +130,7 @@ class MainView(QWidget, RecognitionCallback):
         self.face_recognizer.frame = frame
 
     def update_phone_video(self, frame):
-        self.web_camera_object_recognizer.frame = frame
+        self.phone_camera_object_recognizer.frame = frame
         pixmap = QPixmap()
         pixmap.loadFromData(frame)
         self.phone_camera_view.setPixmap(pixmap.scaledToWidth(self.phone_camera_view.width()))

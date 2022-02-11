@@ -33,7 +33,6 @@ class MLHelper:
 
         # apply threshold to get image only with black&white color
         image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
-        cv2.imwrite("ocr-capture.png", image)
         extracted_text = ocr.image_to_string(image, lang="fra", config='--tessdata-dir tesseract_pretrained_model')
         return extracted_text.strip()
 
@@ -44,56 +43,53 @@ class MLHelper:
     @staticmethod
     def recognize_object(frame):
 
-        # convert frame to numpy array
+        np.random.seed(42)
+        labels = open("yolo_coco_pretrained_model/coco.names").read().strip().split("\n")
+        colors = np.random.randint(0, 255, size=(len(labels), 3), dtype="uint8")
+
+        net = cv2.dnn.readNetFromDarknet("yolo_coco_pretrained_model/yolov3.cfg", "yolo_coco_pretrained_model/yolov3.weights")
+
         bytes_image = io.BytesIO(frame)
         image = np.array(Image.open(bytes_image))
+        (H, W) = image.shape[:2]
 
-        confidence_threshold = 0.2
-        model = "net_ssd_pretrained_model/MobileNetSSD_deploy.caffemodel"
-        proto_txt = "net_ssd_pretrained_model/MobileNetSSD_deploy.prototxt.txt"
+        ln = net.getLayerNames()
+        ln = [ln[i - 1] for i in net.getUnconnectedOutLayers()]
 
-        classes_list = ["arriere-plan", "avion", "velo", "oiseau", "bateau",
-                   "bouteille", "autobus", "voiture", "chat", "chaise", "vache", "table",
-                   "chien", "cheval", "moto", "personne", "plante en pot", "mouton",
-                   "sofa", "train", "moniteur"]
-        colors_list = np.random.uniform(0, 255, size=(len(classes_list), 3))
-        
-        # Load model file
-        net = cv2.dnn.readNetFromCaffe(proto_txt, model)
-
-        image = imutils.resize(image, width=800)
-        # Create blob from image
-        (h, w) = image.shape[:2]
-        blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 0.007843, (300, 300), 127.5)
-        
-        # Feed input to neural network
+        blob = cv2.dnn.blobFromImage(image, 1 / 255.0, (416, 416), swapRB=True, crop=False)
         net.setInput(blob)
-        detections = net.forward()
+        layerOutputs = net.forward(ln)
 
-        # List that will contain all recognized objects
+        boxes = []
+        confidences = []
+        classIDs = []
+
+        for output in layerOutputs:
+            for detection in output:
+                scores = detection[5:]
+                classID = np.argmax(scores)
+                confidence = scores[classID]
+                if confidence > 0.5:
+                    box = detection[0:4] * np.array([W, H, W, H])
+                    (centerX, centerY, width, height) = box.astype("int")
+                    x = int(centerX - (width / 2))
+                    y = int(centerY - (height / 2))
+                    boxes.append([x, y, int(width), int(height)])
+                    confidences.append(float(confidence))
+                    classIDs.append(classID)
+
         recognized_objects = []
+        idxs = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.3)
 
-        # Detection loop
-        for i in np.arange(0, detections.shape[2]):
-            
-            # Compute Object detection probability
-            confidence = detections[0, 0, i, 2]
-            
-            # Suppress low probability
-            if confidence > confidence_threshold:
-                
-                # Get index and position of detected object
-                idx = int(detections[0, 0, i, 1])
-                box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
-                (startX, startY, endX, endY) = box.astype("int")
-                
-                # Create box and label
-                recognized_objects.append(classes_list[idx])
-                label = "{}: {:.2f}%".format(classes_list[idx], confidence * 100)
-                cv2.rectangle(image, (startX, startY), (endX, endY), colors_list[idx], 2)
-                
-                y = startY - 15 if startY - 15 > 15 else startY + 15
-                cv2.putText(image, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colors_list[idx], 2)
+        if len(idxs) > 0:
+            for i in idxs.flatten():
+                (x, y) = (boxes[i][0], boxes[i][1])
+                (w, h) = (boxes[i][2], boxes[i][3])
+                color = [int(c) for c in colors[classIDs[i]]]
+                cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
+                text = "{}: {:.4f}".format(labels[classIDs[i]], confidences[i])
+                cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+                recognized_objects.append(labels[classIDs[i]])
 
         return recognized_objects, image
 

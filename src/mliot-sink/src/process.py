@@ -1,4 +1,3 @@
-import asyncio
 import io
 import logging as logger
 import threading
@@ -9,7 +8,6 @@ import dlib
 import numpy as np
 import pyautogui
 import speech_recognition as sr
-from PIL import Image
 from PySide6.QtCore import Qt, QPoint
 from PySide6.QtGui import QImage, QPixmap, QPen, QPainter, QColor
 
@@ -58,8 +56,6 @@ class FaceRecognizer(threading.Thread):
     def recognize_face(self):
         known_person, top, right, bottom, left = MLHelper.recognize_face(self.frame, self.known_persons, self.known_encoded_faces, self.face_detector, self.pose_predictor_68_point, self.face_encoder)
         if known_person is not None:
-            # known_person_name = f"{known_person.first_name} {known_person.last_name}"
-            # logger.info(f"{known_person_name} is recognized.")
             image = QImage(self.frame, self.frame.shape[1], self.frame.shape[0], QImage.Format_RGB888)
             pixmap = QPixmap.fromImage(image)
             painter = QPainter(pixmap)
@@ -71,6 +67,8 @@ class FaceRecognizer(threading.Thread):
             painter.drawText(15, pixmap.height() - 10, f"N° étudiant: {known_person.card_number}")
             painter.end()
             self.face_recognition_callback.on_face_recognized(pixmap, known_person)
+        else:
+            self.face_recognition_callback.on_face_not_recognized()
 
 
 class ObjectRecognizer(threading.Thread):
@@ -109,16 +107,13 @@ class SpeechRecognizer(threading.Thread):
             with sr.Microphone() as source:
                 self.speech_engine.adjust_for_ambient_noise(source)
                 audio_data = self.speech_engine.record(source, duration=5)
-                asyncio.run(self.recognize_text(audio_data))
-
-    async def recognize_text(self, audio):
-        try:
-            extracted_text = self.speech_engine.recognize_google(audio, language="fr-FR")
-            self.speech_recognition_callback.on_microphone_speech_recognized(extracted_text)
-        except sr.UnknownValueError:
-            pass
-        except sr.RequestError:
-            pass
+                try:
+                    extracted_text = self.speech_engine.recognize_google(audio_data, language="fr-FR")
+                    self.speech_recognition_callback.on_microphone_speech_recognized(extracted_text)
+                except sr.UnknownValueError:
+                    pass
+                except sr.RequestError:
+                    pass
 
 
 class ScreenshotTextRecognizer(threading.Thread):

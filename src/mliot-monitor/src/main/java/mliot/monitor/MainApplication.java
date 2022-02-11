@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.protobuf.ByteString;
 import io.grpc.stub.StreamObserver;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -13,6 +14,7 @@ import mliot.monitor.callback.HomeControllerCallback;
 import mliot.monitor.controller.HomeController;
 import mliot.monitor.generated.*;
 import mliot.monitor.impl.Monitor;
+import mliot.monitor.model.Student;
 import mliot.monitor.util.Util;
 
 import java.net.URL;
@@ -24,11 +26,14 @@ public class MainApplication extends Application implements HomeControllerCallba
 
     private Monitor monitor;
     private JsonArray studentArray;
+
+    private HomeController homeController;
+
     private static final Logger logger = Logger.getLogger(MainApplication.class.getCanonicalName());
 
     @Override
-    public void onStudentRequested(JsonObject studentObject) {
-        System.out.printf(studentObject.toString());
+    public void onStudentRequested(Student student) {
+        System.out.println(student.toString());
     }
 
     @Override
@@ -48,8 +53,9 @@ public class MainApplication extends Application implements HomeControllerCallba
         stage.setScene(scene);
         stage.show();
 
-        HomeController homeController = fxmlLoader.getController();
-        homeController.setHomeControllerCallback(this);
+        this.homeController = fxmlLoader.getController();
+        this.homeController.setHomeControllerCallback(this);
+
         /*
             Load students lists
          */
@@ -79,10 +85,22 @@ public class MainApplication extends Application implements HomeControllerCallba
             }
 
             @Override
+            public void onStudentConnected(StudentConnectionMessage request, StreamObserver<StudentConnectionResponse> responseObserver) {
+                Platform.runLater(() -> {
+                    MainApplication.this.homeController.studentConnected(request.getCardNumber(), request.getAddress(), request.getPortNumber());
+                });
+                String examUrl = Util.findExamUrl();
+                String apiUrl = Util.findApiUrl();
+                responseObserver.onNext(StudentConnectionResponse.newBuilder().setApiUrl(apiUrl).setExamUrl(examUrl).build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
             public void onMovementDetected(MovementDetectionMessage request, StreamObserver<MonitorResponse> responseObserver) {
                 responseObserver.onNext(MonitorResponse.newBuilder().setIsReceived(true).build());
                 responseObserver.onCompleted();
             }
+
         });
         this.monitor.start();
     }

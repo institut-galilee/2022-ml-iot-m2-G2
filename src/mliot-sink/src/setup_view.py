@@ -151,6 +151,9 @@ class AuthenticationView(QWidget, RecognitionCallback):
         time.sleep(2)
         self.video_view.setPixmap(recognized_image.scaled(560, 560))
 
+    def on_face_not_recognized(self):
+        pass
+
     def closeEvent(self, event: QCloseEvent):
         self.face_recognizer.is_not_stopped = False
         self.stop_recognition()
@@ -323,7 +326,7 @@ class HeadView(QWidget):
         if not self.is_processing and self.frame is not None:
             self.is_processing = True
             recognized_objects, frame = MLHelper.recognize_object(self.frame)
-            if "moniteur" in recognized_objects:
+            if "tvmonitor" in recognized_objects or "laptop" in recognized_objects:
                 self.next_button.setEnabled(True)
                 self.calibration_timer.stop()
             self.is_processing = False

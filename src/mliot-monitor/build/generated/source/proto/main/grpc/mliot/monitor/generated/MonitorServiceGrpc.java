@@ -46,6 +46,37 @@ public final class MonitorServiceGrpc {
     return getFetchKnownStudentsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.StudentConnectionMessage,
+      mliot.monitor.generated.StudentConnectionResponse> getOnStudentConnectedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onStudentConnected",
+      requestType = mliot.monitor.generated.StudentConnectionMessage.class,
+      responseType = mliot.monitor.generated.StudentConnectionResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.StudentConnectionMessage,
+      mliot.monitor.generated.StudentConnectionResponse> getOnStudentConnectedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.StudentConnectionMessage, mliot.monitor.generated.StudentConnectionResponse> getOnStudentConnectedMethod;
+    if ((getOnStudentConnectedMethod = MonitorServiceGrpc.getOnStudentConnectedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnStudentConnectedMethod = MonitorServiceGrpc.getOnStudentConnectedMethod) == null) {
+          MonitorServiceGrpc.getOnStudentConnectedMethod = getOnStudentConnectedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.StudentConnectionMessage, mliot.monitor.generated.StudentConnectionResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onStudentConnected"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.StudentConnectionMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.StudentConnectionResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onStudentConnected"))
+              .build();
+        }
+      }
+    }
+    return getOnStudentConnectedMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.MovementDetectionMessage,
       mliot.monitor.generated.MonitorResponse> getOnMovementDetectedMethod;
 
@@ -134,6 +165,13 @@ public final class MonitorServiceGrpc {
 
     /**
      */
+    public void onStudentConnected(mliot.monitor.generated.StudentConnectionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.StudentConnectionResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnStudentConnectedMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnMovementDetectedMethod(), responseObserver);
@@ -148,6 +186,13 @@ public final class MonitorServiceGrpc {
                 mliot.monitor.generated.EmptyMessage,
                 mliot.monitor.generated.KnownStudentResponse>(
                   this, METHODID_FETCH_KNOWN_STUDENTS)))
+          .addMethod(
+            getOnStudentConnectedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.StudentConnectionMessage,
+                mliot.monitor.generated.StudentConnectionResponse>(
+                  this, METHODID_ON_STUDENT_CONNECTED)))
           .addMethod(
             getOnMovementDetectedMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -183,6 +228,14 @@ public final class MonitorServiceGrpc {
 
     /**
      */
+    public void onStudentConnected(mliot.monitor.generated.StudentConnectionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.StudentConnectionResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnStudentConnectedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -214,6 +267,13 @@ public final class MonitorServiceGrpc {
 
     /**
      */
+    public mliot.monitor.generated.StudentConnectionResponse onStudentConnected(mliot.monitor.generated.StudentConnectionMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnStudentConnectedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public mliot.monitor.generated.MonitorResponse onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getOnMovementDetectedMethod(), getCallOptions(), request);
@@ -236,6 +296,14 @@ public final class MonitorServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.StudentConnectionResponse> onStudentConnected(
+        mliot.monitor.generated.StudentConnectionMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnStudentConnectedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.MonitorResponse> onMovementDetected(
         mliot.monitor.generated.MovementDetectionMessage request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -244,7 +312,8 @@ public final class MonitorServiceGrpc {
   }
 
   private static final int METHODID_FETCH_KNOWN_STUDENTS = 0;
-  private static final int METHODID_ON_MOVEMENT_DETECTED = 1;
+  private static final int METHODID_ON_STUDENT_CONNECTED = 1;
+  private static final int METHODID_ON_MOVEMENT_DETECTED = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -266,6 +335,10 @@ public final class MonitorServiceGrpc {
         case METHODID_FETCH_KNOWN_STUDENTS:
           serviceImpl.fetchKnownStudents((mliot.monitor.generated.EmptyMessage) request,
               (io.grpc.stub.StreamObserver<mliot.monitor.generated.KnownStudentResponse>) responseObserver);
+          break;
+        case METHODID_ON_STUDENT_CONNECTED:
+          serviceImpl.onStudentConnected((mliot.monitor.generated.StudentConnectionMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.StudentConnectionResponse>) responseObserver);
           break;
         case METHODID_ON_MOVEMENT_DETECTED:
           serviceImpl.onMovementDetected((mliot.monitor.generated.MovementDetectionMessage) request,
@@ -333,6 +406,7 @@ public final class MonitorServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new MonitorServiceFileDescriptorSupplier())
               .addMethod(getFetchKnownStudentsMethod())
+              .addMethod(getOnStudentConnectedMethod())
               .addMethod(getOnMovementDetectedMethod())
               .build();
         }

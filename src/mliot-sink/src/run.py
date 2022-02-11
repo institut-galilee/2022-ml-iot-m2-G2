@@ -1,17 +1,18 @@
 import sys
+import webbrowser
 
-import PySide6
-from PySide6.QtGui import QPixmap, QScreen, QIcon
-from PySide6.QtWidgets import QStackedWidget, QApplication, QLabel, QMainWindow
+from PySide6.QtGui import QScreen, QIcon, QCloseEvent
+from PySide6.QtWidgets import QStackedWidget, QApplication, QMainWindow
 
 from callback.setup_callback import SinkSetupCallback
 from main_view import MainView
+from monitor_client import MonitorHelper
 from setup_view import AuthenticationView, InvigilatorView
 from setup_view import SensorsView, HandView, HeadView
 from sink_pb2 import Response
 from sink_pb2_grpc import SinkServiceServicer
 from sink_server import Sink
-from util.network_util import NetworkHelper, SINK_LISTENING_PORT
+from util.network_util import NetworkHelper
 
 
 class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
@@ -20,18 +21,19 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.setWindowTitle("REMOTE PROCTORED EXAM")
 
         # Views
-        # self.invigilator_view = InvigilatorView(self)
-        self.invigilator_view = None
+        self.invigilator_view = InvigilatorView(self)
+        # self.invigilator_view = None
         self.authentication_view = None
         self.sensors_view = None
         self.hand_view = None
         self.head_view = None
-        self.main_view = MainView()
+        self.main_view = None
+        # self.main_view = MainView("")
 
         self.content_view = QStackedWidget()
         self.setCentralWidget(self.content_view)
-        self.content_view.addWidget(self.main_view)
-        # self.content_view.addWidget(self.invigilator_view)
+        # self.content_view.addWidget(self.main_view)
+        self.content_view.addWidget(self.invigilator_view)
 
         # Setup gRPC Sink server
         self.sink = Sink(self)
@@ -40,6 +42,13 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.setup_is_ongoing = True
         # self.setup_is_ongoing = False
 
+        # Exam & API URLs
+        self.exam_url = None
+        self.api_url = None
+
+        # Current student
+        self.current_student = None
+
     def center_window(self):
         # Center the window
         center = QScreen.availableGeometry(QApplication.primaryScreen()).center()
@@ -47,17 +56,22 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         geometry.moveCenter(center)
         self.move(geometry.topLeft())
 
-    def closeEvent(self, event: PySide6.QtGui.QCloseEvent):
+    def closeEvent(self, event: QCloseEvent):
         self.sink.shut_down()
         for i in range(0, self.content_view.count()):
             self.content_view.widget(i).close()
 
     def on_head_device_set(self):
-        self.main_view = MainView()
-        self.content_view.addWidget(self.main_view)
-        self.content_view.setCurrentWidget(self.main_view)
-        self.center_window()
-        self.setup_is_ongoing = False
+        self.exam_url, self.api_url = MonitorHelper.connect_student(self.current_student.card_number)
+        if self.exam_url is not None and self.exam_url is not None:
+            webbrowser.open(self.exam_url)
+            self.main_view = MainView(self.current_student)
+            self.content_view.addWidget(self.main_view)
+            self.content_view.setCurrentWidget(self.main_view)
+            self.center_window()
+            self.setup_is_ongoing = False
+        else:
+            self.close()
 
     def on_hand_device_set(self):
         self.head_view = HeadView(self)
@@ -66,6 +80,7 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.center_window()
 
     def on_student_recognized(self, student):
+        self.current_student = student
         self.authentication_view.close()
         self.sensors_view = SensorsView(self)
         self.content_view.addWidget(self.sensors_view)

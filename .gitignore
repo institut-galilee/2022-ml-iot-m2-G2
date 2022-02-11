@@ -7,3 +7,4 @@ local.properties
 /captures
 .externalNativeBuild
 .cxx
+src/mliot-sink/src/yolo_coco_pretrained_model/yolov3.weights

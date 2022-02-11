@@ -19,6 +19,11 @@ class MonitorServiceStub(object):
                 request_serializer=monitor__pb2.EmptyMessage.SerializeToString,
                 response_deserializer=monitor__pb2.KnownStudentResponse.FromString,
                 )
+        self.onStudentConnected = channel.unary_unary(
+                '/MonitorService/onStudentConnected',
+                request_serializer=monitor__pb2.StudentConnectionMessage.SerializeToString,
+                response_deserializer=monitor__pb2.StudentConnectionResponse.FromString,
+                )
         self.onMovementDetected = channel.unary_unary(
                 '/MonitorService/onMovementDetected',
                 request_serializer=monitor__pb2.MovementDetectionMessage.SerializeToString,
@@ -30,6 +35,12 @@ class MonitorServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def fetchKnownStudents(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def onStudentConnected(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -48,6 +59,11 @@ def add_MonitorServiceServicer_to_server(servicer, server):
                     servicer.fetchKnownStudents,
                     request_deserializer=monitor__pb2.EmptyMessage.FromString,
                     response_serializer=monitor__pb2.KnownStudentResponse.SerializeToString,
+            ),
+            'onStudentConnected': grpc.unary_unary_rpc_method_handler(
+                    servicer.onStudentConnected,
+                    request_deserializer=monitor__pb2.StudentConnectionMessage.FromString,
+                    response_serializer=monitor__pb2.StudentConnectionResponse.SerializeToString,
             ),
             'onMovementDetected': grpc.unary_unary_rpc_method_handler(
                     servicer.onMovementDetected,
@@ -78,6 +94,23 @@ class MonitorService(object):
         return grpc.experimental.unary_stream(request, target, '/MonitorService/fetchKnownStudents',
             monitor__pb2.EmptyMessage.SerializeToString,
             monitor__pb2.KnownStudentResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def onStudentConnected(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/MonitorService/onStudentConnected',
+            monitor__pb2.StudentConnectionMessage.SerializeToString,
+            monitor__pb2.StudentConnectionResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

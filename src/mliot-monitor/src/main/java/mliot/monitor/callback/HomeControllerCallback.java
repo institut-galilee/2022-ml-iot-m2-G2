@@ -1,7 +1,7 @@
 package mliot.monitor.callback;
 
-import com.google.gson.JsonObject;
+import mliot.monitor.model.Student;
 
 public interface HomeControllerCallback {
-    void onStudentRequested(JsonObject studentObject);
+    void onStudentRequested(Student student);
 }

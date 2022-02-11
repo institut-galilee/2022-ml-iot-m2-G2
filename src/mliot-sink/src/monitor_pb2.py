@@ -19,10 +19,95 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\027mliot.monitor.generatedP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rmonitor.proto\"\x0e\n\x0c\x45mptyMessage\"i\n\x14KnownStudentResponse\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x03 \x01(\t\x12\x15\n\rprofile_photo\x18\x04 \x01(\x0c\"&\n\x0fMonitorResponse\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\"/\n\x18MovementDetectionMessage\x12\x13\n\x0bis_detected\x18\x01 \x01(\x08\x32\x95\x01\n\x0eMonitorService\x12>\n\x12\x66\x65tchKnownStudents\x12\r.EmptyMessage\x1a\x15.KnownStudentResponse\"\x00\x30\x01\x12\x43\n\x12onMovementDetected\x12\x19.MovementDetectionMessage\x1a\x10.MonitorResponse\"\x00\x42\x1b\n\x17mliot.monitor.generatedP\x01\x62\x06proto3'
+  serialized_pb=b'\n\rmonitor.proto\"U\n\x18StudentConnectionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x13\n\x0bport_number\x18\x03 \x01(\x05\">\n\x19StudentConnectionResponse\x12\x10\n\x08\x65xam_url\x18\x01 \x01(\t\x12\x0f\n\x07\x61pi_url\x18\x02 \x01(\t\"\x0e\n\x0c\x45mptyMessage\"i\n\x14KnownStudentResponse\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x03 \x01(\t\x12\x15\n\rprofile_photo\x18\x04 \x01(\x0c\"&\n\x0fMonitorResponse\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\"/\n\x18MovementDetectionMessage\x12\x13\n\x0bis_detected\x18\x01 \x01(\x08\x32\xe4\x01\n\x0eMonitorService\x12>\n\x12\x66\x65tchKnownStudents\x12\r.EmptyMessage\x1a\x15.KnownStudentResponse\"\x00\x30\x01\x12M\n\x12onStudentConnected\x12\x19.StudentConnectionMessage\x1a\x1a.StudentConnectionResponse\"\x00\x12\x43\n\x12onMovementDetected\x12\x19.MovementDetectionMessage\x1a\x10.MonitorResponse\"\x00\x42\x1b\n\x17mliot.monitor.generatedP\x01\x62\x06proto3'
 )
 
 
+
+
+_STUDENTCONNECTIONMESSAGE = _descriptor.Descriptor(
+  name='StudentConnectionMessage',
+  full_name='StudentConnectionMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='card_number', full_name='StudentConnectionMessage.card_number', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='address', full_name='StudentConnectionMessage.address', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='port_number', full_name='StudentConnectionMessage.port_number', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=17,
+  serialized_end=102,
+)
+
+
+_STUDENTCONNECTIONRESPONSE = _descriptor.Descriptor(
+  name='StudentConnectionResponse',
+  full_name='StudentConnectionResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='exam_url', full_name='StudentConnectionResponse.exam_url', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='api_url', full_name='StudentConnectionResponse.api_url', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=104,
+  serialized_end=166,
+)
 
 
 _EMPTYMESSAGE = _descriptor.Descriptor(
@@ -45,8 +130,8 @@ _EMPTYMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17,
-  serialized_end=31,
+  serialized_start=168,
+  serialized_end=182,
 )
 
 
@@ -98,8 +183,8 @@ _KNOWNSTUDENTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=33,
-  serialized_end=138,
+  serialized_start=184,
+  serialized_end=289,
 )
 
 
@@ -130,8 +215,8 @@ _MONITORRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=140,
-  serialized_end=178,
+  serialized_start=291,
+  serialized_end=329,
 )
 
 
@@ -162,15 +247,31 @@ _MOVEMENTDETECTIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=180,
-  serialized_end=227,
+  serialized_start=331,
+  serialized_end=378,
 )
 
+DESCRIPTOR.message_types_by_name['StudentConnectionMessage'] = _STUDENTCONNECTIONMESSAGE
+DESCRIPTOR.message_types_by_name['StudentConnectionResponse'] = _STUDENTCONNECTIONRESPONSE
 DESCRIPTOR.message_types_by_name['EmptyMessage'] = _EMPTYMESSAGE
 DESCRIPTOR.message_types_by_name['KnownStudentResponse'] = _KNOWNSTUDENTRESPONSE
 DESCRIPTOR.message_types_by_name['MonitorResponse'] = _MONITORRESPONSE
 DESCRIPTOR.message_types_by_name['MovementDetectionMessage'] = _MOVEMENTDETECTIONMESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+StudentConnectionMessage = _reflection.GeneratedProtocolMessageType('StudentConnectionMessage', (_message.Message,), {
+  'DESCRIPTOR' : _STUDENTCONNECTIONMESSAGE,
+  '__module__' : 'monitor_pb2'
+  # @@protoc_insertion_point(class_scope:StudentConnectionMessage)
+  })
+_sym_db.RegisterMessage(StudentConnectionMessage)
+
+StudentConnectionResponse = _reflection.GeneratedProtocolMessageType('StudentConnectionResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STUDENTCONNECTIONRESPONSE,
+  '__module__' : 'monitor_pb2'
+  # @@protoc_insertion_point(class_scope:StudentConnectionResponse)
+  })
+_sym_db.RegisterMessage(StudentConnectionResponse)
 
 EmptyMessage = _reflection.GeneratedProtocolMessageType('EmptyMessage', (_message.Message,), {
   'DESCRIPTOR' : _EMPTYMESSAGE,
@@ -210,8 +311,8 @@ _MONITORSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=230,
-  serialized_end=379,
+  serialized_start=381,
+  serialized_end=609,
   methods=[
   _descriptor.MethodDescriptor(
     name='fetchKnownStudents',
@@ -224,9 +325,19 @@ _MONITORSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='onStudentConnected',
+    full_name='MonitorService.onStudentConnected',
+    index=1,
+    containing_service=None,
+    input_type=_STUDENTCONNECTIONMESSAGE,
+    output_type=_STUDENTCONNECTIONRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='onMovementDetected',
     full_name='MonitorService.onMovementDetected',
-    index=1,
+    index=2,
     containing_service=None,
     input_type=_MOVEMENTDETECTIONMESSAGE,
     output_type=_MONITORRESPONSE,
