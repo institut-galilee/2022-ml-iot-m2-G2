@@ -8,3 +8,5 @@ local.properties
 .externalNativeBuild
 .cxx
 src/mliot-sink/src/yolo_coco_pretrained_model/yolov3.weights
+src/mliot-backend/node_modules/
+src/mliot-frontend/node_modules/
