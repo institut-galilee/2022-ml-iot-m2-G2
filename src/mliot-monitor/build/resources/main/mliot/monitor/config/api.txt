@@ -1,1 +1,1 @@
-https://exam.test/api/
+https://exam.test/api/questions

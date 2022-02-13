@@ -10,6 +10,7 @@ import pyautogui
 import speech_recognition as sr
 from PySide6.QtCore import Qt, QPoint
 from PySide6.QtGui import QImage, QPixmap, QPen, QPainter, QColor
+from pyzbar.pyzbar import decode
 
 from callback.recognition_callback import RecognitionCallback
 from ml_helper import MLHelper
@@ -43,7 +44,7 @@ class FaceRecognizer(threading.Thread):
         while self.is_not_stopped:
             if len(self.known_persons) > 0 and self.frame is not None:
                 self.recognize_face()
-            time.sleep(1)
+            time.sleep(5)
 
     def encode_known_student_faces(self):
         encoded_faces = []
@@ -86,7 +87,7 @@ class ObjectRecognizer(threading.Thread):
         while self.is_not_stopped:
             if self.frame is not None:
                 self.recognize_objects()
-            time.sleep(1)
+            time.sleep(5)
 
     def recognize_objects(self):
         recognized_objects = MLHelper.recognize_object(self.frame)[0]
@@ -117,10 +118,11 @@ class SpeechRecognizer(threading.Thread):
 
 
 class ScreenshotTextRecognizer(threading.Thread):
-    def __init__(self, text_recognition_callback: RecognitionCallback):
+    def __init__(self, text_recognition_callback: RecognitionCallback, exam_reference):
         threading.Thread.__init__(self)
 
         self.text_recognition_callback = text_recognition_callback
+        self.exam_reference = exam_reference.split()
 
         self.speech_engine = sr.Recognizer()
         self.is_screenshotting = True
@@ -128,9 +130,15 @@ class ScreenshotTextRecognizer(threading.Thread):
     def run(self):
         while self.is_screenshotting:
             screenshot = pyautogui.screenshot()
-            # results = decode(screenshot)
-            # for result in results:
-            # print(result.data.decode("UTF-8"))
-            extracted_text = MLHelper.recognize_text(screenshot)
-            self.text_recognition_callback.on_screenshot_text_recognized(extracted_text)
+            width, height = screenshot.size
+            print(width, height)
+            barcodes = decode(screenshot)
+            references = []
+            for barcode in barcodes:
+                print(barcode.rect)
+                references.append(barcode.data.decode("UTF-8"))
+            if set(references) != set(self.exam_reference):
+                extracted_text = MLHelper.recognize_text(screenshot)
+                self.text_recognition_callback.on_qr_code_verification_failed(extracted_text)
+                # self.text_recognition_callback.on_screenshot_text_recognized(extracted_text)
             time.sleep(5)

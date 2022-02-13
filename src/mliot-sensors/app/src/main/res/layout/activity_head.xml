@@ -16,24 +16,25 @@
         android:id="@+id/zoom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="20dp" />
-
-    <mliot.sensors.view.AudioView
-        android:id="@+id/audio_preview"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/audio_waveform"
-        android:visibility="gone" />
-
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="150dp" />
+    <!--
+        <mliot.sensors.view.AudioView
+            android:id="@+id/audio_preview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/audio_waveform"
+            android:visibility="gone" />
+    -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/switcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/camera_switch" />
 </RelativeLayout>

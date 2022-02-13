@@ -8,7 +8,7 @@ from process import SpeechRecognizer, ScreenshotTextRecognizer, FaceRecognizer, 
 
 
 class MainView(QWidget, RecognitionCallback):
-    def __init__(self, current_student):
+    def __init__(self, current_student, api_content):
         super().__init__()
 
         # Thresholds
@@ -18,31 +18,32 @@ class MainView(QWidget, RecognitionCallback):
         self.face_recognizer_counter = 0
 
         self.current_student = current_student
+        self.api_content = api_content
 
         self.setFixedWidth(1080)
-        self.setFixedHeight(780)
+        self.setFixedHeight(720)
 
         # Setup Phone Camera View
         self.phone_camera_view = QLabel()
-        self.phone_camera_view.setFixedWidth(240)
-        self.phone_camera_view.setFixedHeight(405)
+        self.phone_camera_view.setFixedWidth(512)
+        self.phone_camera_view.setFixedHeight(288)
         self.phone_camera_view.setStyleSheet("border: 5px solid #396EB0; border-radius: 3px;")
 
         # Setup Computer Camera View
         self.web_camera_view = QLabel()
-        self.web_camera_view.setFixedWidth(720)
-        self.web_camera_view.setFixedHeight(405)
+        self.web_camera_view.setFixedWidth(512)
+        self.web_camera_view.setFixedHeight(288)
         self.web_camera_view.setStyleSheet("border: 5px solid #396EB0; border-radius: 3px;")
 
         # Setup Acceleration View
         self.acceleration_view = AccelerationView()
         self.acceleration_view.setFixedWidth(1080)
-        self.acceleration_view.setFixedHeight(300)
+        self.acceleration_view.setFixedHeight(360)
         self.acceleration_view.setStyleSheet("QWidget {border: 5px solid #396EB0; border-radius: 3px;}")
 
         h_layout = QHBoxLayout()
         h_layout.addWidget(self.phone_camera_view, alignment=Qt.AlignLeft)
-        h_layout.addWidget(self.web_camera_view, alignment=Qt.AlignTop)
+        h_layout.addWidget(self.web_camera_view, alignment=Qt.AlignRight)
 
         layout = QVBoxLayout(self)
         layout.addLayout(h_layout)
@@ -73,7 +74,7 @@ class MainView(QWidget, RecognitionCallback):
         self.speech_recognizer.start()
 
         # Start OCR process
-        self.text_recognizer = ScreenshotTextRecognizer(self)
+        self.text_recognizer = ScreenshotTextRecognizer(self, self.api_content["exam_reference"])
         self.text_recognizer.start()
 
     def on_microphone_speech_recognized(self, extracted_text):
@@ -81,6 +82,9 @@ class MainView(QWidget, RecognitionCallback):
 
     def on_screenshot_text_recognized(self, extracted_text):
         pass
+
+    def on_qr_code_verification_failed(self, extracted_text):
+        print(extracted_text)
 
     def on_face_recognized(self, recognized_image, known_student):
         self.face_recognizer_counter = 0
@@ -100,7 +104,7 @@ class MainView(QWidget, RecognitionCallback):
             elif recognized_objects.count("person") > 1:
                 print("cheat")
         if source == "phone_camera":
-            if "tvmonitor" not in recognized_objects or "laptop" not in recognized_objects:
+            if "tvmonitor" not in recognized_objects and "laptop" not in recognized_objects:
                 print("cheat")
             elif recognized_objects.count("tvmonitor") > 1 or recognized_objects.count("laptop") > 1:
                 print("cheat")

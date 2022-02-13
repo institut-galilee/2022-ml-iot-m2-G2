@@ -65,7 +65,7 @@ public class AccelerationView extends View {
         yPaint = new Paint();
         yPaint.setStrokeWidth(1f);
         yPaint.setAntiAlias(true);
-        yPaint.setColor(Color.rgb(23, 0, 85));
+        yPaint.setColor(Color.rgb(255, 255, 0));
 
         zPaint = new Paint();
         zPaint.setStrokeWidth(1f);
@@ -107,7 +107,6 @@ public class AccelerationView extends View {
 
         zPaint.setTextSize(40f);
         canvas.drawText("Z", (float) (getWidth() / 2) + 50, 40f, zPaint);
-
     }
 
     private void drawGraph(Canvas canvas) {

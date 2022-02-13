@@ -18,3 +18,6 @@ class RecognitionCallback(object):
 
     def on_screenshot_text_recognized(self, extracted_text):
         raise Exception("NotImplementedException")
+
+    def on_qr_code_verification_failed(self, extracted_text):
+        raise Exception("NotImplementedException")

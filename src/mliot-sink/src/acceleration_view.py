@@ -15,8 +15,11 @@ class AccelerationView(QWidget):
         self.MAX_ITEM = 500
         self.max_range = None
 
-        self.qf = QFont()
-        self.qf.setPointSize(5)
+        self.y_font = QFont()
+        self.y_font.setPointSize(5)
+
+        self.x_font = QFont()
+        self.x_font.setPointSize(20)
 
         self.x_pen = QPen(QColor(135, 100, 69, 255), 1, Qt.SolidLine)
         self.y_pen = QPen(QColor(255, 255, 0, 255), 1, Qt.SolidLine)
@@ -60,7 +63,7 @@ class AccelerationView(QWidget):
 
     def paintEvent(self, event):
         if self.max_range is not None:
-            self.draw_grid(event)
+            self.draw_grid()
             self.x_points.clear()
             self.y_points.clear()
             self.z_points.clear()
@@ -104,10 +107,10 @@ class AccelerationView(QWidget):
                 qp.drawLines(self.z_points)
             qp.end()
 
-    def draw_grid(self, event):
+    def draw_grid(self):
         qp = QPainter()
         qp.begin(self)
-        qp.setFont(self.qf)
+        qp.setFont(self.y_font)
         qp.setPen(self.text_pen)
 
         interval = (self.max_range * self.VERTICAL_SPACING * 2) / self.h
@@ -135,4 +138,13 @@ class AccelerationView(QWidget):
             )
         qp.setPen(self.grid_pen)
         qp.drawLines(self.vertical_lines)
+
+        qp.setFont(self.x_font)
+        qp.setPen(self.x_pen)
+        qp.drawText(QPointF((self.w / 2) - 50, 320), "X")
+        qp.setPen(self.y_pen)
+        qp.drawText(QPointF((self.w / 2), 320), "Y")
+        qp.setPen(self.z_pen)
+        qp.drawText(QPointF((self.w / 2) + 50, 320), "Z")
+
         qp.end()

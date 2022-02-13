@@ -101,6 +101,7 @@ class AuthenticationView(QWidget, RecognitionCallback):
 
         self.video_view = QLabel()
         self.video_view.setAlignment(Qt.AlignCenter)
+        self.video_view.setStyleSheet("border: 5px solid #396EB0; border-radius: 3px;")
         grid_layout = QGridLayout(self)
         grid_layout.addWidget(header_label, 0, 0, 1, 2)
         grid_layout.setRowStretch(1, 10)
@@ -134,12 +135,12 @@ class AuthenticationView(QWidget, RecognitionCallback):
         if self.known_student is None:
             ret, frame = self.video_capture.read()
             frame = frame[self.x:self.x + self.dim, self.y:self.y + self.dim]
-            frame = cv2.resize(frame, (560, 560))
+            frame = cv2.resize(frame, (self.video_view.width(), self.video_view.height()))
             frame = cv2.flip(frame, 1)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image = QImage(frame, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
             pixmap = QPixmap.fromImage(image)
-            self.video_view.setPixmap(pixmap.scaled(560, 560))
+            self.video_view.setPixmap(pixmap.scaled(self.video_view.width(), self.video_view.height()))
             self.face_recognizer.frame = frame
         else:
             self.capture_timer.stop()
@@ -149,7 +150,7 @@ class AuthenticationView(QWidget, RecognitionCallback):
         self.next_button.setEnabled(True)
         self.known_student = known_student
         time.sleep(2)
-        self.video_view.setPixmap(recognized_image.scaled(560, 560))
+        self.video_view.setPixmap(recognized_image.scaled(self.video_view.width(), self.video_view.height()))
 
     def on_face_not_recognized(self):
         pass

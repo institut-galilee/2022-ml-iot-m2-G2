@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
 

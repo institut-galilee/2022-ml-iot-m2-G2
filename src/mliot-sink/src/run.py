@@ -1,4 +1,7 @@
+import json
+import ssl
 import sys
+import urllib.request
 import webbrowser
 
 from PySide6.QtGui import QScreen, QIcon, QCloseEvent
@@ -49,6 +52,9 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         # Current student
         self.current_student = None
 
+        # Exam content
+        self.api_content = None
+
     def center_window(self):
         # Center the window
         center = QScreen.availableGeometry(QApplication.primaryScreen()).center()
@@ -64,8 +70,11 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
     def on_head_device_set(self):
         self.exam_url, self.api_url = MonitorHelper.connect_student(self.current_student.card_number)
         if self.exam_url is not None and self.exam_url is not None:
+            context = ssl._create_unverified_context()
+            content = urllib.request.urlopen(self.api_url, context=context).read()
+            self.api_content = json.loads(content)
             webbrowser.open(self.exam_url)
-            self.main_view = MainView(self.current_student)
+            self.main_view = MainView(self.current_student, self.api_content)
             self.content_view.addWidget(self.main_view)
             self.content_view.setCurrentWidget(self.main_view)
             self.center_window()
