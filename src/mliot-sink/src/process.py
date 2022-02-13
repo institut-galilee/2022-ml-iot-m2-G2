@@ -131,11 +131,11 @@ class ScreenshotTextRecognizer(threading.Thread):
         while self.is_screenshotting:
             screenshot = pyautogui.screenshot()
             width, height = screenshot.size
-            print(width, height)
             barcodes = decode(screenshot)
+            coordinates = []
             references = []
             for barcode in barcodes:
-                print(barcode.rect)
+                coordinates.append(barcode.rect)
                 references.append(barcode.data.decode("UTF-8"))
             if set(references) != set(self.exam_reference):
                 extracted_text = MLHelper.recognize_text(screenshot)

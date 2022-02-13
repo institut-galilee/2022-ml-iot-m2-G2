@@ -1,0 +1,50 @@
+<div class="main-wrapper">
+  <div class="section">
+    <div class="top">
+      <div class="row">
+        <div class="col s3">
+          <qr-code [value]="reference.split(' ')[0]" [size]="height"></qr-code>
+        </div>
+        <div class="col s6">
+          <app-navbar style="text-align: start;"></app-navbar>
+        </div>
+        <div class="col s3 right-align">
+          <qr-code [value]="reference.split(' ')[1]" [size]="height"></qr-code>
+        </div>
+      </div>
+    </div>
+    <div class="middle">
+      <div class="container">
+        <div class="card">
+          <div class="card-content" *ngFor="let item of questionnaire | paginate: { itemsPerPage: 1, currentPage: p };">
+            <h4 class="card-title">Question {{questionnaire.indexOf(item) + 1}} (#{{item.question_marks}} Point{{item.question_marks > 1 ? "s": ""}})</h4>
+            <p>{{item.question_text}}</p>
+            <div *ngFor="let response of item.question_responses">
+              <p>
+                <label>
+                  <input type="radio" name="group{{questionnaire.indexOf(item)}}"/>
+                  <span>{{response.response_text}}</span>
+                </label>
+              </p>
+            </div>
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="row">
+        <div class="col s3">
+          <qr-code [value]="reference.split(' ')[2]" [size]="height"></qr-code>
+        </div>
+        <div class="col s6">
+          <app-footer></app-footer>
+        </div>
+        <div class="col s3 right-align">
+          <qr-code [value]="reference.split(' ')[3]" [size]="height"></qr-code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
