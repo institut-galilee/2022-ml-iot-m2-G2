@@ -1,0 +1,225 @@
+{
+  "exam_reference": "278 300 229 109",
+  "exam_questions": [
+    {
+      "question_id": 1,
+      "question_text": "Quelle est la capital de la France?",
+      "question_marks": 3,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "Bruxelles",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 2,
+          "response_text": "Washington",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 3,
+          "response_text": "Paris",
+          "response_is_correct": true
+        }
+      ]
+    },
+    {
+      "question_id": 2,
+      "question_text": "En quelle année le Titanic a-t-il coulé dans l'océan Atlantique le 15 avril, lors de son premier voyage au départ de Southampton?",
+      "question_marks": 2,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "1912",
+          "response_is_correct": true
+        },
+        {
+          "response_id": 2,
+          "response_text": "1924",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 3,
+          "response_text": "1936",
+          "response_is_correct": false
+        }
+      ]
+    },
+    {
+      "question_id": 3,
+      "question_text": "Quel est le nom de la plus grande entreprise technologique de Corée du Sud?",
+      "question_marks": 1,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "Samsung",
+          "response_is_correct": true
+        },
+        {
+          "response_id": 2,
+          "response_text": "Nokia",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 3,
+          "response_text": "Huawei",
+          "response_is_correct": false
+        }
+      ]
+    },
+    {
+      "question_id": 4,
+      "question_text": "Quel métal a été découvert par Hans Christian Oersted en 1825?",
+      "question_marks": 4,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "Fer",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 2,
+          "response_text": "Aluminium",
+          "response_is_correct": true
+        },
+        {
+          "response_id": 3,
+          "response_text": "Zinc",
+          "response_is_correct": false
+        }
+      ]
+    },
+    {
+      "question_id": 5,
+      "question_text": "Quelle est la capitale du Portugal?",
+      "question_marks": 4,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "Lisbonne",
+          "response_is_correct": true
+        },
+        {
+          "response_id": 2,
+          "response_text": "Berne",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 3,
+          "response_text": "Madrid",
+          "response_is_correct": false
+        }
+      ]
+    },
+    {
+      "question_id": 6,
+      "question_text": "Combien de respirations le corps humain prend-il quotidiennement?",
+      "question_marks": 1,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "5,000 quotidiennement",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 2,
+          "response_text": "10,000 quotidiennement",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 3,
+          "response_text": "20,000 quotidiennement",
+          "response_is_correct": true
+        }
+      ]
+    },
+    {
+      "question_id": 7,
+      "question_text": "Quel est le symbole chimique de l'argent?",
+      "question_marks": 2,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "Ag",
+          "response_is_correct": true
+        },
+        {
+          "response_id": 2,
+          "response_text": "Ar",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 3,
+          "response_text": "At",
+          "response_is_correct": false
+        }
+      ]
+    },
+    {
+      "question_id": 8,
+      "question_text": "Quel est le plus petit oiseau du monde?",
+      "question_marks": 3,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "Colibri d'abeille",
+          "response_is_correct": true
+        },
+        {
+          "response_id": 2,
+          "response_text": "Chardonneret jaune",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 3,
+          "response_text": "Cisticole à couronne dorée",
+          "response_is_correct": false
+        }
+      ]
+    },
+    {
+      "question_id": 9,
+      "question_text": "Quel est le nom complet de la poupée Barbie?",
+      "question_marks": 3,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "Barbara Millicent Robie",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 2,
+          "response_text": "Barbie Millicent Roberts",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 3,
+          "response_text": "Barbara Millicent Roberts",
+          "response_is_correct": true
+        }
+      ]
+    },
+    {
+      "question_id": 10,
+      "question_text": "Quelle est la durée de vie d'une libellule?",
+      "question_marks": 3,
+      "question_responses": [
+        {
+          "response_id": 1,
+          "response_text": "72 heures",
+          "response_is_correct": false
+        },
+        {
+          "response_id": 2,
+          "response_text": "24 heures",
+          "response_is_correct": true
+        },
+        {
+          "response_id": 3,
+          "response_text": "48 heures",
+          "response_is_correct": false
+        }
+      ]
+    }
+  ]
+}

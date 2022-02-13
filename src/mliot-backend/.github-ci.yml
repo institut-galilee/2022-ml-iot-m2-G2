@@ -1,0 +1,13 @@
+default:
+image: node:14.17.6-bullseye
+
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+
+tests:
+  script:
+   - npm ci --cache .npm --prefer-offline
+   - npm run test:ci
