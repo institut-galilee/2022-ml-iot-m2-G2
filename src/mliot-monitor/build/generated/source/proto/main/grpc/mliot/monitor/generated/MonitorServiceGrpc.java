@@ -78,34 +78,406 @@ public final class MonitorServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.MovementDetectionMessage,
-      mliot.monitor.generated.MonitorResponse> getOnMovementDetectedMethod;
+      mliot.monitor.generated.EmptyResponse> getOnMovementDetectedMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "onMovementDetected",
       requestType = mliot.monitor.generated.MovementDetectionMessage.class,
-      responseType = mliot.monitor.generated.MonitorResponse.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<mliot.monitor.generated.MovementDetectionMessage,
-      mliot.monitor.generated.MonitorResponse> getOnMovementDetectedMethod() {
-    io.grpc.MethodDescriptor<mliot.monitor.generated.MovementDetectionMessage, mliot.monitor.generated.MonitorResponse> getOnMovementDetectedMethod;
+      mliot.monitor.generated.EmptyResponse> getOnMovementDetectedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.MovementDetectionMessage, mliot.monitor.generated.EmptyResponse> getOnMovementDetectedMethod;
     if ((getOnMovementDetectedMethod = MonitorServiceGrpc.getOnMovementDetectedMethod) == null) {
       synchronized (MonitorServiceGrpc.class) {
         if ((getOnMovementDetectedMethod = MonitorServiceGrpc.getOnMovementDetectedMethod) == null) {
           MonitorServiceGrpc.getOnMovementDetectedMethod = getOnMovementDetectedMethod =
-              io.grpc.MethodDescriptor.<mliot.monitor.generated.MovementDetectionMessage, mliot.monitor.generated.MonitorResponse>newBuilder()
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.MovementDetectionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onMovementDetected"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   mliot.monitor.generated.MovementDetectionMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  mliot.monitor.generated.MonitorResponse.getDefaultInstance()))
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
               .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onMovementDetected"))
               .build();
         }
       }
     }
     return getOnMovementDetectedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.SpeechRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnMicrophoneSpeechRecognizedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onMicrophoneSpeechRecognized",
+      requestType = mliot.monitor.generated.SpeechRecognitionMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.SpeechRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnMicrophoneSpeechRecognizedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.SpeechRecognitionMessage, mliot.monitor.generated.EmptyResponse> getOnMicrophoneSpeechRecognizedMethod;
+    if ((getOnMicrophoneSpeechRecognizedMethod = MonitorServiceGrpc.getOnMicrophoneSpeechRecognizedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnMicrophoneSpeechRecognizedMethod = MonitorServiceGrpc.getOnMicrophoneSpeechRecognizedMethod) == null) {
+          MonitorServiceGrpc.getOnMicrophoneSpeechRecognizedMethod = getOnMicrophoneSpeechRecognizedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.SpeechRecognitionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onMicrophoneSpeechRecognized"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.SpeechRecognitionMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onMicrophoneSpeechRecognized"))
+              .build();
+        }
+      }
+    }
+    return getOnMicrophoneSpeechRecognizedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.BrowserSizeMessage,
+      mliot.monitor.generated.EmptyResponse> getOnBrowserSizeNotFittingScreenSizeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onBrowserSizeNotFittingScreenSize",
+      requestType = mliot.monitor.generated.BrowserSizeMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.BrowserSizeMessage,
+      mliot.monitor.generated.EmptyResponse> getOnBrowserSizeNotFittingScreenSizeMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.BrowserSizeMessage, mliot.monitor.generated.EmptyResponse> getOnBrowserSizeNotFittingScreenSizeMethod;
+    if ((getOnBrowserSizeNotFittingScreenSizeMethod = MonitorServiceGrpc.getOnBrowserSizeNotFittingScreenSizeMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnBrowserSizeNotFittingScreenSizeMethod = MonitorServiceGrpc.getOnBrowserSizeNotFittingScreenSizeMethod) == null) {
+          MonitorServiceGrpc.getOnBrowserSizeNotFittingScreenSizeMethod = getOnBrowserSizeNotFittingScreenSizeMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.BrowserSizeMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onBrowserSizeNotFittingScreenSize"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.BrowserSizeMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onBrowserSizeNotFittingScreenSize"))
+              .build();
+        }
+      }
+    }
+    return getOnBrowserSizeNotFittingScreenSizeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenTestRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnScreenshotTextRecognizedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onScreenshotTextRecognized",
+      requestType = mliot.monitor.generated.ScreenTestRecognitionMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenTestRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnScreenshotTextRecognizedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenTestRecognitionMessage, mliot.monitor.generated.EmptyResponse> getOnScreenshotTextRecognizedMethod;
+    if ((getOnScreenshotTextRecognizedMethod = MonitorServiceGrpc.getOnScreenshotTextRecognizedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnScreenshotTextRecognizedMethod = MonitorServiceGrpc.getOnScreenshotTextRecognizedMethod) == null) {
+          MonitorServiceGrpc.getOnScreenshotTextRecognizedMethod = getOnScreenshotTextRecognizedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.ScreenTestRecognitionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onScreenshotTextRecognized"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.ScreenTestRecognitionMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onScreenshotTextRecognized"))
+              .build();
+        }
+      }
+    }
+    return getOnScreenshotTextRecognizedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.QRCodeVerificationMessage,
+      mliot.monitor.generated.EmptyResponse> getOnQRCodeVerificationFailedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onQRCodeVerificationFailed",
+      requestType = mliot.monitor.generated.QRCodeVerificationMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.QRCodeVerificationMessage,
+      mliot.monitor.generated.EmptyResponse> getOnQRCodeVerificationFailedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.QRCodeVerificationMessage, mliot.monitor.generated.EmptyResponse> getOnQRCodeVerificationFailedMethod;
+    if ((getOnQRCodeVerificationFailedMethod = MonitorServiceGrpc.getOnQRCodeVerificationFailedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnQRCodeVerificationFailedMethod = MonitorServiceGrpc.getOnQRCodeVerificationFailedMethod) == null) {
+          MonitorServiceGrpc.getOnQRCodeVerificationFailedMethod = getOnQRCodeVerificationFailedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.QRCodeVerificationMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onQRCodeVerificationFailed"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.QRCodeVerificationMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onQRCodeVerificationFailed"))
+              .build();
+        }
+      }
+    }
+    return getOnQRCodeVerificationFailedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.StudentFraudMessage,
+      mliot.monitor.generated.EmptyResponse> getOnStudentNotAllowedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onStudentNotAllowed",
+      requestType = mliot.monitor.generated.StudentFraudMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.StudentFraudMessage,
+      mliot.monitor.generated.EmptyResponse> getOnStudentNotAllowedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.StudentFraudMessage, mliot.monitor.generated.EmptyResponse> getOnStudentNotAllowedMethod;
+    if ((getOnStudentNotAllowedMethod = MonitorServiceGrpc.getOnStudentNotAllowedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnStudentNotAllowedMethod = MonitorServiceGrpc.getOnStudentNotAllowedMethod) == null) {
+          MonitorServiceGrpc.getOnStudentNotAllowedMethod = getOnStudentNotAllowedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.StudentFraudMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onStudentNotAllowed"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.StudentFraudMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onStudentNotAllowed"))
+              .build();
+        }
+      }
+    }
+    return getOnStudentNotAllowedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.FaceRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnFaceNotRecognizedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onFaceNotRecognized",
+      requestType = mliot.monitor.generated.FaceRecognitionMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.FaceRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnFaceNotRecognizedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.FaceRecognitionMessage, mliot.monitor.generated.EmptyResponse> getOnFaceNotRecognizedMethod;
+    if ((getOnFaceNotRecognizedMethod = MonitorServiceGrpc.getOnFaceNotRecognizedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnFaceNotRecognizedMethod = MonitorServiceGrpc.getOnFaceNotRecognizedMethod) == null) {
+          MonitorServiceGrpc.getOnFaceNotRecognizedMethod = getOnFaceNotRecognizedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.FaceRecognitionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onFaceNotRecognized"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.FaceRecognitionMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onFaceNotRecognized"))
+              .build();
+        }
+      }
+    }
+    return getOnFaceNotRecognizedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.WebCameraRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnWebCameraObjectsRecognizedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onWebCameraObjectsRecognized",
+      requestType = mliot.monitor.generated.WebCameraRecognitionMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.WebCameraRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnWebCameraObjectsRecognizedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.WebCameraRecognitionMessage, mliot.monitor.generated.EmptyResponse> getOnWebCameraObjectsRecognizedMethod;
+    if ((getOnWebCameraObjectsRecognizedMethod = MonitorServiceGrpc.getOnWebCameraObjectsRecognizedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnWebCameraObjectsRecognizedMethod = MonitorServiceGrpc.getOnWebCameraObjectsRecognizedMethod) == null) {
+          MonitorServiceGrpc.getOnWebCameraObjectsRecognizedMethod = getOnWebCameraObjectsRecognizedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.WebCameraRecognitionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onWebCameraObjectsRecognized"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.WebCameraRecognitionMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onWebCameraObjectsRecognized"))
+              .build();
+        }
+      }
+    }
+    return getOnWebCameraObjectsRecognizedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.PhoneCameraRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnPhoneCameraObjectsRecognizedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onPhoneCameraObjectsRecognized",
+      requestType = mliot.monitor.generated.PhoneCameraRecognitionMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.PhoneCameraRecognitionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnPhoneCameraObjectsRecognizedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.PhoneCameraRecognitionMessage, mliot.monitor.generated.EmptyResponse> getOnPhoneCameraObjectsRecognizedMethod;
+    if ((getOnPhoneCameraObjectsRecognizedMethod = MonitorServiceGrpc.getOnPhoneCameraObjectsRecognizedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnPhoneCameraObjectsRecognizedMethod = MonitorServiceGrpc.getOnPhoneCameraObjectsRecognizedMethod) == null) {
+          MonitorServiceGrpc.getOnPhoneCameraObjectsRecognizedMethod = getOnPhoneCameraObjectsRecognizedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.PhoneCameraRecognitionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onPhoneCameraObjectsRecognized"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.PhoneCameraRecognitionMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onPhoneCameraObjectsRecognized"))
+              .build();
+        }
+      }
+    }
+    return getOnPhoneCameraObjectsRecognizedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.UnAuthorizedMonitorMessage,
+      mliot.monitor.generated.EmptyResponse> getOnUnAuthorizedMonitorMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onUnAuthorizedMonitor",
+      requestType = mliot.monitor.generated.UnAuthorizedMonitorMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.UnAuthorizedMonitorMessage,
+      mliot.monitor.generated.EmptyResponse> getOnUnAuthorizedMonitorMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.UnAuthorizedMonitorMessage, mliot.monitor.generated.EmptyResponse> getOnUnAuthorizedMonitorMethod;
+    if ((getOnUnAuthorizedMonitorMethod = MonitorServiceGrpc.getOnUnAuthorizedMonitorMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnUnAuthorizedMonitorMethod = MonitorServiceGrpc.getOnUnAuthorizedMonitorMethod) == null) {
+          MonitorServiceGrpc.getOnUnAuthorizedMonitorMethod = getOnUnAuthorizedMonitorMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.UnAuthorizedMonitorMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onUnAuthorizedMonitor"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.UnAuthorizedMonitorMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onUnAuthorizedMonitor"))
+              .build();
+        }
+      }
+    }
+    return getOnUnAuthorizedMonitorMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.HighAccelerationMessage,
+      mliot.monitor.generated.EmptyResponse> getOnHighAccelerationMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onHighAcceleration",
+      requestType = mliot.monitor.generated.HighAccelerationMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.HighAccelerationMessage,
+      mliot.monitor.generated.EmptyResponse> getOnHighAccelerationMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.HighAccelerationMessage, mliot.monitor.generated.EmptyResponse> getOnHighAccelerationMethod;
+    if ((getOnHighAccelerationMethod = MonitorServiceGrpc.getOnHighAccelerationMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnHighAccelerationMethod = MonitorServiceGrpc.getOnHighAccelerationMethod) == null) {
+          MonitorServiceGrpc.getOnHighAccelerationMethod = getOnHighAccelerationMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.HighAccelerationMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onHighAcceleration"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.HighAccelerationMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onHighAcceleration"))
+              .build();
+        }
+      }
+    }
+    return getOnHighAccelerationMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.HandDeviceMessage,
+      mliot.monitor.generated.EmptyResponse> getOnHandDeviceStateChangedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onHandDeviceStateChanged",
+      requestType = mliot.monitor.generated.HandDeviceMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.HandDeviceMessage,
+      mliot.monitor.generated.EmptyResponse> getOnHandDeviceStateChangedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.HandDeviceMessage, mliot.monitor.generated.EmptyResponse> getOnHandDeviceStateChangedMethod;
+    if ((getOnHandDeviceStateChangedMethod = MonitorServiceGrpc.getOnHandDeviceStateChangedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnHandDeviceStateChangedMethod = MonitorServiceGrpc.getOnHandDeviceStateChangedMethod) == null) {
+          MonitorServiceGrpc.getOnHandDeviceStateChangedMethod = getOnHandDeviceStateChangedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.HandDeviceMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onHandDeviceStateChanged"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.HandDeviceMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onHandDeviceStateChanged"))
+              .build();
+        }
+      }
+    }
+    return getOnHandDeviceStateChangedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.StudentDisconnectionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnStudentDisconnectedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "onStudentDisconnected",
+      requestType = mliot.monitor.generated.StudentDisconnectionMessage.class,
+      responseType = mliot.monitor.generated.EmptyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.StudentDisconnectionMessage,
+      mliot.monitor.generated.EmptyResponse> getOnStudentDisconnectedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.StudentDisconnectionMessage, mliot.monitor.generated.EmptyResponse> getOnStudentDisconnectedMethod;
+    if ((getOnStudentDisconnectedMethod = MonitorServiceGrpc.getOnStudentDisconnectedMethod) == null) {
+      synchronized (MonitorServiceGrpc.class) {
+        if ((getOnStudentDisconnectedMethod = MonitorServiceGrpc.getOnStudentDisconnectedMethod) == null) {
+          MonitorServiceGrpc.getOnStudentDisconnectedMethod = getOnStudentDisconnectedMethod =
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.StudentDisconnectionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onStudentDisconnected"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.StudentDisconnectionMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onStudentDisconnected"))
+              .build();
+        }
+      }
+    }
+    return getOnStudentDisconnectedMethod;
   }
 
   /**
@@ -173,8 +545,92 @@ public final class MonitorServiceGrpc {
     /**
      */
     public void onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request,
-        io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnMovementDetectedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onMicrophoneSpeechRecognized(mliot.monitor.generated.SpeechRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnMicrophoneSpeechRecognizedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onBrowserSizeNotFittingScreenSize(mliot.monitor.generated.BrowserSizeMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnBrowserSizeNotFittingScreenSizeMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onScreenshotTextRecognized(mliot.monitor.generated.ScreenTestRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnScreenshotTextRecognizedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onQRCodeVerificationFailed(mliot.monitor.generated.QRCodeVerificationMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnQRCodeVerificationFailedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onStudentNotAllowed(mliot.monitor.generated.StudentFraudMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnStudentNotAllowedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onFaceNotRecognized(mliot.monitor.generated.FaceRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnFaceNotRecognizedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onWebCameraObjectsRecognized(mliot.monitor.generated.WebCameraRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnWebCameraObjectsRecognizedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onPhoneCameraObjectsRecognized(mliot.monitor.generated.PhoneCameraRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnPhoneCameraObjectsRecognizedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onUnAuthorizedMonitor(mliot.monitor.generated.UnAuthorizedMonitorMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnUnAuthorizedMonitorMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onHighAcceleration(mliot.monitor.generated.HighAccelerationMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnHighAccelerationMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onHandDeviceStateChanged(mliot.monitor.generated.HandDeviceMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnHandDeviceStateChangedMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void onStudentDisconnected(mliot.monitor.generated.StudentDisconnectionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnStudentDisconnectedMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -198,8 +654,92 @@ public final class MonitorServiceGrpc {
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 mliot.monitor.generated.MovementDetectionMessage,
-                mliot.monitor.generated.MonitorResponse>(
+                mliot.monitor.generated.EmptyResponse>(
                   this, METHODID_ON_MOVEMENT_DETECTED)))
+          .addMethod(
+            getOnMicrophoneSpeechRecognizedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.SpeechRecognitionMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_MICROPHONE_SPEECH_RECOGNIZED)))
+          .addMethod(
+            getOnBrowserSizeNotFittingScreenSizeMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.BrowserSizeMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_BROWSER_SIZE_NOT_FITTING_SCREEN_SIZE)))
+          .addMethod(
+            getOnScreenshotTextRecognizedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.ScreenTestRecognitionMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_SCREENSHOT_TEXT_RECOGNIZED)))
+          .addMethod(
+            getOnQRCodeVerificationFailedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.QRCodeVerificationMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_QRCODE_VERIFICATION_FAILED)))
+          .addMethod(
+            getOnStudentNotAllowedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.StudentFraudMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_STUDENT_NOT_ALLOWED)))
+          .addMethod(
+            getOnFaceNotRecognizedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.FaceRecognitionMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_FACE_NOT_RECOGNIZED)))
+          .addMethod(
+            getOnWebCameraObjectsRecognizedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.WebCameraRecognitionMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_WEB_CAMERA_OBJECTS_RECOGNIZED)))
+          .addMethod(
+            getOnPhoneCameraObjectsRecognizedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.PhoneCameraRecognitionMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_PHONE_CAMERA_OBJECTS_RECOGNIZED)))
+          .addMethod(
+            getOnUnAuthorizedMonitorMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.UnAuthorizedMonitorMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_UN_AUTHORIZED_MONITOR)))
+          .addMethod(
+            getOnHighAccelerationMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.HighAccelerationMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_HIGH_ACCELERATION)))
+          .addMethod(
+            getOnHandDeviceStateChangedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.HandDeviceMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_HAND_DEVICE_STATE_CHANGED)))
+          .addMethod(
+            getOnStudentDisconnectedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                mliot.monitor.generated.StudentDisconnectionMessage,
+                mliot.monitor.generated.EmptyResponse>(
+                  this, METHODID_ON_STUDENT_DISCONNECTED)))
           .build();
     }
   }
@@ -237,9 +777,105 @@ public final class MonitorServiceGrpc {
     /**
      */
     public void onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request,
-        io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getOnMovementDetectedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onMicrophoneSpeechRecognized(mliot.monitor.generated.SpeechRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnMicrophoneSpeechRecognizedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onBrowserSizeNotFittingScreenSize(mliot.monitor.generated.BrowserSizeMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnBrowserSizeNotFittingScreenSizeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onScreenshotTextRecognized(mliot.monitor.generated.ScreenTestRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnScreenshotTextRecognizedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onQRCodeVerificationFailed(mliot.monitor.generated.QRCodeVerificationMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnQRCodeVerificationFailedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onStudentNotAllowed(mliot.monitor.generated.StudentFraudMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnStudentNotAllowedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onFaceNotRecognized(mliot.monitor.generated.FaceRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnFaceNotRecognizedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onWebCameraObjectsRecognized(mliot.monitor.generated.WebCameraRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnWebCameraObjectsRecognizedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onPhoneCameraObjectsRecognized(mliot.monitor.generated.PhoneCameraRecognitionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnPhoneCameraObjectsRecognizedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onUnAuthorizedMonitor(mliot.monitor.generated.UnAuthorizedMonitorMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnUnAuthorizedMonitorMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onHighAcceleration(mliot.monitor.generated.HighAccelerationMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnHighAccelerationMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onHandDeviceStateChanged(mliot.monitor.generated.HandDeviceMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnHandDeviceStateChangedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void onStudentDisconnected(mliot.monitor.generated.StudentDisconnectionMessage request,
+        io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getOnStudentDisconnectedMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -274,9 +910,93 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public mliot.monitor.generated.MonitorResponse onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request) {
+    public mliot.monitor.generated.EmptyResponse onMovementDetected(mliot.monitor.generated.MovementDetectionMessage request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getOnMovementDetectedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onMicrophoneSpeechRecognized(mliot.monitor.generated.SpeechRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnMicrophoneSpeechRecognizedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onBrowserSizeNotFittingScreenSize(mliot.monitor.generated.BrowserSizeMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnBrowserSizeNotFittingScreenSizeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onScreenshotTextRecognized(mliot.monitor.generated.ScreenTestRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnScreenshotTextRecognizedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onQRCodeVerificationFailed(mliot.monitor.generated.QRCodeVerificationMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnQRCodeVerificationFailedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onStudentNotAllowed(mliot.monitor.generated.StudentFraudMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnStudentNotAllowedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onFaceNotRecognized(mliot.monitor.generated.FaceRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnFaceNotRecognizedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onWebCameraObjectsRecognized(mliot.monitor.generated.WebCameraRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnWebCameraObjectsRecognizedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onPhoneCameraObjectsRecognized(mliot.monitor.generated.PhoneCameraRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnPhoneCameraObjectsRecognizedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onUnAuthorizedMonitor(mliot.monitor.generated.UnAuthorizedMonitorMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnUnAuthorizedMonitorMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onHighAcceleration(mliot.monitor.generated.HighAccelerationMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnHighAccelerationMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onHandDeviceStateChanged(mliot.monitor.generated.HandDeviceMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnHandDeviceStateChangedMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public mliot.monitor.generated.EmptyResponse onStudentDisconnected(mliot.monitor.generated.StudentDisconnectionMessage request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getOnStudentDisconnectedMethod(), getCallOptions(), request);
     }
   }
 
@@ -304,16 +1024,124 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.MonitorResponse> onMovementDetected(
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onMovementDetected(
         mliot.monitor.generated.MovementDetectionMessage request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getOnMovementDetectedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onMicrophoneSpeechRecognized(
+        mliot.monitor.generated.SpeechRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnMicrophoneSpeechRecognizedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onBrowserSizeNotFittingScreenSize(
+        mliot.monitor.generated.BrowserSizeMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnBrowserSizeNotFittingScreenSizeMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onScreenshotTextRecognized(
+        mliot.monitor.generated.ScreenTestRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnScreenshotTextRecognizedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onQRCodeVerificationFailed(
+        mliot.monitor.generated.QRCodeVerificationMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnQRCodeVerificationFailedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onStudentNotAllowed(
+        mliot.monitor.generated.StudentFraudMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnStudentNotAllowedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onFaceNotRecognized(
+        mliot.monitor.generated.FaceRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnFaceNotRecognizedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onWebCameraObjectsRecognized(
+        mliot.monitor.generated.WebCameraRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnWebCameraObjectsRecognizedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onPhoneCameraObjectsRecognized(
+        mliot.monitor.generated.PhoneCameraRecognitionMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnPhoneCameraObjectsRecognizedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onUnAuthorizedMonitor(
+        mliot.monitor.generated.UnAuthorizedMonitorMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnUnAuthorizedMonitorMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onHighAcceleration(
+        mliot.monitor.generated.HighAccelerationMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnHighAccelerationMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onHandDeviceStateChanged(
+        mliot.monitor.generated.HandDeviceMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnHandDeviceStateChangedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onStudentDisconnected(
+        mliot.monitor.generated.StudentDisconnectionMessage request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getOnStudentDisconnectedMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_FETCH_KNOWN_STUDENTS = 0;
   private static final int METHODID_ON_STUDENT_CONNECTED = 1;
   private static final int METHODID_ON_MOVEMENT_DETECTED = 2;
+  private static final int METHODID_ON_MICROPHONE_SPEECH_RECOGNIZED = 3;
+  private static final int METHODID_ON_BROWSER_SIZE_NOT_FITTING_SCREEN_SIZE = 4;
+  private static final int METHODID_ON_SCREENSHOT_TEXT_RECOGNIZED = 5;
+  private static final int METHODID_ON_QRCODE_VERIFICATION_FAILED = 6;
+  private static final int METHODID_ON_STUDENT_NOT_ALLOWED = 7;
+  private static final int METHODID_ON_FACE_NOT_RECOGNIZED = 8;
+  private static final int METHODID_ON_WEB_CAMERA_OBJECTS_RECOGNIZED = 9;
+  private static final int METHODID_ON_PHONE_CAMERA_OBJECTS_RECOGNIZED = 10;
+  private static final int METHODID_ON_UN_AUTHORIZED_MONITOR = 11;
+  private static final int METHODID_ON_HIGH_ACCELERATION = 12;
+  private static final int METHODID_ON_HAND_DEVICE_STATE_CHANGED = 13;
+  private static final int METHODID_ON_STUDENT_DISCONNECTED = 14;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -342,7 +1170,55 @@ public final class MonitorServiceGrpc {
           break;
         case METHODID_ON_MOVEMENT_DETECTED:
           serviceImpl.onMovementDetected((mliot.monitor.generated.MovementDetectionMessage) request,
-              (io.grpc.stub.StreamObserver<mliot.monitor.generated.MonitorResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_MICROPHONE_SPEECH_RECOGNIZED:
+          serviceImpl.onMicrophoneSpeechRecognized((mliot.monitor.generated.SpeechRecognitionMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_BROWSER_SIZE_NOT_FITTING_SCREEN_SIZE:
+          serviceImpl.onBrowserSizeNotFittingScreenSize((mliot.monitor.generated.BrowserSizeMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_SCREENSHOT_TEXT_RECOGNIZED:
+          serviceImpl.onScreenshotTextRecognized((mliot.monitor.generated.ScreenTestRecognitionMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_QRCODE_VERIFICATION_FAILED:
+          serviceImpl.onQRCodeVerificationFailed((mliot.monitor.generated.QRCodeVerificationMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_STUDENT_NOT_ALLOWED:
+          serviceImpl.onStudentNotAllowed((mliot.monitor.generated.StudentFraudMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_FACE_NOT_RECOGNIZED:
+          serviceImpl.onFaceNotRecognized((mliot.monitor.generated.FaceRecognitionMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_WEB_CAMERA_OBJECTS_RECOGNIZED:
+          serviceImpl.onWebCameraObjectsRecognized((mliot.monitor.generated.WebCameraRecognitionMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_PHONE_CAMERA_OBJECTS_RECOGNIZED:
+          serviceImpl.onPhoneCameraObjectsRecognized((mliot.monitor.generated.PhoneCameraRecognitionMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_UN_AUTHORIZED_MONITOR:
+          serviceImpl.onUnAuthorizedMonitor((mliot.monitor.generated.UnAuthorizedMonitorMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_HIGH_ACCELERATION:
+          serviceImpl.onHighAcceleration((mliot.monitor.generated.HighAccelerationMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_HAND_DEVICE_STATE_CHANGED:
+          serviceImpl.onHandDeviceStateChanged((mliot.monitor.generated.HandDeviceMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
+          break;
+        case METHODID_ON_STUDENT_DISCONNECTED:
+          serviceImpl.onStudentDisconnected((mliot.monitor.generated.StudentDisconnectionMessage) request,
+              (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -408,6 +1284,18 @@ public final class MonitorServiceGrpc {
               .addMethod(getFetchKnownStudentsMethod())
               .addMethod(getOnStudentConnectedMethod())
               .addMethod(getOnMovementDetectedMethod())
+              .addMethod(getOnMicrophoneSpeechRecognizedMethod())
+              .addMethod(getOnBrowserSizeNotFittingScreenSizeMethod())
+              .addMethod(getOnScreenshotTextRecognizedMethod())
+              .addMethod(getOnQRCodeVerificationFailedMethod())
+              .addMethod(getOnStudentNotAllowedMethod())
+              .addMethod(getOnFaceNotRecognizedMethod())
+              .addMethod(getOnWebCameraObjectsRecognizedMethod())
+              .addMethod(getOnPhoneCameraObjectsRecognizedMethod())
+              .addMethod(getOnUnAuthorizedMonitorMethod())
+              .addMethod(getOnHighAccelerationMethod())
+              .addMethod(getOnHandDeviceStateChangedMethod())
+              .addMethod(getOnStudentDisconnectedMethod())
               .build();
         }
       }

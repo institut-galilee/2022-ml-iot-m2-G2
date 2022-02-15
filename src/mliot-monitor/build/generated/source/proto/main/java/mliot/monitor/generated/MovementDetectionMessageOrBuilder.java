@@ -8,8 +8,43 @@ public interface MovementDetectionMessageOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool is_detected = 1;</code>
-   * @return The isDetected.
+   * <code>string card_number = 1;</code>
+   * @return The cardNumber.
    */
-  boolean getIsDetected();
+  java.lang.String getCardNumber();
+  /**
+   * <code>string card_number = 1;</code>
+   * @return The bytes for cardNumber.
+   */
+  com.google.protobuf.ByteString
+      getCardNumberBytes();
+
+  /**
+   * <code>string message = 2;</code>
+   * @return The message.
+   */
+  java.lang.String getMessage();
+  /**
+   * <code>string message = 2;</code>
+   * @return The bytes for message.
+   */
+  com.google.protobuf.ByteString
+      getMessageBytes();
+
+  /**
+   * <code>int64 mills = 3;</code>
+   * @return The mills.
+   */
+  long getMills();
+
+  /**
+   * <code>.Severity severity = 4;</code>
+   * @return The enum numeric value on the wire for severity.
+   */
+  int getSeverityValue();
+  /**
+   * <code>.Severity severity = 4;</code>
+   * @return The severity.
+   */
+  mliot.monitor.generated.Severity getSeverity();
 }

@@ -6,7 +6,118 @@ option java_package = "mliot.monitor.generated";
 service MonitorService {
   rpc fetchKnownStudents(EmptyMessage) returns (stream KnownStudentResponse) {}
   rpc onStudentConnected(StudentConnectionMessage) returns (StudentConnectionResponse) {}
-  rpc onMovementDetected(MovementDetectionMessage) returns (MonitorResponse) {}
+  rpc onMovementDetected(MovementDetectionMessage) returns (EmptyResponse) {}
+  rpc onMicrophoneSpeechRecognized(SpeechRecognitionMessage) returns (EmptyResponse) {}
+  rpc onBrowserSizeNotFittingScreenSize(BrowserSizeMessage) returns (EmptyResponse) {}
+  rpc onScreenshotTextRecognized(ScreenTestRecognitionMessage) returns (EmptyResponse) {}
+  rpc onQRCodeVerificationFailed(QRCodeVerificationMessage) returns (EmptyResponse) {}
+  rpc onStudentNotAllowed(StudentFraudMessage) returns (EmptyResponse) {}
+  rpc onFaceNotRecognized(FaceRecognitionMessage) returns (EmptyResponse) {}
+  rpc onWebCameraObjectsRecognized(WebCameraRecognitionMessage) returns (EmptyResponse) {}
+  rpc onPhoneCameraObjectsRecognized(PhoneCameraRecognitionMessage) returns (EmptyResponse) {}
+  rpc onUnAuthorizedMonitor(UnAuthorizedMonitorMessage) returns (EmptyResponse) {}
+  rpc onHighAcceleration(HighAccelerationMessage) returns (EmptyResponse) {}
+  rpc onHandDeviceStateChanged(HandDeviceMessage) returns (EmptyResponse) {}
+  rpc onStudentDisconnected(StudentDisconnectionMessage) returns (EmptyResponse) {}
+}
+
+enum Severity {
+  NORMAL = 0;
+  WARNING = 1;
+  SEVERE = 2;
+}
+
+message EmptyMessage {}
+
+message EmptyResponse {}
+
+message StudentDisconnectionMessage {
+  string card_number = 1;
+}
+
+message HandDeviceMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+
+message HighAccelerationMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+
+message UnAuthorizedMonitorMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+
+message PhoneCameraRecognitionMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+
+message WebCameraRecognitionMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+
+message FaceRecognitionMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+
+message StudentFraudMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+
+message QRCodeVerificationMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+message ScreenTestRecognitionMessage {
+  string card_number = 1;
+  string recognized_text = 2;
+  repeated string similarity_report = 3;
+  int64 mills = 4;
+  Severity severity = 5;
+}
+
+message BrowserSizeMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
+}
+
+message SpeechRecognitionMessage {
+  string card_number = 1;
+  string spoken_speech = 2;
+  repeated string similarity_report = 3;
+  int64 mills = 4;
+  Severity severity = 5;
+}
+
+message MovementDetectionMessage {
+  string card_number = 1;
+  string message = 2;
+  int64 mills = 3;
+  Severity severity = 4;
 }
 
 message StudentConnectionMessage {
@@ -20,19 +131,9 @@ message StudentConnectionResponse {
   string api_url = 2;
 }
 
-message EmptyMessage {}
-
 message KnownStudentResponse {
   string first_name = 1;
   string last_name = 2;
   string card_number = 3;
   bytes profile_photo = 4;
-}
-
-message MonitorResponse {
-  bool is_received = 1;
-}
-
-message MovementDetectionMessage {
-  bool is_detected = 1;
 }

@@ -15,6 +15,81 @@ public final class Monitor {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_EmptyMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_EmptyMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_EmptyResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_EmptyResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_StudentDisconnectionMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_StudentDisconnectionMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_HandDeviceMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_HandDeviceMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_HighAccelerationMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_HighAccelerationMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_UnAuthorizedMonitorMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_UnAuthorizedMonitorMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_PhoneCameraRecognitionMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_PhoneCameraRecognitionMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_WebCameraRecognitionMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_WebCameraRecognitionMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_FaceRecognitionMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_FaceRecognitionMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_StudentFraudMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_StudentFraudMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_QRCodeVerificationMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_QRCodeVerificationMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ScreenTestRecognitionMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ScreenTestRecognitionMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_BrowserSizeMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_BrowserSizeMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SpeechRecognitionMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SpeechRecognitionMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_MovementDetectionMessage_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_MovementDetectionMessage_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_StudentConnectionMessage_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -25,25 +100,10 @@ public final class Monitor {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_StudentConnectionResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_EmptyMessage_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_EmptyMessage_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_KnownStudentResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_KnownStudentResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_MonitorResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_MonitorResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_MovementDetectionMessage_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_MovementDetectionMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -53,64 +113,193 @@ public final class Monitor {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmonitor.proto\"U\n\030StudentConnectionMess" +
-      "age\022\023\n\013card_number\030\001 \001(\t\022\017\n\007address\030\002 \001(" +
-      "\t\022\023\n\013port_number\030\003 \001(\005\">\n\031StudentConnect" +
-      "ionResponse\022\020\n\010exam_url\030\001 \001(\t\022\017\n\007api_url" +
-      "\030\002 \001(\t\"\016\n\014EmptyMessage\"i\n\024KnownStudentRe" +
-      "sponse\022\022\n\nfirst_name\030\001 \001(\t\022\021\n\tlast_name\030" +
-      "\002 \001(\t\022\023\n\013card_number\030\003 \001(\t\022\025\n\rprofile_ph" +
-      "oto\030\004 \001(\014\"&\n\017MonitorResponse\022\023\n\013is_recei" +
-      "ved\030\001 \001(\010\"/\n\030MovementDetectionMessage\022\023\n" +
-      "\013is_detected\030\001 \001(\0102\344\001\n\016MonitorService\022>\n" +
-      "\022fetchKnownStudents\022\r.EmptyMessage\032\025.Kno" +
-      "wnStudentResponse\"\0000\001\022M\n\022onStudentConnec" +
-      "ted\022\031.StudentConnectionMessage\032\032.Student" +
-      "ConnectionResponse\"\000\022C\n\022onMovementDetect" +
-      "ed\022\031.MovementDetectionMessage\032\020.MonitorR" +
-      "esponse\"\000B\033\n\027mliot.monitor.generatedP\001b\006" +
-      "proto3"
+      "\n\rmonitor.proto\"\016\n\014EmptyMessage\"\017\n\rEmpty" +
+      "Response\"2\n\033StudentDisconnectionMessage\022" +
+      "\023\n\013card_number\030\001 \001(\t\"e\n\021HandDeviceMessag" +
+      "e\022\023\n\013card_number\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022" +
+      "\r\n\005mills\030\003 \001(\003\022\033\n\010severity\030\004 \001(\0162\t.Sever" +
+      "ity\"k\n\027HighAccelerationMessage\022\023\n\013card_n" +
+      "umber\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\r\n\005mills\030\003 " +
+      "\001(\003\022\033\n\010severity\030\004 \001(\0162\t.Severity\"n\n\032UnAu" +
+      "thorizedMonitorMessage\022\023\n\013card_number\030\001 " +
+      "\001(\t\022\017\n\007message\030\002 \001(\t\022\r\n\005mills\030\003 \001(\003\022\033\n\010s" +
+      "everity\030\004 \001(\0162\t.Severity\"q\n\035PhoneCameraR" +
+      "ecognitionMessage\022\023\n\013card_number\030\001 \001(\t\022\017" +
+      "\n\007message\030\002 \001(\t\022\r\n\005mills\030\003 \001(\003\022\033\n\010severi" +
+      "ty\030\004 \001(\0162\t.Severity\"o\n\033WebCameraRecognit" +
+      "ionMessage\022\023\n\013card_number\030\001 \001(\t\022\017\n\007messa" +
+      "ge\030\002 \001(\t\022\r\n\005mills\030\003 \001(\003\022\033\n\010severity\030\004 \001(" +
+      "\0162\t.Severity\"j\n\026FaceRecognitionMessage\022\023" +
+      "\n\013card_number\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\r\n\005" +
+      "mills\030\003 \001(\003\022\033\n\010severity\030\004 \001(\0162\t.Severity" +
+      "\"g\n\023StudentFraudMessage\022\023\n\013card_number\030\001" +
+      " \001(\t\022\017\n\007message\030\002 \001(\t\022\r\n\005mills\030\003 \001(\003\022\033\n\010" +
+      "severity\030\004 \001(\0162\t.Severity\"m\n\031QRCodeVerif" +
+      "icationMessage\022\023\n\013card_number\030\001 \001(\t\022\017\n\007m" +
+      "essage\030\002 \001(\t\022\r\n\005mills\030\003 \001(\003\022\033\n\010severity\030" +
+      "\004 \001(\0162\t.Severity\"\223\001\n\034ScreenTestRecogniti" +
+      "onMessage\022\023\n\013card_number\030\001 \001(\t\022\027\n\017recogn" +
+      "ized_text\030\002 \001(\t\022\031\n\021similarity_report\030\003 \003" +
+      "(\t\022\r\n\005mills\030\004 \001(\003\022\033\n\010severity\030\005 \001(\0162\t.Se" +
+      "verity\"f\n\022BrowserSizeMessage\022\023\n\013card_num" +
+      "ber\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\r\n\005mills\030\003 \001(" +
+      "\003\022\033\n\010severity\030\004 \001(\0162\t.Severity\"\215\001\n\030Speec" +
+      "hRecognitionMessage\022\023\n\013card_number\030\001 \001(\t" +
+      "\022\025\n\rspoken_speech\030\002 \001(\t\022\031\n\021similarity_re" +
+      "port\030\003 \003(\t\022\r\n\005mills\030\004 \001(\003\022\033\n\010severity\030\005 " +
+      "\001(\0162\t.Severity\"l\n\030MovementDetectionMessa" +
+      "ge\022\023\n\013card_number\030\001 \001(\t\022\017\n\007message\030\002 \001(\t" +
+      "\022\r\n\005mills\030\003 \001(\003\022\033\n\010severity\030\004 \001(\0162\t.Seve" +
+      "rity\"U\n\030StudentConnectionMessage\022\023\n\013card" +
+      "_number\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022\023\n\013port_n" +
+      "umber\030\003 \001(\005\">\n\031StudentConnectionResponse" +
+      "\022\020\n\010exam_url\030\001 \001(\t\022\017\n\007api_url\030\002 \001(\t\"i\n\024K" +
+      "nownStudentResponse\022\022\n\nfirst_name\030\001 \001(\t\022" +
+      "\021\n\tlast_name\030\002 \001(\t\022\023\n\013card_number\030\003 \001(\t\022" +
+      "\025\n\rprofile_photo\030\004 \001(\014*/\n\010Severity\022\n\n\006NO" +
+      "RMAL\020\000\022\013\n\007WARNING\020\001\022\n\n\006SEVERE\020\0022\320\010\n\016Moni" +
+      "torService\022>\n\022fetchKnownStudents\022\r.Empty" +
+      "Message\032\025.KnownStudentResponse\"\0000\001\022M\n\022on" +
+      "StudentConnected\022\031.StudentConnectionMess" +
+      "age\032\032.StudentConnectionResponse\"\000\022A\n\022onM" +
+      "ovementDetected\022\031.MovementDetectionMessa" +
+      "ge\032\016.EmptyResponse\"\000\022K\n\034onMicrophoneSpee" +
+      "chRecognized\022\031.SpeechRecognitionMessage\032" +
+      "\016.EmptyResponse\"\000\022J\n!onBrowserSizeNotFit" +
+      "tingScreenSize\022\023.BrowserSizeMessage\032\016.Em" +
+      "ptyResponse\"\000\022M\n\032onScreenshotTextRecogni" +
+      "zed\022\035.ScreenTestRecognitionMessage\032\016.Emp" +
+      "tyResponse\"\000\022J\n\032onQRCodeVerificationFail" +
+      "ed\022\032.QRCodeVerificationMessage\032\016.EmptyRe" +
+      "sponse\"\000\022=\n\023onStudentNotAllowed\022\024.Studen" +
+      "tFraudMessage\032\016.EmptyResponse\"\000\022@\n\023onFac" +
+      "eNotRecognized\022\027.FaceRecognitionMessage\032" +
+      "\016.EmptyResponse\"\000\022N\n\034onWebCameraObjectsR" +
+      "ecognized\022\034.WebCameraRecognitionMessage\032" +
+      "\016.EmptyResponse\"\000\022R\n\036onPhoneCameraObject" +
+      "sRecognized\022\036.PhoneCameraRecognitionMess" +
+      "age\032\016.EmptyResponse\"\000\022F\n\025onUnAuthorizedM" +
+      "onitor\022\033.UnAuthorizedMonitorMessage\032\016.Em" +
+      "ptyResponse\"\000\022@\n\022onHighAcceleration\022\030.Hi" +
+      "ghAccelerationMessage\032\016.EmptyResponse\"\000\022" +
+      "@\n\030onHandDeviceStateChanged\022\022.HandDevice" +
+      "Message\032\016.EmptyResponse\"\000\022G\n\025onStudentDi" +
+      "sconnected\022\034.StudentDisconnectionMessage" +
+      "\032\016.EmptyResponse\"\000B\033\n\027mliot.monitor.gene" +
+      "ratedP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_StudentConnectionMessage_descriptor =
+    internal_static_EmptyMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_EmptyMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_EmptyMessage_descriptor,
+        new java.lang.String[] { });
+    internal_static_EmptyResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_EmptyResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_EmptyResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_StudentDisconnectionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_StudentDisconnectionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_StudentDisconnectionMessage_descriptor,
+        new java.lang.String[] { "CardNumber", });
+    internal_static_HandDeviceMessage_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_HandDeviceMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_HandDeviceMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_HighAccelerationMessage_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_HighAccelerationMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_HighAccelerationMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_UnAuthorizedMonitorMessage_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_UnAuthorizedMonitorMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_UnAuthorizedMonitorMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_PhoneCameraRecognitionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_PhoneCameraRecognitionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_PhoneCameraRecognitionMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_WebCameraRecognitionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_WebCameraRecognitionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_WebCameraRecognitionMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_FaceRecognitionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_FaceRecognitionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_FaceRecognitionMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_StudentFraudMessage_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_StudentFraudMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_StudentFraudMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_QRCodeVerificationMessage_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_QRCodeVerificationMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_QRCodeVerificationMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_ScreenTestRecognitionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_ScreenTestRecognitionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ScreenTestRecognitionMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "RecognizedText", "SimilarityReport", "Mills", "Severity", });
+    internal_static_BrowserSizeMessage_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_BrowserSizeMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_BrowserSizeMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_SpeechRecognitionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_SpeechRecognitionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SpeechRecognitionMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "SpokenSpeech", "SimilarityReport", "Mills", "Severity", });
+    internal_static_MovementDetectionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_MovementDetectionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_MovementDetectionMessage_descriptor,
+        new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
+    internal_static_StudentConnectionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(15);
     internal_static_StudentConnectionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StudentConnectionMessage_descriptor,
         new java.lang.String[] { "CardNumber", "Address", "PortNumber", });
     internal_static_StudentConnectionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_StudentConnectionResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_StudentConnectionResponse_descriptor,
         new java.lang.String[] { "ExamUrl", "ApiUrl", });
-    internal_static_EmptyMessage_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_EmptyMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_EmptyMessage_descriptor,
-        new java.lang.String[] { });
     internal_static_KnownStudentResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_KnownStudentResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_KnownStudentResponse_descriptor,
         new java.lang.String[] { "FirstName", "LastName", "CardNumber", "ProfilePhoto", });
-    internal_static_MonitorResponse_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_MonitorResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_MonitorResponse_descriptor,
-        new java.lang.String[] { "IsReceived", });
-    internal_static_MovementDetectionMessage_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_MovementDetectionMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_MovementDetectionMessage_descriptor,
-        new java.lang.String[] { "IsDetected", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

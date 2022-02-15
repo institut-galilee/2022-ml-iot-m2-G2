@@ -1,11 +1,15 @@
+import asyncio
 import json
+import logging as logger
 import ssl
 import sys
 import urllib.request
 import webbrowser
 
+import gtts
 from PySide6.QtGui import QScreen, QIcon, QCloseEvent
 from PySide6.QtWidgets import QStackedWidget, QApplication, QMainWindow
+from playsound import playsound
 
 from callback.setup_callback import SinkSetupCallback
 from main_view import MainView
@@ -22,6 +26,9 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("REMOTE PROCTORED EXAM")
+
+        logger.basicConfig(level=logger.INFO)
+        logger.info("Starting face recognition system…")
 
         # Views
         self.invigilator_view = InvigilatorView(self)
@@ -89,6 +96,9 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.center_window()
 
     def on_student_recognized(self, student):
+        # tts = gtts.gTTS(f"Bonjour {student.first_name} {student.last_name}", lang="fr")
+        # tts.save("greeting.mp3")
+        # playsound("greeting.mp3")
         self.current_student = student
         self.authentication_view.close()
         self.sensors_view = SensorsView(self)
@@ -129,25 +139,34 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         return Response(is_received=True)
 
     def onStepDetected(self, request, context):
-        print("Un pas a été detecté")
+        logger.info(f"Un pas a été detecté")
         return Response(is_received=True)
 
     def onProximityChanged(self, request, context):
         if self.setup_is_ongoing and self.hand_view is not None and self.hand_view.isVisible():
             self.hand_view.set_proximity(request.distance)
-        print("La proximité est estimé à {0} cm".format(request.distance))
+        if not self.setup_is_ongoing and self.main_view is not None and self.main_view.isVisible() and self.current_student is not None:
+            if request.distance > 0.0:
+                message = f"{self.current_student.first_name} {self.current_student.last_name} ne porte plus son hand device."
+                asyncio.run(MonitorHelper.hand_device_state_changed(self.current_student.card_number, message))
+            else:
+                message = f"{self.current_student.first_name} {self.current_student.last_name} met à nouveau son hand device."
+                asyncio.run(MonitorHelper.hand_device_state_changed(self.current_student.card_number, message))
         return Response(is_received=True)
 
     def onHeartRateChanged(self, request, context):
         print(request.heart_rate)
+        logger.info(f"Le rythme cardiaque est à {request.heart_rate}")
         return Response(is_received=True)
 
     def onMotionDetected(self, request, context):
-        print("Mouvement detecté")
+        if self.current_student is not None:
+            message = f"{self.current_student.first_name} {self.current_student.last_name} semble être en mouvement."
+            asyncio.run(MonitorHelper.motion_detected(self.current_student.card_number, message))
         return Response(is_received=True)
 
     def onTemperatureChanged(self, request, context):
-        print(request.degrees)
+        logger.info(f"La température ambiente est à {request.degrees}°C")
         return Response(is_received=True)
 
 

@@ -1,8 +1,10 @@
+import io
 import logging as logger
 import re
 import time
 
 import cv2
+from PIL import Image
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QImage, QPixmap, QCloseEvent
 from PySide6.QtGui import Qt
@@ -326,13 +328,13 @@ class HeadView(QWidget):
     def apply_ocr(self):
         if not self.is_processing and self.frame is not None:
             self.is_processing = True
-            recognized_objects, frame = MLHelper.recognize_object(self.frame)
+            bytes_image = io.BytesIO(self.frame)
+            image = Image.open(bytes_image)
+            recognized_objects, frame = MLHelper.recognize_object(image)
             if "tvmonitor" in recognized_objects or "laptop" in recognized_objects:
                 self.next_button.setEnabled(True)
                 self.calibration_timer.stop()
             self.is_processing = False
-            if len(recognized_objects) > 0:
-                logger.info(f"Those objects are recognized: {recognized_objects}")
 
     def next(self):
         self.head_device_callback.on_head_device_set()

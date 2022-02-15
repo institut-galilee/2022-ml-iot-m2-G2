@@ -16,6 +16,9 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private MovementDetectionMessage() {
+    cardNumber_ = "";
+    message_ = "";
+    severity_ = 0;
   }
 
   @java.lang.Override
@@ -48,9 +51,27 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            isDetected_ = input.readBool();
+            cardNumber_ = s;
+            break;
+          }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            message_ = s;
+            break;
+          }
+          case 24: {
+
+            mills_ = input.readInt64();
+            break;
+          }
+          case 32: {
+            int rawValue = input.readEnum();
+
+            severity_ = rawValue;
             break;
           }
           default: {
@@ -85,15 +106,110 @@ private static final long serialVersionUID = 0L;
             mliot.monitor.generated.MovementDetectionMessage.class, mliot.monitor.generated.MovementDetectionMessage.Builder.class);
   }
 
-  public static final int IS_DETECTED_FIELD_NUMBER = 1;
-  private boolean isDetected_;
+  public static final int CARD_NUMBER_FIELD_NUMBER = 1;
+  private volatile java.lang.Object cardNumber_;
   /**
-   * <code>bool is_detected = 1;</code>
-   * @return The isDetected.
+   * <code>string card_number = 1;</code>
+   * @return The cardNumber.
    */
   @java.lang.Override
-  public boolean getIsDetected() {
-    return isDetected_;
+  public java.lang.String getCardNumber() {
+    java.lang.Object ref = cardNumber_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      cardNumber_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string card_number = 1;</code>
+   * @return The bytes for cardNumber.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getCardNumberBytes() {
+    java.lang.Object ref = cardNumber_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      cardNumber_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int MESSAGE_FIELD_NUMBER = 2;
+  private volatile java.lang.Object message_;
+  /**
+   * <code>string message = 2;</code>
+   * @return The message.
+   */
+  @java.lang.Override
+  public java.lang.String getMessage() {
+    java.lang.Object ref = message_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      message_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string message = 2;</code>
+   * @return The bytes for message.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getMessageBytes() {
+    java.lang.Object ref = message_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      message_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int MILLS_FIELD_NUMBER = 3;
+  private long mills_;
+  /**
+   * <code>int64 mills = 3;</code>
+   * @return The mills.
+   */
+  @java.lang.Override
+  public long getMills() {
+    return mills_;
+  }
+
+  public static final int SEVERITY_FIELD_NUMBER = 4;
+  private int severity_;
+  /**
+   * <code>.Severity severity = 4;</code>
+   * @return The enum numeric value on the wire for severity.
+   */
+  @java.lang.Override public int getSeverityValue() {
+    return severity_;
+  }
+  /**
+   * <code>.Severity severity = 4;</code>
+   * @return The severity.
+   */
+  @java.lang.Override public mliot.monitor.generated.Severity getSeverity() {
+    @SuppressWarnings("deprecation")
+    mliot.monitor.generated.Severity result = mliot.monitor.generated.Severity.valueOf(severity_);
+    return result == null ? mliot.monitor.generated.Severity.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -110,8 +226,17 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (isDetected_ != false) {
-      output.writeBool(1, isDetected_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(cardNumber_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, cardNumber_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+    }
+    if (mills_ != 0L) {
+      output.writeInt64(3, mills_);
+    }
+    if (severity_ != mliot.monitor.generated.Severity.NORMAL.getNumber()) {
+      output.writeEnum(4, severity_);
     }
     unknownFields.writeTo(output);
   }
@@ -122,9 +247,19 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (isDetected_ != false) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(cardNumber_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, cardNumber_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+    }
+    if (mills_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(1, isDetected_);
+        .computeInt64Size(3, mills_);
+    }
+    if (severity_ != mliot.monitor.generated.Severity.NORMAL.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(4, severity_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -141,8 +276,13 @@ private static final long serialVersionUID = 0L;
     }
     mliot.monitor.generated.MovementDetectionMessage other = (mliot.monitor.generated.MovementDetectionMessage) obj;
 
-    if (getIsDetected()
-        != other.getIsDetected()) return false;
+    if (!getCardNumber()
+        .equals(other.getCardNumber())) return false;
+    if (!getMessage()
+        .equals(other.getMessage())) return false;
+    if (getMills()
+        != other.getMills()) return false;
+    if (severity_ != other.severity_) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -154,9 +294,15 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + IS_DETECTED_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getIsDetected());
+    hash = (37 * hash) + CARD_NUMBER_FIELD_NUMBER;
+    hash = (53 * hash) + getCardNumber().hashCode();
+    hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+    hash = (53 * hash) + getMessage().hashCode();
+    hash = (37 * hash) + MILLS_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getMills());
+    hash = (37 * hash) + SEVERITY_FIELD_NUMBER;
+    hash = (53 * hash) + severity_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -290,7 +436,13 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      isDetected_ = false;
+      cardNumber_ = "";
+
+      message_ = "";
+
+      mills_ = 0L;
+
+      severity_ = 0;
 
       return this;
     }
@@ -318,7 +470,10 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public mliot.monitor.generated.MovementDetectionMessage buildPartial() {
       mliot.monitor.generated.MovementDetectionMessage result = new mliot.monitor.generated.MovementDetectionMessage(this);
-      result.isDetected_ = isDetected_;
+      result.cardNumber_ = cardNumber_;
+      result.message_ = message_;
+      result.mills_ = mills_;
+      result.severity_ = severity_;
       onBuilt();
       return result;
     }
@@ -367,8 +522,19 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(mliot.monitor.generated.MovementDetectionMessage other) {
       if (other == mliot.monitor.generated.MovementDetectionMessage.getDefaultInstance()) return this;
-      if (other.getIsDetected() != false) {
-        setIsDetected(other.getIsDetected());
+      if (!other.getCardNumber().isEmpty()) {
+        cardNumber_ = other.cardNumber_;
+        onChanged();
+      }
+      if (!other.getMessage().isEmpty()) {
+        message_ = other.message_;
+        onChanged();
+      }
+      if (other.getMills() != 0L) {
+        setMills(other.getMills());
+      }
+      if (other.severity_ != 0) {
+        setSeverityValue(other.getSeverityValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -399,33 +565,239 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean isDetected_ ;
+    private java.lang.Object cardNumber_ = "";
     /**
-     * <code>bool is_detected = 1;</code>
-     * @return The isDetected.
+     * <code>string card_number = 1;</code>
+     * @return The cardNumber.
      */
-    @java.lang.Override
-    public boolean getIsDetected() {
-      return isDetected_;
+    public java.lang.String getCardNumber() {
+      java.lang.Object ref = cardNumber_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        cardNumber_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>bool is_detected = 1;</code>
-     * @param value The isDetected to set.
+     * <code>string card_number = 1;</code>
+     * @return The bytes for cardNumber.
+     */
+    public com.google.protobuf.ByteString
+        getCardNumberBytes() {
+      java.lang.Object ref = cardNumber_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        cardNumber_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string card_number = 1;</code>
+     * @param value The cardNumber to set.
      * @return This builder for chaining.
      */
-    public Builder setIsDetected(boolean value) {
-      
-      isDetected_ = value;
+    public Builder setCardNumber(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      cardNumber_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bool is_detected = 1;</code>
+     * <code>string card_number = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearIsDetected() {
+    public Builder clearCardNumber() {
       
-      isDetected_ = false;
+      cardNumber_ = getDefaultInstance().getCardNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string card_number = 1;</code>
+     * @param value The bytes for cardNumber to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCardNumberBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      cardNumber_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object message_ = "";
+    /**
+     * <code>string message = 2;</code>
+     * @return The message.
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        message_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @param value The message to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMessage(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      message_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearMessage() {
+      
+      message_ = getDefaultInstance().getMessage();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @param value The bytes for message to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMessageBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      message_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long mills_ ;
+    /**
+     * <code>int64 mills = 3;</code>
+     * @return The mills.
+     */
+    @java.lang.Override
+    public long getMills() {
+      return mills_;
+    }
+    /**
+     * <code>int64 mills = 3;</code>
+     * @param value The mills to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMills(long value) {
+      
+      mills_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 mills = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearMills() {
+      
+      mills_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private int severity_ = 0;
+    /**
+     * <code>.Severity severity = 4;</code>
+     * @return The enum numeric value on the wire for severity.
+     */
+    @java.lang.Override public int getSeverityValue() {
+      return severity_;
+    }
+    /**
+     * <code>.Severity severity = 4;</code>
+     * @param value The enum numeric value on the wire for severity to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSeverityValue(int value) {
+      
+      severity_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.Severity severity = 4;</code>
+     * @return The severity.
+     */
+    @java.lang.Override
+    public mliot.monitor.generated.Severity getSeverity() {
+      @SuppressWarnings("deprecation")
+      mliot.monitor.generated.Severity result = mliot.monitor.generated.Severity.valueOf(severity_);
+      return result == null ? mliot.monitor.generated.Severity.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.Severity severity = 4;</code>
+     * @param value The severity to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSeverity(mliot.monitor.generated.Severity value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      severity_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.Severity severity = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearSeverity() {
+      
+      severity_ = 0;
       onChanged();
       return this;
     }

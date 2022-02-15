@@ -4,25 +4,26 @@
 package mliot.monitor.generated;
 
 /**
- * Protobuf type {@code MonitorResponse}
+ * Protobuf type {@code StudentDisconnectionMessage}
  */
-public final class MonitorResponse extends
+public final class StudentDisconnectionMessage extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:MonitorResponse)
-    MonitorResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:StudentDisconnectionMessage)
+    StudentDisconnectionMessageOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use MonitorResponse.newBuilder() to construct.
-  private MonitorResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use StudentDisconnectionMessage.newBuilder() to construct.
+  private StudentDisconnectionMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private MonitorResponse() {
+  private StudentDisconnectionMessage() {
+    cardNumber_ = "";
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new MonitorResponse();
+    return new StudentDisconnectionMessage();
   }
 
   @java.lang.Override
@@ -30,7 +31,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private MonitorResponse(
+  private StudentDisconnectionMessage(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -48,9 +49,10 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            isReceived_ = input.readBool();
+            cardNumber_ = s;
             break;
           }
           default: {
@@ -74,26 +76,53 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return mliot.monitor.generated.Monitor.internal_static_MonitorResponse_descriptor;
+    return mliot.monitor.generated.Monitor.internal_static_StudentDisconnectionMessage_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return mliot.monitor.generated.Monitor.internal_static_MonitorResponse_fieldAccessorTable
+    return mliot.monitor.generated.Monitor.internal_static_StudentDisconnectionMessage_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            mliot.monitor.generated.MonitorResponse.class, mliot.monitor.generated.MonitorResponse.Builder.class);
+            mliot.monitor.generated.StudentDisconnectionMessage.class, mliot.monitor.generated.StudentDisconnectionMessage.Builder.class);
   }
 
-  public static final int IS_RECEIVED_FIELD_NUMBER = 1;
-  private boolean isReceived_;
+  public static final int CARD_NUMBER_FIELD_NUMBER = 1;
+  private volatile java.lang.Object cardNumber_;
   /**
-   * <code>bool is_received = 1;</code>
-   * @return The isReceived.
+   * <code>string card_number = 1;</code>
+   * @return The cardNumber.
    */
   @java.lang.Override
-  public boolean getIsReceived() {
-    return isReceived_;
+  public java.lang.String getCardNumber() {
+    java.lang.Object ref = cardNumber_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      cardNumber_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string card_number = 1;</code>
+   * @return The bytes for cardNumber.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getCardNumberBytes() {
+    java.lang.Object ref = cardNumber_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      cardNumber_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -110,8 +139,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (isReceived_ != false) {
-      output.writeBool(1, isReceived_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(cardNumber_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, cardNumber_);
     }
     unknownFields.writeTo(output);
   }
@@ -122,9 +151,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (isReceived_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(1, isReceived_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(cardNumber_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, cardNumber_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -136,13 +164,13 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof mliot.monitor.generated.MonitorResponse)) {
+    if (!(obj instanceof mliot.monitor.generated.StudentDisconnectionMessage)) {
       return super.equals(obj);
     }
-    mliot.monitor.generated.MonitorResponse other = (mliot.monitor.generated.MonitorResponse) obj;
+    mliot.monitor.generated.StudentDisconnectionMessage other = (mliot.monitor.generated.StudentDisconnectionMessage) obj;
 
-    if (getIsReceived()
-        != other.getIsReceived()) return false;
+    if (!getCardNumber()
+        .equals(other.getCardNumber())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -154,77 +182,76 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + IS_RECEIVED_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getIsReceived());
+    hash = (37 * hash) + CARD_NUMBER_FIELD_NUMBER;
+    hash = (53 * hash) + getCardNumber().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static mliot.monitor.generated.MonitorResponse parseFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(byte[] data)
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(java.io.InputStream input)
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static mliot.monitor.generated.MonitorResponse parseDelimitedFrom(java.io.InputStream input)
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.MonitorResponse parseDelimitedFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.MonitorResponse parseFrom(
+  public static mliot.monitor.generated.StudentDisconnectionMessage parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -237,7 +264,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(mliot.monitor.generated.MonitorResponse prototype) {
+  public static Builder newBuilder(mliot.monitor.generated.StudentDisconnectionMessage prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -253,26 +280,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code MonitorResponse}
+   * Protobuf type {@code StudentDisconnectionMessage}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:MonitorResponse)
-      mliot.monitor.generated.MonitorResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:StudentDisconnectionMessage)
+      mliot.monitor.generated.StudentDisconnectionMessageOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mliot.monitor.generated.Monitor.internal_static_MonitorResponse_descriptor;
+      return mliot.monitor.generated.Monitor.internal_static_StudentDisconnectionMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mliot.monitor.generated.Monitor.internal_static_MonitorResponse_fieldAccessorTable
+      return mliot.monitor.generated.Monitor.internal_static_StudentDisconnectionMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              mliot.monitor.generated.MonitorResponse.class, mliot.monitor.generated.MonitorResponse.Builder.class);
+              mliot.monitor.generated.StudentDisconnectionMessage.class, mliot.monitor.generated.StudentDisconnectionMessage.Builder.class);
     }
 
-    // Construct using mliot.monitor.generated.MonitorResponse.newBuilder()
+    // Construct using mliot.monitor.generated.StudentDisconnectionMessage.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -290,7 +317,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      isReceived_ = false;
+      cardNumber_ = "";
 
       return this;
     }
@@ -298,17 +325,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return mliot.monitor.generated.Monitor.internal_static_MonitorResponse_descriptor;
+      return mliot.monitor.generated.Monitor.internal_static_StudentDisconnectionMessage_descriptor;
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.MonitorResponse getDefaultInstanceForType() {
-      return mliot.monitor.generated.MonitorResponse.getDefaultInstance();
+    public mliot.monitor.generated.StudentDisconnectionMessage getDefaultInstanceForType() {
+      return mliot.monitor.generated.StudentDisconnectionMessage.getDefaultInstance();
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.MonitorResponse build() {
-      mliot.monitor.generated.MonitorResponse result = buildPartial();
+    public mliot.monitor.generated.StudentDisconnectionMessage build() {
+      mliot.monitor.generated.StudentDisconnectionMessage result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -316,9 +343,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.MonitorResponse buildPartial() {
-      mliot.monitor.generated.MonitorResponse result = new mliot.monitor.generated.MonitorResponse(this);
-      result.isReceived_ = isReceived_;
+    public mliot.monitor.generated.StudentDisconnectionMessage buildPartial() {
+      mliot.monitor.generated.StudentDisconnectionMessage result = new mliot.monitor.generated.StudentDisconnectionMessage(this);
+      result.cardNumber_ = cardNumber_;
       onBuilt();
       return result;
     }
@@ -357,18 +384,19 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof mliot.monitor.generated.MonitorResponse) {
-        return mergeFrom((mliot.monitor.generated.MonitorResponse)other);
+      if (other instanceof mliot.monitor.generated.StudentDisconnectionMessage) {
+        return mergeFrom((mliot.monitor.generated.StudentDisconnectionMessage)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(mliot.monitor.generated.MonitorResponse other) {
-      if (other == mliot.monitor.generated.MonitorResponse.getDefaultInstance()) return this;
-      if (other.getIsReceived() != false) {
-        setIsReceived(other.getIsReceived());
+    public Builder mergeFrom(mliot.monitor.generated.StudentDisconnectionMessage other) {
+      if (other == mliot.monitor.generated.StudentDisconnectionMessage.getDefaultInstance()) return this;
+      if (!other.getCardNumber().isEmpty()) {
+        cardNumber_ = other.cardNumber_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -385,11 +413,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      mliot.monitor.generated.MonitorResponse parsedMessage = null;
+      mliot.monitor.generated.StudentDisconnectionMessage parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (mliot.monitor.generated.MonitorResponse) e.getUnfinishedMessage();
+        parsedMessage = (mliot.monitor.generated.StudentDisconnectionMessage) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -399,33 +427,78 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean isReceived_ ;
+    private java.lang.Object cardNumber_ = "";
     /**
-     * <code>bool is_received = 1;</code>
-     * @return The isReceived.
+     * <code>string card_number = 1;</code>
+     * @return The cardNumber.
      */
-    @java.lang.Override
-    public boolean getIsReceived() {
-      return isReceived_;
+    public java.lang.String getCardNumber() {
+      java.lang.Object ref = cardNumber_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        cardNumber_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>bool is_received = 1;</code>
-     * @param value The isReceived to set.
+     * <code>string card_number = 1;</code>
+     * @return The bytes for cardNumber.
+     */
+    public com.google.protobuf.ByteString
+        getCardNumberBytes() {
+      java.lang.Object ref = cardNumber_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        cardNumber_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string card_number = 1;</code>
+     * @param value The cardNumber to set.
      * @return This builder for chaining.
      */
-    public Builder setIsReceived(boolean value) {
-      
-      isReceived_ = value;
+    public Builder setCardNumber(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      cardNumber_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bool is_received = 1;</code>
+     * <code>string card_number = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearIsReceived() {
+    public Builder clearCardNumber() {
       
-      isReceived_ = false;
+      cardNumber_ = getDefaultInstance().getCardNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string card_number = 1;</code>
+     * @param value The bytes for cardNumber to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCardNumberBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      cardNumber_ = value;
       onChanged();
       return this;
     }
@@ -442,41 +515,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:MonitorResponse)
+    // @@protoc_insertion_point(builder_scope:StudentDisconnectionMessage)
   }
 
-  // @@protoc_insertion_point(class_scope:MonitorResponse)
-  private static final mliot.monitor.generated.MonitorResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:StudentDisconnectionMessage)
+  private static final mliot.monitor.generated.StudentDisconnectionMessage DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new mliot.monitor.generated.MonitorResponse();
+    DEFAULT_INSTANCE = new mliot.monitor.generated.StudentDisconnectionMessage();
   }
 
-  public static mliot.monitor.generated.MonitorResponse getDefaultInstance() {
+  public static mliot.monitor.generated.StudentDisconnectionMessage getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<MonitorResponse>
-      PARSER = new com.google.protobuf.AbstractParser<MonitorResponse>() {
+  private static final com.google.protobuf.Parser<StudentDisconnectionMessage>
+      PARSER = new com.google.protobuf.AbstractParser<StudentDisconnectionMessage>() {
     @java.lang.Override
-    public MonitorResponse parsePartialFrom(
+    public StudentDisconnectionMessage parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new MonitorResponse(input, extensionRegistry);
+      return new StudentDisconnectionMessage(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<MonitorResponse> parser() {
+  public static com.google.protobuf.Parser<StudentDisconnectionMessage> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<MonitorResponse> getParserForType() {
+  public com.google.protobuf.Parser<StudentDisconnectionMessage> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public mliot.monitor.generated.MonitorResponse getDefaultInstanceForType() {
+  public mliot.monitor.generated.StudentDisconnectionMessage getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

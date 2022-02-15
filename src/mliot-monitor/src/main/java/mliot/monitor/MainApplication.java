@@ -86,9 +86,7 @@ public class MainApplication extends Application implements HomeControllerCallba
 
             @Override
             public void onStudentConnected(StudentConnectionMessage request, StreamObserver<StudentConnectionResponse> responseObserver) {
-                Platform.runLater(() -> {
-                    MainApplication.this.homeController.studentConnected(request.getCardNumber(), request.getAddress(), request.getPortNumber());
-                });
+                Platform.runLater(() -> MainApplication.this.homeController.studentConnected(request.getCardNumber(), request.getAddress(), request.getPortNumber()));
                 String examUrl = Util.findExamUrl();
                 String apiUrl = Util.findApiUrl();
                 responseObserver.onNext(StudentConnectionResponse.newBuilder().setApiUrl(apiUrl).setExamUrl(examUrl).build());
@@ -96,11 +94,82 @@ public class MainApplication extends Application implements HomeControllerCallba
             }
 
             @Override
-            public void onMovementDetected(MovementDetectionMessage request, StreamObserver<MonitorResponse> responseObserver) {
-                responseObserver.onNext(MonitorResponse.newBuilder().setIsReceived(true).build());
+            public void onMovementDetected(MovementDetectionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
                 responseObserver.onCompleted();
             }
 
+            @Override
+            public void onMicrophoneSpeechRecognized(SpeechRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onBrowserSizeNotFittingScreenSize(BrowserSizeMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onScreenshotTextRecognized(ScreenTestRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onQRCodeVerificationFailed(QRCodeVerificationMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onStudentNotAllowed(StudentFraudMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onFaceNotRecognized(FaceRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onWebCameraObjectsRecognized(WebCameraRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onPhoneCameraObjectsRecognized(PhoneCameraRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onUnAuthorizedMonitor(UnAuthorizedMonitorMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onHighAcceleration(HighAccelerationMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onHandDeviceStateChanged(HandDeviceMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
+
+            @Override
+            public void onStudentDisconnected(StudentDisconnectionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                responseObserver.onNext(EmptyResponse.newBuilder().build());
+                responseObserver.onCompleted();
+            }
         });
         this.monitor.start();
     }

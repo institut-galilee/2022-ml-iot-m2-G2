@@ -10,6 +10,13 @@ pip3 install sounddevice
 pip3 install pytesseract
 pip3 install pyautogui
 pip3 install SpeechRecognition
-pip3 install pyttsx3
 pip3 install pyaudio
 pip3 install pyzbar
+pip3 install -U pip setuptools wheel
+pip3 install -U spacy
+pip3 install -U 'spacy[transformers,lookups]'
+python -m spacy download fr_core_news_md
+python -m spacy download fr_dep_news_trf
+pip3 install sentencepiece== 0.1.96
+pip3 install gTTS
+pip3 install playsound

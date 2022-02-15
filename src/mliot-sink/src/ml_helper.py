@@ -34,14 +34,14 @@ class MLHelper:
         # apply threshold to get image only with black&white color
         image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
         extracted_text = ocr.image_to_string(image, lang="fra", config='--tessdata-dir tesseract_pretrained_model')
-        return extracted_text.strip()
+        return "\n".join([line for line in extracted_text.split("\n") if line])
 
     """
         This method take image as bytes from camera and tries to recognize any object in it.
         It returns the list of the recognized objects' name and the new frame on which identified objects are shown.
     """
     @staticmethod
-    def recognize_object(frame):
+    def recognize_object(image):
 
         np.random.seed(42)
         labels = open("yolo_coco_pretrained_model/coco.names").read().strip().split("\n")
@@ -49,8 +49,7 @@ class MLHelper:
 
         net = cv2.dnn.readNetFromDarknet("yolo_coco_pretrained_model/yolov3.cfg", "yolo_coco_pretrained_model/yolov3.weights")
 
-        bytes_image = io.BytesIO(frame)
-        image = np.array(Image.open(bytes_image))
+        image = np.array(image)
         (H, W) = image.shape[:2]
 
         ln = net.getLayerNames()
