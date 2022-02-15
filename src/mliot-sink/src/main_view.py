@@ -10,7 +10,7 @@ from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel
 from acceleration_view import AccelerationView
 from callback.recognition_callback import RecognitionCallback
 from process import SpeechRecognizer, ScreenshotTextRecognizer, FaceRecognizer, ObjectRecognizer
-from src.monitor_client import MonitorHelper
+from monitor_client import MonitorHelper
 
 GRAVITY = 9.81
 
@@ -201,7 +201,8 @@ class MainView(QWidget, RecognitionCallback):
         x, y, z = acceleration.x, acceleration.y, acceleration.z
         average = math.sqrt(math.pow(x, 2) + math.pow(y, 2) + math.pow(z, 2))
         if average > GRAVITY * 2.5:
-            print("mouvement de bras suspect")
+            message = f"{self.current_student.first_name} {self.current_student.last_name} fait des mouvements de bras suspect, son bras a une accéleration de {average/GRAVITY}g"
+            asyncio.run(MonitorHelper.high_acceleration_noticed(self.current_student.card_number, message))
 
     def set_acceleration_max_value(self, max_value):
         self.acceleration_view.set_max_value(max_value)
@@ -214,11 +215,11 @@ class MainView(QWidget, RecognitionCallback):
             question_nlp = self.nlp(question["question_text"])
             question_similarity = question_nlp.similarity(spoken_nlp)
             if question_similarity >= 0.5:
-                similarity_report.append([f'Question {question["question_id"]}: {question_similarity}'])
+                similarity_report.append(f"Question {question['question_id']}: {question_similarity}")
             question_responses = question["question_responses"]
             for response in question_responses:
                 response_nlp = self.nlp(response["response_text"])
                 response_similarity = response_nlp.similarity(spoken_nlp)
                 if response_similarity >= 0.3:
-                    similarity_report.append([f'Question {question["question_id"]}, option {response["response_id"]}: {response_similarity}'])
+                    similarity_report.append(f"Question {question['question_id']}, option {response['response_id']}: {response_similarity}")
         return similarity_report

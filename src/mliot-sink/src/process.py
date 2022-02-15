@@ -176,4 +176,3 @@ class ScreenshotTextRecognizer(threading.Thread):
             for j in range(0, size - i - 1):
                 if (rectangles[j][0] + rectangles[j][1]) > (rectangles[j + 1][0] + rectangles[j + 1][1]):
                     rectangles[j], rectangles[j + 1] = rectangles[j + 1], rectangles[j]
-

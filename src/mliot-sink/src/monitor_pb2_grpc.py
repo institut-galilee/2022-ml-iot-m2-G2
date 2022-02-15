@@ -41,7 +41,7 @@ class MonitorServiceStub(object):
                 )
         self.onScreenshotTextRecognized = channel.unary_unary(
                 '/MonitorService/onScreenshotTextRecognized',
-                request_serializer=monitor__pb2.ScreenTestRecognitionMessage.SerializeToString,
+                request_serializer=monitor__pb2.ScreenshotTextRecognitionMessage.SerializeToString,
                 response_deserializer=monitor__pb2.EmptyResponse.FromString,
                 )
         self.onQRCodeVerificationFailed = channel.unary_unary(
@@ -74,8 +74,8 @@ class MonitorServiceStub(object):
                 request_serializer=monitor__pb2.UnAuthorizedMonitorMessage.SerializeToString,
                 response_deserializer=monitor__pb2.EmptyResponse.FromString,
                 )
-        self.onHighAcceleration = channel.unary_unary(
-                '/MonitorService/onHighAcceleration',
+        self.onHighAccelerationNoticed = channel.unary_unary(
+                '/MonitorService/onHighAccelerationNoticed',
                 request_serializer=monitor__pb2.HighAccelerationMessage.SerializeToString,
                 response_deserializer=monitor__pb2.EmptyResponse.FromString,
                 )
@@ -166,7 +166,7 @@ class MonitorServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def onHighAcceleration(self, request, context):
+    def onHighAccelerationNoticed(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -214,7 +214,7 @@ def add_MonitorServiceServicer_to_server(servicer, server):
             ),
             'onScreenshotTextRecognized': grpc.unary_unary_rpc_method_handler(
                     servicer.onScreenshotTextRecognized,
-                    request_deserializer=monitor__pb2.ScreenTestRecognitionMessage.FromString,
+                    request_deserializer=monitor__pb2.ScreenshotTextRecognitionMessage.FromString,
                     response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
             ),
             'onQRCodeVerificationFailed': grpc.unary_unary_rpc_method_handler(
@@ -247,8 +247,8 @@ def add_MonitorServiceServicer_to_server(servicer, server):
                     request_deserializer=monitor__pb2.UnAuthorizedMonitorMessage.FromString,
                     response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
             ),
-            'onHighAcceleration': grpc.unary_unary_rpc_method_handler(
-                    servicer.onHighAcceleration,
+            'onHighAccelerationNoticed': grpc.unary_unary_rpc_method_handler(
+                    servicer.onHighAccelerationNoticed,
                     request_deserializer=monitor__pb2.HighAccelerationMessage.FromString,
                     response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
             ),
@@ -369,7 +369,7 @@ class MonitorService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onScreenshotTextRecognized',
-            monitor__pb2.ScreenTestRecognitionMessage.SerializeToString,
+            monitor__pb2.ScreenshotTextRecognitionMessage.SerializeToString,
             monitor__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -477,7 +477,7 @@ class MonitorService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def onHighAcceleration(request,
+    def onHighAccelerationNoticed(request,
             target,
             options=(),
             channel_credentials=None,
@@ -487,7 +487,7 @@ class MonitorService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/MonitorService/onHighAcceleration',
+        return grpc.experimental.unary_unary(request, target, '/MonitorService/onHighAccelerationNoticed',
             monitor__pb2.HighAccelerationMessage.SerializeToString,
             monitor__pb2.EmptyResponse.FromString,
             options, channel_credentials,

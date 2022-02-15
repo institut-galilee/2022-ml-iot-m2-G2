@@ -101,6 +101,7 @@ public class MainApplication extends Application implements HomeControllerCallba
 
             @Override
             public void onMicrophoneSpeechRecognized(SpeechRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+                logger.log(Level.INFO, request.getSpokenSpeech());
                 responseObserver.onNext(EmptyResponse.newBuilder().build());
                 responseObserver.onCompleted();
             }
@@ -112,7 +113,7 @@ public class MainApplication extends Application implements HomeControllerCallba
             }
 
             @Override
-            public void onScreenshotTextRecognized(ScreenTestRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
+            public void onScreenshotTextRecognized(ScreenshotTextRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
                 responseObserver.onNext(EmptyResponse.newBuilder().build());
                 responseObserver.onCompleted();
             }
@@ -154,7 +155,7 @@ public class MainApplication extends Application implements HomeControllerCallba
             }
 
             @Override
-            public void onHighAcceleration(HighAccelerationMessage request, StreamObserver<EmptyResponse> responseObserver) {
+            public void onHighAccelerationNoticed(HighAccelerationMessage request, StreamObserver<EmptyResponse> responseObserver) {
                 responseObserver.onNext(EmptyResponse.newBuilder().build());
                 responseObserver.onCompleted();
             }

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -74,17 +75,19 @@ public class HomeController implements Initializable {
 
     @FXML
     public void onClickListener(MouseEvent mouseEvent) {
-        Node target = (Node) mouseEvent.getTarget();
-        if (target != gridView) {
-            Node parent;
-            while ((parent = target.getParent()) != gridView) {
-                target = parent;
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+            Node target = (Node) mouseEvent.getTarget();
+            if (target != gridView) {
+                Node parent;
+                while ((parent = target.getParent()) != gridView) {
+                    target = parent;
+                }
             }
-        }
-        Integer rowIndex = GridPane.getRowIndex(target);
-        Integer columnIndex = GridPane.getColumnIndex(target);
-        if (columnIndex != null && rowIndex != null) {
-            this.homeControllerCallback.onStudentRequested(this.studentList.get(((rowIndex - 1) * MAX_COLUMN_NUMBER) + columnIndex));
+            Integer rowIndex = GridPane.getRowIndex(target);
+            Integer columnIndex = GridPane.getColumnIndex(target);
+            if (columnIndex != null && rowIndex != null) {
+                this.homeControllerCallback.onStudentRequested(this.studentList.get(((rowIndex - 1) * MAX_COLUMN_NUMBER) + columnIndex));
+            }
         }
     }
 
@@ -108,13 +111,13 @@ public class HomeController implements Initializable {
         try {
             if (this.studentList != null) {
                 for (Student student : this.studentList) {
-                    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("item.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("student.fxml"));
                     AnchorPane anchorPane = fxmlLoader.load();
                     anchorPane.setId(student.getCardNumber());
                     anchorPane.setStyle(String.format("-fx-background-color: %s; -fx-background-radius: 5", student.getStatusColor()));
 
-                    ItemController itemController = fxmlLoader.getController();
-                    itemController.setStudent(student);
+                    StudentController studentController = fxmlLoader.getController();
+                    studentController.setStudent(student);
 
                     if (column == MAX_COLUMN_NUMBER) {
                         column = 0;

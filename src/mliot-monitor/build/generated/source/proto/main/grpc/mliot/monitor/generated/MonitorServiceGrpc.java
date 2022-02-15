@@ -170,27 +170,27 @@ public final class MonitorServiceGrpc {
     return getOnBrowserSizeNotFittingScreenSizeMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenTestRecognitionMessage,
+  private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenshotTextRecognitionMessage,
       mliot.monitor.generated.EmptyResponse> getOnScreenshotTextRecognizedMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "onScreenshotTextRecognized",
-      requestType = mliot.monitor.generated.ScreenTestRecognitionMessage.class,
+      requestType = mliot.monitor.generated.ScreenshotTextRecognitionMessage.class,
       responseType = mliot.monitor.generated.EmptyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenTestRecognitionMessage,
+  public static io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenshotTextRecognitionMessage,
       mliot.monitor.generated.EmptyResponse> getOnScreenshotTextRecognizedMethod() {
-    io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenTestRecognitionMessage, mliot.monitor.generated.EmptyResponse> getOnScreenshotTextRecognizedMethod;
+    io.grpc.MethodDescriptor<mliot.monitor.generated.ScreenshotTextRecognitionMessage, mliot.monitor.generated.EmptyResponse> getOnScreenshotTextRecognizedMethod;
     if ((getOnScreenshotTextRecognizedMethod = MonitorServiceGrpc.getOnScreenshotTextRecognizedMethod) == null) {
       synchronized (MonitorServiceGrpc.class) {
         if ((getOnScreenshotTextRecognizedMethod = MonitorServiceGrpc.getOnScreenshotTextRecognizedMethod) == null) {
           MonitorServiceGrpc.getOnScreenshotTextRecognizedMethod = getOnScreenshotTextRecognizedMethod =
-              io.grpc.MethodDescriptor.<mliot.monitor.generated.ScreenTestRecognitionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
+              io.grpc.MethodDescriptor.<mliot.monitor.generated.ScreenshotTextRecognitionMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onScreenshotTextRecognized"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  mliot.monitor.generated.ScreenTestRecognitionMessage.getDefaultInstance()))
+                  mliot.monitor.generated.ScreenshotTextRecognitionMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
               .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onScreenshotTextRecognized"))
@@ -388,34 +388,34 @@ public final class MonitorServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.HighAccelerationMessage,
-      mliot.monitor.generated.EmptyResponse> getOnHighAccelerationMethod;
+      mliot.monitor.generated.EmptyResponse> getOnHighAccelerationNoticedMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "onHighAcceleration",
+      fullMethodName = SERVICE_NAME + '/' + "onHighAccelerationNoticed",
       requestType = mliot.monitor.generated.HighAccelerationMessage.class,
       responseType = mliot.monitor.generated.EmptyResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<mliot.monitor.generated.HighAccelerationMessage,
-      mliot.monitor.generated.EmptyResponse> getOnHighAccelerationMethod() {
-    io.grpc.MethodDescriptor<mliot.monitor.generated.HighAccelerationMessage, mliot.monitor.generated.EmptyResponse> getOnHighAccelerationMethod;
-    if ((getOnHighAccelerationMethod = MonitorServiceGrpc.getOnHighAccelerationMethod) == null) {
+      mliot.monitor.generated.EmptyResponse> getOnHighAccelerationNoticedMethod() {
+    io.grpc.MethodDescriptor<mliot.monitor.generated.HighAccelerationMessage, mliot.monitor.generated.EmptyResponse> getOnHighAccelerationNoticedMethod;
+    if ((getOnHighAccelerationNoticedMethod = MonitorServiceGrpc.getOnHighAccelerationNoticedMethod) == null) {
       synchronized (MonitorServiceGrpc.class) {
-        if ((getOnHighAccelerationMethod = MonitorServiceGrpc.getOnHighAccelerationMethod) == null) {
-          MonitorServiceGrpc.getOnHighAccelerationMethod = getOnHighAccelerationMethod =
+        if ((getOnHighAccelerationNoticedMethod = MonitorServiceGrpc.getOnHighAccelerationNoticedMethod) == null) {
+          MonitorServiceGrpc.getOnHighAccelerationNoticedMethod = getOnHighAccelerationNoticedMethod =
               io.grpc.MethodDescriptor.<mliot.monitor.generated.HighAccelerationMessage, mliot.monitor.generated.EmptyResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onHighAcceleration"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "onHighAccelerationNoticed"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   mliot.monitor.generated.HighAccelerationMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   mliot.monitor.generated.EmptyResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onHighAcceleration"))
+              .setSchemaDescriptor(new MonitorServiceMethodDescriptorSupplier("onHighAccelerationNoticed"))
               .build();
         }
       }
     }
-    return getOnHighAccelerationMethod;
+    return getOnHighAccelerationNoticedMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<mliot.monitor.generated.HandDeviceMessage,
@@ -565,7 +565,7 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public void onScreenshotTextRecognized(mliot.monitor.generated.ScreenTestRecognitionMessage request,
+    public void onScreenshotTextRecognized(mliot.monitor.generated.ScreenshotTextRecognitionMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnScreenshotTextRecognizedMethod(), responseObserver);
     }
@@ -614,9 +614,9 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public void onHighAcceleration(mliot.monitor.generated.HighAccelerationMessage request,
+    public void onHighAccelerationNoticed(mliot.monitor.generated.HighAccelerationMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnHighAccelerationMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getOnHighAccelerationNoticedMethod(), responseObserver);
     }
 
     /**
@@ -674,7 +674,7 @@ public final class MonitorServiceGrpc {
             getOnScreenshotTextRecognizedMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                mliot.monitor.generated.ScreenTestRecognitionMessage,
+                mliot.monitor.generated.ScreenshotTextRecognitionMessage,
                 mliot.monitor.generated.EmptyResponse>(
                   this, METHODID_ON_SCREENSHOT_TEXT_RECOGNIZED)))
           .addMethod(
@@ -720,12 +720,12 @@ public final class MonitorServiceGrpc {
                 mliot.monitor.generated.EmptyResponse>(
                   this, METHODID_ON_UN_AUTHORIZED_MONITOR)))
           .addMethod(
-            getOnHighAccelerationMethod(),
+            getOnHighAccelerationNoticedMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 mliot.monitor.generated.HighAccelerationMessage,
                 mliot.monitor.generated.EmptyResponse>(
-                  this, METHODID_ON_HIGH_ACCELERATION)))
+                  this, METHODID_ON_HIGH_ACCELERATION_NOTICED)))
           .addMethod(
             getOnHandDeviceStateChangedMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -800,7 +800,7 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public void onScreenshotTextRecognized(mliot.monitor.generated.ScreenTestRecognitionMessage request,
+    public void onScreenshotTextRecognized(mliot.monitor.generated.ScreenshotTextRecognitionMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getOnScreenshotTextRecognizedMethod(), getCallOptions()), request, responseObserver);
@@ -856,10 +856,10 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public void onHighAcceleration(mliot.monitor.generated.HighAccelerationMessage request,
+    public void onHighAccelerationNoticed(mliot.monitor.generated.HighAccelerationMessage request,
         io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getOnHighAccelerationMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getOnHighAccelerationNoticedMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -931,7 +931,7 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public mliot.monitor.generated.EmptyResponse onScreenshotTextRecognized(mliot.monitor.generated.ScreenTestRecognitionMessage request) {
+    public mliot.monitor.generated.EmptyResponse onScreenshotTextRecognized(mliot.monitor.generated.ScreenshotTextRecognitionMessage request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getOnScreenshotTextRecognizedMethod(), getCallOptions(), request);
     }
@@ -980,9 +980,9 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public mliot.monitor.generated.EmptyResponse onHighAcceleration(mliot.monitor.generated.HighAccelerationMessage request) {
+    public mliot.monitor.generated.EmptyResponse onHighAccelerationNoticed(mliot.monitor.generated.HighAccelerationMessage request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getOnHighAccelerationMethod(), getCallOptions(), request);
+          getChannel(), getOnHighAccelerationNoticedMethod(), getCallOptions(), request);
     }
 
     /**
@@ -1049,7 +1049,7 @@ public final class MonitorServiceGrpc {
     /**
      */
     public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onScreenshotTextRecognized(
-        mliot.monitor.generated.ScreenTestRecognitionMessage request) {
+        mliot.monitor.generated.ScreenshotTextRecognitionMessage request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getOnScreenshotTextRecognizedMethod(), getCallOptions()), request);
     }
@@ -1104,10 +1104,10 @@ public final class MonitorServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onHighAcceleration(
+    public com.google.common.util.concurrent.ListenableFuture<mliot.monitor.generated.EmptyResponse> onHighAccelerationNoticed(
         mliot.monitor.generated.HighAccelerationMessage request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getOnHighAccelerationMethod(), getCallOptions()), request);
+          getChannel().newCall(getOnHighAccelerationNoticedMethod(), getCallOptions()), request);
     }
 
     /**
@@ -1139,7 +1139,7 @@ public final class MonitorServiceGrpc {
   private static final int METHODID_ON_WEB_CAMERA_OBJECTS_RECOGNIZED = 9;
   private static final int METHODID_ON_PHONE_CAMERA_OBJECTS_RECOGNIZED = 10;
   private static final int METHODID_ON_UN_AUTHORIZED_MONITOR = 11;
-  private static final int METHODID_ON_HIGH_ACCELERATION = 12;
+  private static final int METHODID_ON_HIGH_ACCELERATION_NOTICED = 12;
   private static final int METHODID_ON_HAND_DEVICE_STATE_CHANGED = 13;
   private static final int METHODID_ON_STUDENT_DISCONNECTED = 14;
 
@@ -1181,7 +1181,7 @@ public final class MonitorServiceGrpc {
               (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
           break;
         case METHODID_ON_SCREENSHOT_TEXT_RECOGNIZED:
-          serviceImpl.onScreenshotTextRecognized((mliot.monitor.generated.ScreenTestRecognitionMessage) request,
+          serviceImpl.onScreenshotTextRecognized((mliot.monitor.generated.ScreenshotTextRecognitionMessage) request,
               (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
           break;
         case METHODID_ON_QRCODE_VERIFICATION_FAILED:
@@ -1208,8 +1208,8 @@ public final class MonitorServiceGrpc {
           serviceImpl.onUnAuthorizedMonitor((mliot.monitor.generated.UnAuthorizedMonitorMessage) request,
               (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
           break;
-        case METHODID_ON_HIGH_ACCELERATION:
-          serviceImpl.onHighAcceleration((mliot.monitor.generated.HighAccelerationMessage) request,
+        case METHODID_ON_HIGH_ACCELERATION_NOTICED:
+          serviceImpl.onHighAccelerationNoticed((mliot.monitor.generated.HighAccelerationMessage) request,
               (io.grpc.stub.StreamObserver<mliot.monitor.generated.EmptyResponse>) responseObserver);
           break;
         case METHODID_ON_HAND_DEVICE_STATE_CHANGED:
@@ -1293,7 +1293,7 @@ public final class MonitorServiceGrpc {
               .addMethod(getOnWebCameraObjectsRecognizedMethod())
               .addMethod(getOnPhoneCameraObjectsRecognizedMethod())
               .addMethod(getOnUnAuthorizedMonitorMethod())
-              .addMethod(getOnHighAccelerationMethod())
+              .addMethod(getOnHighAccelerationNoticedMethod())
               .addMethod(getOnHandDeviceStateChangedMethod())
               .addMethod(getOnStudentDisconnectedMethod())
               .build();

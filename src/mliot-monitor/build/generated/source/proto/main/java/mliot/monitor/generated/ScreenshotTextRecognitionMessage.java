@@ -4,18 +4,18 @@
 package mliot.monitor.generated;
 
 /**
- * Protobuf type {@code ScreenTestRecognitionMessage}
+ * Protobuf type {@code ScreenshotTextRecognitionMessage}
  */
-public final class ScreenTestRecognitionMessage extends
+public final class ScreenshotTextRecognitionMessage extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:ScreenTestRecognitionMessage)
-    ScreenTestRecognitionMessageOrBuilder {
+    // @@protoc_insertion_point(message_implements:ScreenshotTextRecognitionMessage)
+    ScreenshotTextRecognitionMessageOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use ScreenTestRecognitionMessage.newBuilder() to construct.
-  private ScreenTestRecognitionMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use ScreenshotTextRecognitionMessage.newBuilder() to construct.
+  private ScreenshotTextRecognitionMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private ScreenTestRecognitionMessage() {
+  private ScreenshotTextRecognitionMessage() {
     cardNumber_ = "";
     recognizedText_ = "";
     similarityReport_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -26,7 +26,7 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new ScreenTestRecognitionMessage();
+    return new ScreenshotTextRecognitionMessage();
   }
 
   @java.lang.Override
@@ -34,7 +34,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private ScreenTestRecognitionMessage(
+  private ScreenshotTextRecognitionMessage(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -109,15 +109,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return mliot.monitor.generated.Monitor.internal_static_ScreenTestRecognitionMessage_descriptor;
+    return mliot.monitor.generated.Monitor.internal_static_ScreenshotTextRecognitionMessage_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return mliot.monitor.generated.Monitor.internal_static_ScreenTestRecognitionMessage_fieldAccessorTable
+    return mliot.monitor.generated.Monitor.internal_static_ScreenshotTextRecognitionMessage_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            mliot.monitor.generated.ScreenTestRecognitionMessage.class, mliot.monitor.generated.ScreenTestRecognitionMessage.Builder.class);
+            mliot.monitor.generated.ScreenshotTextRecognitionMessage.class, mliot.monitor.generated.ScreenshotTextRecognitionMessage.Builder.class);
   }
 
   public static final int CARD_NUMBER_FIELD_NUMBER = 1;
@@ -331,10 +331,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof mliot.monitor.generated.ScreenTestRecognitionMessage)) {
+    if (!(obj instanceof mliot.monitor.generated.ScreenshotTextRecognitionMessage)) {
       return super.equals(obj);
     }
-    mliot.monitor.generated.ScreenTestRecognitionMessage other = (mliot.monitor.generated.ScreenTestRecognitionMessage) obj;
+    mliot.monitor.generated.ScreenshotTextRecognitionMessage other = (mliot.monitor.generated.ScreenshotTextRecognitionMessage) obj;
 
     if (!getCardNumber()
         .equals(other.getCardNumber())) return false;
@@ -374,69 +374,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(byte[] data)
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(java.io.InputStream input)
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseDelimitedFrom(java.io.InputStream input)
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseDelimitedFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage parseFrom(
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -449,7 +449,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(mliot.monitor.generated.ScreenTestRecognitionMessage prototype) {
+  public static Builder newBuilder(mliot.monitor.generated.ScreenshotTextRecognitionMessage prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -465,26 +465,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code ScreenTestRecognitionMessage}
+   * Protobuf type {@code ScreenshotTextRecognitionMessage}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:ScreenTestRecognitionMessage)
-      mliot.monitor.generated.ScreenTestRecognitionMessageOrBuilder {
+      // @@protoc_insertion_point(builder_implements:ScreenshotTextRecognitionMessage)
+      mliot.monitor.generated.ScreenshotTextRecognitionMessageOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mliot.monitor.generated.Monitor.internal_static_ScreenTestRecognitionMessage_descriptor;
+      return mliot.monitor.generated.Monitor.internal_static_ScreenshotTextRecognitionMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mliot.monitor.generated.Monitor.internal_static_ScreenTestRecognitionMessage_fieldAccessorTable
+      return mliot.monitor.generated.Monitor.internal_static_ScreenshotTextRecognitionMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              mliot.monitor.generated.ScreenTestRecognitionMessage.class, mliot.monitor.generated.ScreenTestRecognitionMessage.Builder.class);
+              mliot.monitor.generated.ScreenshotTextRecognitionMessage.class, mliot.monitor.generated.ScreenshotTextRecognitionMessage.Builder.class);
     }
 
-    // Construct using mliot.monitor.generated.ScreenTestRecognitionMessage.newBuilder()
+    // Construct using mliot.monitor.generated.ScreenshotTextRecognitionMessage.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -518,17 +518,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return mliot.monitor.generated.Monitor.internal_static_ScreenTestRecognitionMessage_descriptor;
+      return mliot.monitor.generated.Monitor.internal_static_ScreenshotTextRecognitionMessage_descriptor;
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.ScreenTestRecognitionMessage getDefaultInstanceForType() {
-      return mliot.monitor.generated.ScreenTestRecognitionMessage.getDefaultInstance();
+    public mliot.monitor.generated.ScreenshotTextRecognitionMessage getDefaultInstanceForType() {
+      return mliot.monitor.generated.ScreenshotTextRecognitionMessage.getDefaultInstance();
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.ScreenTestRecognitionMessage build() {
-      mliot.monitor.generated.ScreenTestRecognitionMessage result = buildPartial();
+    public mliot.monitor.generated.ScreenshotTextRecognitionMessage build() {
+      mliot.monitor.generated.ScreenshotTextRecognitionMessage result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -536,8 +536,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public mliot.monitor.generated.ScreenTestRecognitionMessage buildPartial() {
-      mliot.monitor.generated.ScreenTestRecognitionMessage result = new mliot.monitor.generated.ScreenTestRecognitionMessage(this);
+    public mliot.monitor.generated.ScreenshotTextRecognitionMessage buildPartial() {
+      mliot.monitor.generated.ScreenshotTextRecognitionMessage result = new mliot.monitor.generated.ScreenshotTextRecognitionMessage(this);
       int from_bitField0_ = bitField0_;
       result.cardNumber_ = cardNumber_;
       result.recognizedText_ = recognizedText_;
@@ -586,16 +586,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof mliot.monitor.generated.ScreenTestRecognitionMessage) {
-        return mergeFrom((mliot.monitor.generated.ScreenTestRecognitionMessage)other);
+      if (other instanceof mliot.monitor.generated.ScreenshotTextRecognitionMessage) {
+        return mergeFrom((mliot.monitor.generated.ScreenshotTextRecognitionMessage)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(mliot.monitor.generated.ScreenTestRecognitionMessage other) {
-      if (other == mliot.monitor.generated.ScreenTestRecognitionMessage.getDefaultInstance()) return this;
+    public Builder mergeFrom(mliot.monitor.generated.ScreenshotTextRecognitionMessage other) {
+      if (other == mliot.monitor.generated.ScreenshotTextRecognitionMessage.getDefaultInstance()) return this;
       if (!other.getCardNumber().isEmpty()) {
         cardNumber_ = other.cardNumber_;
         onChanged();
@@ -635,11 +635,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      mliot.monitor.generated.ScreenTestRecognitionMessage parsedMessage = null;
+      mliot.monitor.generated.ScreenshotTextRecognitionMessage parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (mliot.monitor.generated.ScreenTestRecognitionMessage) e.getUnfinishedMessage();
+        parsedMessage = (mliot.monitor.generated.ScreenshotTextRecognitionMessage) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -1009,41 +1009,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:ScreenTestRecognitionMessage)
+    // @@protoc_insertion_point(builder_scope:ScreenshotTextRecognitionMessage)
   }
 
-  // @@protoc_insertion_point(class_scope:ScreenTestRecognitionMessage)
-  private static final mliot.monitor.generated.ScreenTestRecognitionMessage DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:ScreenshotTextRecognitionMessage)
+  private static final mliot.monitor.generated.ScreenshotTextRecognitionMessage DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new mliot.monitor.generated.ScreenTestRecognitionMessage();
+    DEFAULT_INSTANCE = new mliot.monitor.generated.ScreenshotTextRecognitionMessage();
   }
 
-  public static mliot.monitor.generated.ScreenTestRecognitionMessage getDefaultInstance() {
+  public static mliot.monitor.generated.ScreenshotTextRecognitionMessage getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<ScreenTestRecognitionMessage>
-      PARSER = new com.google.protobuf.AbstractParser<ScreenTestRecognitionMessage>() {
+  private static final com.google.protobuf.Parser<ScreenshotTextRecognitionMessage>
+      PARSER = new com.google.protobuf.AbstractParser<ScreenshotTextRecognitionMessage>() {
     @java.lang.Override
-    public ScreenTestRecognitionMessage parsePartialFrom(
+    public ScreenshotTextRecognitionMessage parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new ScreenTestRecognitionMessage(input, extensionRegistry);
+      return new ScreenshotTextRecognitionMessage(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<ScreenTestRecognitionMessage> parser() {
+  public static com.google.protobuf.Parser<ScreenshotTextRecognitionMessage> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<ScreenTestRecognitionMessage> getParserForType() {
+  public com.google.protobuf.Parser<ScreenshotTextRecognitionMessage> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public mliot.monitor.generated.ScreenTestRecognitionMessage getDefaultInstanceForType() {
+  public mliot.monitor.generated.ScreenshotTextRecognitionMessage getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

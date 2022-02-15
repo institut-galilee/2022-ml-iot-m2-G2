@@ -12,7 +12,7 @@ import mliot.monitor.util.Util;
 import java.io.InputStream;
 import java.util.Locale;
 
-public class ItemController {
+public class StudentController {
 
     @FXML
     public Label nameView;

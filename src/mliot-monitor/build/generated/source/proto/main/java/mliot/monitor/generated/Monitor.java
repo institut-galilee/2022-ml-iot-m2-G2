@@ -70,10 +70,10 @@ public final class Monitor {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_QRCodeVerificationMessage_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ScreenTestRecognitionMessage_descriptor;
+    internal_static_ScreenshotTextRecognitionMessage_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ScreenTestRecognitionMessage_fieldAccessorTable;
+      internal_static_ScreenshotTextRecognitionMessage_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_BrowserSizeMessage_descriptor;
   static final 
@@ -137,56 +137,56 @@ public final class Monitor {
       "severity\030\004 \001(\0162\t.Severity\"m\n\031QRCodeVerif" +
       "icationMessage\022\023\n\013card_number\030\001 \001(\t\022\017\n\007m" +
       "essage\030\002 \001(\t\022\r\n\005mills\030\003 \001(\003\022\033\n\010severity\030" +
-      "\004 \001(\0162\t.Severity\"\223\001\n\034ScreenTestRecogniti" +
-      "onMessage\022\023\n\013card_number\030\001 \001(\t\022\027\n\017recogn" +
-      "ized_text\030\002 \001(\t\022\031\n\021similarity_report\030\003 \003" +
-      "(\t\022\r\n\005mills\030\004 \001(\003\022\033\n\010severity\030\005 \001(\0162\t.Se" +
-      "verity\"f\n\022BrowserSizeMessage\022\023\n\013card_num" +
-      "ber\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\r\n\005mills\030\003 \001(" +
-      "\003\022\033\n\010severity\030\004 \001(\0162\t.Severity\"\215\001\n\030Speec" +
-      "hRecognitionMessage\022\023\n\013card_number\030\001 \001(\t" +
-      "\022\025\n\rspoken_speech\030\002 \001(\t\022\031\n\021similarity_re" +
-      "port\030\003 \003(\t\022\r\n\005mills\030\004 \001(\003\022\033\n\010severity\030\005 " +
-      "\001(\0162\t.Severity\"l\n\030MovementDetectionMessa" +
-      "ge\022\023\n\013card_number\030\001 \001(\t\022\017\n\007message\030\002 \001(\t" +
-      "\022\r\n\005mills\030\003 \001(\003\022\033\n\010severity\030\004 \001(\0162\t.Seve" +
-      "rity\"U\n\030StudentConnectionMessage\022\023\n\013card" +
-      "_number\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022\023\n\013port_n" +
-      "umber\030\003 \001(\005\">\n\031StudentConnectionResponse" +
-      "\022\020\n\010exam_url\030\001 \001(\t\022\017\n\007api_url\030\002 \001(\t\"i\n\024K" +
-      "nownStudentResponse\022\022\n\nfirst_name\030\001 \001(\t\022" +
-      "\021\n\tlast_name\030\002 \001(\t\022\023\n\013card_number\030\003 \001(\t\022" +
-      "\025\n\rprofile_photo\030\004 \001(\014*/\n\010Severity\022\n\n\006NO" +
-      "RMAL\020\000\022\013\n\007WARNING\020\001\022\n\n\006SEVERE\020\0022\320\010\n\016Moni" +
-      "torService\022>\n\022fetchKnownStudents\022\r.Empty" +
-      "Message\032\025.KnownStudentResponse\"\0000\001\022M\n\022on" +
-      "StudentConnected\022\031.StudentConnectionMess" +
-      "age\032\032.StudentConnectionResponse\"\000\022A\n\022onM" +
-      "ovementDetected\022\031.MovementDetectionMessa" +
-      "ge\032\016.EmptyResponse\"\000\022K\n\034onMicrophoneSpee" +
-      "chRecognized\022\031.SpeechRecognitionMessage\032" +
-      "\016.EmptyResponse\"\000\022J\n!onBrowserSizeNotFit" +
-      "tingScreenSize\022\023.BrowserSizeMessage\032\016.Em" +
-      "ptyResponse\"\000\022M\n\032onScreenshotTextRecogni" +
-      "zed\022\035.ScreenTestRecognitionMessage\032\016.Emp" +
-      "tyResponse\"\000\022J\n\032onQRCodeVerificationFail" +
-      "ed\022\032.QRCodeVerificationMessage\032\016.EmptyRe" +
-      "sponse\"\000\022=\n\023onStudentNotAllowed\022\024.Studen" +
-      "tFraudMessage\032\016.EmptyResponse\"\000\022@\n\023onFac" +
-      "eNotRecognized\022\027.FaceRecognitionMessage\032" +
-      "\016.EmptyResponse\"\000\022N\n\034onWebCameraObjectsR" +
-      "ecognized\022\034.WebCameraRecognitionMessage\032" +
-      "\016.EmptyResponse\"\000\022R\n\036onPhoneCameraObject" +
-      "sRecognized\022\036.PhoneCameraRecognitionMess" +
-      "age\032\016.EmptyResponse\"\000\022F\n\025onUnAuthorizedM" +
-      "onitor\022\033.UnAuthorizedMonitorMessage\032\016.Em" +
-      "ptyResponse\"\000\022@\n\022onHighAcceleration\022\030.Hi" +
-      "ghAccelerationMessage\032\016.EmptyResponse\"\000\022" +
-      "@\n\030onHandDeviceStateChanged\022\022.HandDevice" +
-      "Message\032\016.EmptyResponse\"\000\022G\n\025onStudentDi" +
-      "sconnected\022\034.StudentDisconnectionMessage" +
-      "\032\016.EmptyResponse\"\000B\033\n\027mliot.monitor.gene" +
-      "ratedP\001b\006proto3"
+      "\004 \001(\0162\t.Severity\"\227\001\n ScreenshotTextRecog" +
+      "nitionMessage\022\023\n\013card_number\030\001 \001(\t\022\027\n\017re" +
+      "cognized_text\030\002 \001(\t\022\031\n\021similarity_report" +
+      "\030\003 \003(\t\022\r\n\005mills\030\004 \001(\003\022\033\n\010severity\030\005 \001(\0162" +
+      "\t.Severity\"f\n\022BrowserSizeMessage\022\023\n\013card" +
+      "_number\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\r\n\005mills\030" +
+      "\003 \001(\003\022\033\n\010severity\030\004 \001(\0162\t.Severity\"\215\001\n\030S" +
+      "peechRecognitionMessage\022\023\n\013card_number\030\001" +
+      " \001(\t\022\025\n\rspoken_speech\030\002 \001(\t\022\031\n\021similarit" +
+      "y_report\030\003 \003(\t\022\r\n\005mills\030\004 \001(\003\022\033\n\010severit" +
+      "y\030\005 \001(\0162\t.Severity\"l\n\030MovementDetectionM" +
+      "essage\022\023\n\013card_number\030\001 \001(\t\022\017\n\007message\030\002" +
+      " \001(\t\022\r\n\005mills\030\003 \001(\003\022\033\n\010severity\030\004 \001(\0162\t." +
+      "Severity\"U\n\030StudentConnectionMessage\022\023\n\013" +
+      "card_number\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022\023\n\013po" +
+      "rt_number\030\003 \001(\005\">\n\031StudentConnectionResp" +
+      "onse\022\020\n\010exam_url\030\001 \001(\t\022\017\n\007api_url\030\002 \001(\t\"" +
+      "i\n\024KnownStudentResponse\022\022\n\nfirst_name\030\001 " +
+      "\001(\t\022\021\n\tlast_name\030\002 \001(\t\022\023\n\013card_number\030\003 " +
+      "\001(\t\022\025\n\rprofile_photo\030\004 \001(\014*/\n\010Severity\022\n" +
+      "\n\006NORMAL\020\000\022\013\n\007WARNING\020\001\022\n\n\006SEVERE\020\0022\333\010\n\016" +
+      "MonitorService\022>\n\022fetchKnownStudents\022\r.E" +
+      "mptyMessage\032\025.KnownStudentResponse\"\0000\001\022M" +
+      "\n\022onStudentConnected\022\031.StudentConnection" +
+      "Message\032\032.StudentConnectionResponse\"\000\022A\n" +
+      "\022onMovementDetected\022\031.MovementDetectionM" +
+      "essage\032\016.EmptyResponse\"\000\022K\n\034onMicrophone" +
+      "SpeechRecognized\022\031.SpeechRecognitionMess" +
+      "age\032\016.EmptyResponse\"\000\022J\n!onBrowserSizeNo" +
+      "tFittingScreenSize\022\023.BrowserSizeMessage\032" +
+      "\016.EmptyResponse\"\000\022Q\n\032onScreenshotTextRec" +
+      "ognized\022!.ScreenshotTextRecognitionMessa" +
+      "ge\032\016.EmptyResponse\"\000\022J\n\032onQRCodeVerifica" +
+      "tionFailed\022\032.QRCodeVerificationMessage\032\016" +
+      ".EmptyResponse\"\000\022=\n\023onStudentNotAllowed\022" +
+      "\024.StudentFraudMessage\032\016.EmptyResponse\"\000\022" +
+      "@\n\023onFaceNotRecognized\022\027.FaceRecognition" +
+      "Message\032\016.EmptyResponse\"\000\022N\n\034onWebCamera" +
+      "ObjectsRecognized\022\034.WebCameraRecognition" +
+      "Message\032\016.EmptyResponse\"\000\022R\n\036onPhoneCame" +
+      "raObjectsRecognized\022\036.PhoneCameraRecogni" +
+      "tionMessage\032\016.EmptyResponse\"\000\022F\n\025onUnAut" +
+      "horizedMonitor\022\033.UnAuthorizedMonitorMess" +
+      "age\032\016.EmptyResponse\"\000\022G\n\031onHighAccelerat" +
+      "ionNoticed\022\030.HighAccelerationMessage\032\016.E" +
+      "mptyResponse\"\000\022@\n\030onHandDeviceStateChang" +
+      "ed\022\022.HandDeviceMessage\032\016.EmptyResponse\"\000" +
+      "\022G\n\025onStudentDisconnected\022\034.StudentDisco" +
+      "nnectionMessage\032\016.EmptyResponse\"\000B\033\n\027mli" +
+      "ot.monitor.generatedP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -258,11 +258,11 @@ public final class Monitor {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_QRCodeVerificationMessage_descriptor,
         new java.lang.String[] { "CardNumber", "Message", "Mills", "Severity", });
-    internal_static_ScreenTestRecognitionMessage_descriptor =
+    internal_static_ScreenshotTextRecognitionMessage_descriptor =
       getDescriptor().getMessageTypes().get(11);
-    internal_static_ScreenTestRecognitionMessage_fieldAccessorTable = new
+    internal_static_ScreenshotTextRecognitionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ScreenTestRecognitionMessage_descriptor,
+        internal_static_ScreenshotTextRecognitionMessage_descriptor,
         new java.lang.String[] { "CardNumber", "RecognizedText", "SimilarityReport", "Mills", "Severity", });
     internal_static_BrowserSizeMessage_descriptor =
       getDescriptor().getMessageTypes().get(12);

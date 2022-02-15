@@ -3,8 +3,8 @@
 
 package mliot.monitor.generated;
 
-public interface ScreenTestRecognitionMessageOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:ScreenTestRecognitionMessage)
+public interface ScreenshotTextRecognitionMessageOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:ScreenshotTextRecognitionMessage)
     com.google.protobuf.MessageOrBuilder {
 
   /**

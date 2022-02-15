@@ -16,33 +16,15 @@ public class Student {
 
     private String statusColor;
 
-    List<Log> ocrLog;
-    List<Log> faceLog;
-    List<Log> objectLog;
-    List<Log> speechLog;
+    List<Log> messageLog;
+    List<Log> reportLog;
 
     public Student() {
 
         this.statusColor = ColorHelper.COLOR_STUDENT_OFFLINE;
 
-        this.ocrLog = new ArrayList<>();
-        this.faceLog = new ArrayList<>();
-        this.objectLog = new ArrayList<>();
-        this.speechLog = new ArrayList<>();
-    }
-
-    public Student(String firstName, String lastName, String cardNumber) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.cardNumber = cardNumber;
-
-        this.statusColor = ColorHelper.COLOR_STUDENT_OFFLINE;
-
-        this.ocrLog = new ArrayList<>();
-        this.faceLog = new ArrayList<>();
-        this.objectLog = new ArrayList<>();
-        this.speechLog = new ArrayList<>();
+        this.messageLog = new ArrayList<>();
+        this.reportLog = new ArrayList<>();
     }
 
     public String getFirstName() {
@@ -102,10 +84,8 @@ public class Student {
                 ", address='" + address + '\'' +
                 ", portNumber=" + portNumber +
                 ", statusColor='" + statusColor + '\'' +
-                ", ocrLog=" + ocrLog +
-                ", faceLog=" + faceLog +
-                ", objectLog=" + objectLog +
-                ", speechLog=" + speechLog +
+                ", messageLog=" + messageLog +
+                ", reportLog=" + reportLog +
                 '}';
     }
 }

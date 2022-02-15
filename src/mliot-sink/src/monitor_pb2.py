@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\027mliot.monitor.generatedP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rmonitor.proto\"\x0e\n\x0c\x45mptyMessage\"\x0f\n\rEmptyResponse\"2\n\x1bStudentDisconnectionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\"e\n\x11HandDeviceMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"k\n\x17HighAccelerationMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"n\n\x1aUnAuthorizedMonitorMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"q\n\x1dPhoneCameraRecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"o\n\x1bWebCameraRecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"j\n\x16\x46\x61\x63\x65RecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"g\n\x13StudentFraudMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"m\n\x19QRCodeVerificationMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"\x93\x01\n\x1cScreenTestRecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x17\n\x0frecognized_text\x18\x02 \x01(\t\x12\x19\n\x11similarity_report\x18\x03 \x03(\t\x12\r\n\x05mills\x18\x04 \x01(\x03\x12\x1b\n\x08severity\x18\x05 \x01(\x0e\x32\t.Severity\"f\n\x12\x42rowserSizeMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"\x8d\x01\n\x18SpeechRecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x15\n\rspoken_speech\x18\x02 \x01(\t\x12\x19\n\x11similarity_report\x18\x03 \x03(\t\x12\r\n\x05mills\x18\x04 \x01(\x03\x12\x1b\n\x08severity\x18\x05 \x01(\x0e\x32\t.Severity\"l\n\x18MovementDetectionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"U\n\x18StudentConnectionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x13\n\x0bport_number\x18\x03 \x01(\x05\">\n\x19StudentConnectionResponse\x12\x10\n\x08\x65xam_url\x18\x01 \x01(\t\x12\x0f\n\x07\x61pi_url\x18\x02 \x01(\t\"i\n\x14KnownStudentResponse\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x03 \x01(\t\x12\x15\n\rprofile_photo\x18\x04 \x01(\x0c*/\n\x08Severity\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07WARNING\x10\x01\x12\n\n\x06SEVERE\x10\x02\x32\xd0\x08\n\x0eMonitorService\x12>\n\x12\x66\x65tchKnownStudents\x12\r.EmptyMessage\x1a\x15.KnownStudentResponse\"\x00\x30\x01\x12M\n\x12onStudentConnected\x12\x19.StudentConnectionMessage\x1a\x1a.StudentConnectionResponse\"\x00\x12\x41\n\x12onMovementDetected\x12\x19.MovementDetectionMessage\x1a\x0e.EmptyResponse\"\x00\x12K\n\x1conMicrophoneSpeechRecognized\x12\x19.SpeechRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12J\n!onBrowserSizeNotFittingScreenSize\x12\x13.BrowserSizeMessage\x1a\x0e.EmptyResponse\"\x00\x12M\n\x1aonScreenshotTextRecognized\x12\x1d.ScreenTestRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12J\n\x1aonQRCodeVerificationFailed\x12\x1a.QRCodeVerificationMessage\x1a\x0e.EmptyResponse\"\x00\x12=\n\x13onStudentNotAllowed\x12\x14.StudentFraudMessage\x1a\x0e.EmptyResponse\"\x00\x12@\n\x13onFaceNotRecognized\x12\x17.FaceRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12N\n\x1conWebCameraObjectsRecognized\x12\x1c.WebCameraRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12R\n\x1eonPhoneCameraObjectsRecognized\x12\x1e.PhoneCameraRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12\x46\n\x15onUnAuthorizedMonitor\x12\x1b.UnAuthorizedMonitorMessage\x1a\x0e.EmptyResponse\"\x00\x12@\n\x12onHighAcceleration\x12\x18.HighAccelerationMessage\x1a\x0e.EmptyResponse\"\x00\x12@\n\x18onHandDeviceStateChanged\x12\x12.HandDeviceMessage\x1a\x0e.EmptyResponse\"\x00\x12G\n\x15onStudentDisconnected\x12\x1c.StudentDisconnectionMessage\x1a\x0e.EmptyResponse\"\x00\x42\x1b\n\x17mliot.monitor.generatedP\x01\x62\x06proto3'
+  serialized_pb=b'\n\rmonitor.proto\"\x0e\n\x0c\x45mptyMessage\"\x0f\n\rEmptyResponse\"2\n\x1bStudentDisconnectionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\"e\n\x11HandDeviceMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"k\n\x17HighAccelerationMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"n\n\x1aUnAuthorizedMonitorMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"q\n\x1dPhoneCameraRecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"o\n\x1bWebCameraRecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"j\n\x16\x46\x61\x63\x65RecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"g\n\x13StudentFraudMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"m\n\x19QRCodeVerificationMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"\x97\x01\n ScreenshotTextRecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x17\n\x0frecognized_text\x18\x02 \x01(\t\x12\x19\n\x11similarity_report\x18\x03 \x03(\t\x12\r\n\x05mills\x18\x04 \x01(\x03\x12\x1b\n\x08severity\x18\x05 \x01(\x0e\x32\t.Severity\"f\n\x12\x42rowserSizeMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"\x8d\x01\n\x18SpeechRecognitionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x15\n\rspoken_speech\x18\x02 \x01(\t\x12\x19\n\x11similarity_report\x18\x03 \x03(\t\x12\r\n\x05mills\x18\x04 \x01(\x03\x12\x1b\n\x08severity\x18\x05 \x01(\x0e\x32\t.Severity\"l\n\x18MovementDetectionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\r\n\x05mills\x18\x03 \x01(\x03\x12\x1b\n\x08severity\x18\x04 \x01(\x0e\x32\t.Severity\"U\n\x18StudentConnectionMessage\x12\x13\n\x0b\x63\x61rd_number\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x13\n\x0bport_number\x18\x03 \x01(\x05\">\n\x19StudentConnectionResponse\x12\x10\n\x08\x65xam_url\x18\x01 \x01(\t\x12\x0f\n\x07\x61pi_url\x18\x02 \x01(\t\"i\n\x14KnownStudentResponse\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x03 \x01(\t\x12\x15\n\rprofile_photo\x18\x04 \x01(\x0c*/\n\x08Severity\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07WARNING\x10\x01\x12\n\n\x06SEVERE\x10\x02\x32\xdb\x08\n\x0eMonitorService\x12>\n\x12\x66\x65tchKnownStudents\x12\r.EmptyMessage\x1a\x15.KnownStudentResponse\"\x00\x30\x01\x12M\n\x12onStudentConnected\x12\x19.StudentConnectionMessage\x1a\x1a.StudentConnectionResponse\"\x00\x12\x41\n\x12onMovementDetected\x12\x19.MovementDetectionMessage\x1a\x0e.EmptyResponse\"\x00\x12K\n\x1conMicrophoneSpeechRecognized\x12\x19.SpeechRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12J\n!onBrowserSizeNotFittingScreenSize\x12\x13.BrowserSizeMessage\x1a\x0e.EmptyResponse\"\x00\x12Q\n\x1aonScreenshotTextRecognized\x12!.ScreenshotTextRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12J\n\x1aonQRCodeVerificationFailed\x12\x1a.QRCodeVerificationMessage\x1a\x0e.EmptyResponse\"\x00\x12=\n\x13onStudentNotAllowed\x12\x14.StudentFraudMessage\x1a\x0e.EmptyResponse\"\x00\x12@\n\x13onFaceNotRecognized\x12\x17.FaceRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12N\n\x1conWebCameraObjectsRecognized\x12\x1c.WebCameraRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12R\n\x1eonPhoneCameraObjectsRecognized\x12\x1e.PhoneCameraRecognitionMessage\x1a\x0e.EmptyResponse\"\x00\x12\x46\n\x15onUnAuthorizedMonitor\x12\x1b.UnAuthorizedMonitorMessage\x1a\x0e.EmptyResponse\"\x00\x12G\n\x19onHighAccelerationNoticed\x12\x18.HighAccelerationMessage\x1a\x0e.EmptyResponse\"\x00\x12@\n\x18onHandDeviceStateChanged\x12\x12.HandDeviceMessage\x1a\x0e.EmptyResponse\"\x00\x12G\n\x15onStudentDisconnected\x12\x1c.StudentDisconnectionMessage\x1a\x0e.EmptyResponse\"\x00\x42\x1b\n\x17mliot.monitor.generatedP\x01\x62\x06proto3'
 )
 
 _SEVERITY = _descriptor.EnumDescriptor(
@@ -48,8 +48,8 @@ _SEVERITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1744,
-  serialized_end=1791,
+  serialized_start=1748,
+  serialized_end=1795,
 )
 _sym_db.RegisterEnumDescriptor(_SEVERITY)
 
@@ -566,44 +566,44 @@ _QRCODEVERIFICATIONMESSAGE = _descriptor.Descriptor(
 )
 
 
-_SCREENTESTRECOGNITIONMESSAGE = _descriptor.Descriptor(
-  name='ScreenTestRecognitionMessage',
-  full_name='ScreenTestRecognitionMessage',
+_SCREENSHOTTEXTRECOGNITIONMESSAGE = _descriptor.Descriptor(
+  name='ScreenshotTextRecognitionMessage',
+  full_name='ScreenshotTextRecognitionMessage',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='card_number', full_name='ScreenTestRecognitionMessage.card_number', index=0,
+      name='card_number', full_name='ScreenshotTextRecognitionMessage.card_number', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='recognized_text', full_name='ScreenTestRecognitionMessage.recognized_text', index=1,
+      name='recognized_text', full_name='ScreenshotTextRecognitionMessage.recognized_text', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='similarity_report', full_name='ScreenTestRecognitionMessage.similarity_report', index=2,
+      name='similarity_report', full_name='ScreenshotTextRecognitionMessage.similarity_report', index=2,
       number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='mills', full_name='ScreenTestRecognitionMessage.mills', index=3,
+      name='mills', full_name='ScreenshotTextRecognitionMessage.mills', index=3,
       number=4, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='severity', full_name='ScreenTestRecognitionMessage.severity', index=4,
+      name='severity', full_name='ScreenshotTextRecognitionMessage.severity', index=4,
       number=5, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -622,7 +622,7 @@ _SCREENTESTRECOGNITIONMESSAGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=979,
-  serialized_end=1126,
+  serialized_end=1130,
 )
 
 
@@ -674,8 +674,8 @@ _BROWSERSIZEMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1128,
-  serialized_end=1230,
+  serialized_start=1132,
+  serialized_end=1234,
 )
 
 
@@ -734,8 +734,8 @@ _SPEECHRECOGNITIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1233,
-  serialized_end=1374,
+  serialized_start=1237,
+  serialized_end=1378,
 )
 
 
@@ -787,8 +787,8 @@ _MOVEMENTDETECTIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1376,
-  serialized_end=1484,
+  serialized_start=1380,
+  serialized_end=1488,
 )
 
 
@@ -833,8 +833,8 @@ _STUDENTCONNECTIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1486,
-  serialized_end=1571,
+  serialized_start=1490,
+  serialized_end=1575,
 )
 
 
@@ -872,8 +872,8 @@ _STUDENTCONNECTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1573,
-  serialized_end=1635,
+  serialized_start=1577,
+  serialized_end=1639,
 )
 
 
@@ -925,8 +925,8 @@ _KNOWNSTUDENTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1637,
-  serialized_end=1742,
+  serialized_start=1641,
+  serialized_end=1746,
 )
 
 _HANDDEVICEMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
@@ -937,7 +937,7 @@ _WEBCAMERARECOGNITIONMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
 _FACERECOGNITIONMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
 _STUDENTFRAUDMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
 _QRCODEVERIFICATIONMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
-_SCREENTESTRECOGNITIONMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
+_SCREENSHOTTEXTRECOGNITIONMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
 _BROWSERSIZEMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
 _SPEECHRECOGNITIONMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
 _MOVEMENTDETECTIONMESSAGE.fields_by_name['severity'].enum_type = _SEVERITY
@@ -952,7 +952,7 @@ DESCRIPTOR.message_types_by_name['WebCameraRecognitionMessage'] = _WEBCAMERARECO
 DESCRIPTOR.message_types_by_name['FaceRecognitionMessage'] = _FACERECOGNITIONMESSAGE
 DESCRIPTOR.message_types_by_name['StudentFraudMessage'] = _STUDENTFRAUDMESSAGE
 DESCRIPTOR.message_types_by_name['QRCodeVerificationMessage'] = _QRCODEVERIFICATIONMESSAGE
-DESCRIPTOR.message_types_by_name['ScreenTestRecognitionMessage'] = _SCREENTESTRECOGNITIONMESSAGE
+DESCRIPTOR.message_types_by_name['ScreenshotTextRecognitionMessage'] = _SCREENSHOTTEXTRECOGNITIONMESSAGE
 DESCRIPTOR.message_types_by_name['BrowserSizeMessage'] = _BROWSERSIZEMESSAGE
 DESCRIPTOR.message_types_by_name['SpeechRecognitionMessage'] = _SPEECHRECOGNITIONMESSAGE
 DESCRIPTOR.message_types_by_name['MovementDetectionMessage'] = _MOVEMENTDETECTIONMESSAGE
@@ -1039,12 +1039,12 @@ QRCodeVerificationMessage = _reflection.GeneratedProtocolMessageType('QRCodeVeri
   })
 _sym_db.RegisterMessage(QRCodeVerificationMessage)
 
-ScreenTestRecognitionMessage = _reflection.GeneratedProtocolMessageType('ScreenTestRecognitionMessage', (_message.Message,), {
-  'DESCRIPTOR' : _SCREENTESTRECOGNITIONMESSAGE,
+ScreenshotTextRecognitionMessage = _reflection.GeneratedProtocolMessageType('ScreenshotTextRecognitionMessage', (_message.Message,), {
+  'DESCRIPTOR' : _SCREENSHOTTEXTRECOGNITIONMESSAGE,
   '__module__' : 'monitor_pb2'
-  # @@protoc_insertion_point(class_scope:ScreenTestRecognitionMessage)
+  # @@protoc_insertion_point(class_scope:ScreenshotTextRecognitionMessage)
   })
-_sym_db.RegisterMessage(ScreenTestRecognitionMessage)
+_sym_db.RegisterMessage(ScreenshotTextRecognitionMessage)
 
 BrowserSizeMessage = _reflection.GeneratedProtocolMessageType('BrowserSizeMessage', (_message.Message,), {
   'DESCRIPTOR' : _BROWSERSIZEMESSAGE,
@@ -1098,8 +1098,8 @@ _MONITORSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1794,
-  serialized_end=2898,
+  serialized_start=1798,
+  serialized_end=2913,
   methods=[
   _descriptor.MethodDescriptor(
     name='fetchKnownStudents',
@@ -1156,7 +1156,7 @@ _MONITORSERVICE = _descriptor.ServiceDescriptor(
     full_name='MonitorService.onScreenshotTextRecognized',
     index=5,
     containing_service=None,
-    input_type=_SCREENTESTRECOGNITIONMESSAGE,
+    input_type=_SCREENSHOTTEXTRECOGNITIONMESSAGE,
     output_type=_EMPTYRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -1222,8 +1222,8 @@ _MONITORSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='onHighAcceleration',
-    full_name='MonitorService.onHighAcceleration',
+    name='onHighAccelerationNoticed',
+    full_name='MonitorService.onHighAccelerationNoticed',
     index=12,
     containing_service=None,
     input_type=_HIGHACCELERATIONMESSAGE,

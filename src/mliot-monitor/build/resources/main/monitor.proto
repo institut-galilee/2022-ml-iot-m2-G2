@@ -9,14 +9,14 @@ service MonitorService {
   rpc onMovementDetected(MovementDetectionMessage) returns (EmptyResponse) {}
   rpc onMicrophoneSpeechRecognized(SpeechRecognitionMessage) returns (EmptyResponse) {}
   rpc onBrowserSizeNotFittingScreenSize(BrowserSizeMessage) returns (EmptyResponse) {}
-  rpc onScreenshotTextRecognized(ScreenTestRecognitionMessage) returns (EmptyResponse) {}
+  rpc onScreenshotTextRecognized(ScreenshotTextRecognitionMessage) returns (EmptyResponse) {}
   rpc onQRCodeVerificationFailed(QRCodeVerificationMessage) returns (EmptyResponse) {}
   rpc onStudentNotAllowed(StudentFraudMessage) returns (EmptyResponse) {}
   rpc onFaceNotRecognized(FaceRecognitionMessage) returns (EmptyResponse) {}
   rpc onWebCameraObjectsRecognized(WebCameraRecognitionMessage) returns (EmptyResponse) {}
   rpc onPhoneCameraObjectsRecognized(PhoneCameraRecognitionMessage) returns (EmptyResponse) {}
   rpc onUnAuthorizedMonitor(UnAuthorizedMonitorMessage) returns (EmptyResponse) {}
-  rpc onHighAcceleration(HighAccelerationMessage) returns (EmptyResponse) {}
+  rpc onHighAccelerationNoticed(HighAccelerationMessage) returns (EmptyResponse) {}
   rpc onHandDeviceStateChanged(HandDeviceMessage) returns (EmptyResponse) {}
   rpc onStudentDisconnected(StudentDisconnectionMessage) returns (EmptyResponse) {}
 }
@@ -90,7 +90,7 @@ message QRCodeVerificationMessage {
   int64 mills = 3;
   Severity severity = 4;
 }
-message ScreenTestRecognitionMessage {
+message ScreenshotTextRecognitionMessage {
   string card_number = 1;
   string recognized_text = 2;
   repeated string similarity_report = 3;
