@@ -2,6 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+import common_pb2 as common__pb2
 import monitor_pb2 as monitor__pb2
 
 
@@ -27,67 +28,67 @@ class MonitorServiceStub(object):
         self.onMovementDetected = channel.unary_unary(
                 '/MonitorService/onMovementDetected',
                 request_serializer=monitor__pb2.MovementDetectionMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onMicrophoneSpeechRecognized = channel.unary_unary(
                 '/MonitorService/onMicrophoneSpeechRecognized',
                 request_serializer=monitor__pb2.SpeechRecognitionMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onBrowserSizeNotFittingScreenSize = channel.unary_unary(
                 '/MonitorService/onBrowserSizeNotFittingScreenSize',
                 request_serializer=monitor__pb2.BrowserSizeMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onScreenshotTextRecognized = channel.unary_unary(
                 '/MonitorService/onScreenshotTextRecognized',
                 request_serializer=monitor__pb2.ScreenshotTextRecognitionMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onQRCodeVerificationFailed = channel.unary_unary(
                 '/MonitorService/onQRCodeVerificationFailed',
                 request_serializer=monitor__pb2.QRCodeVerificationMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onStudentNotAllowed = channel.unary_unary(
                 '/MonitorService/onStudentNotAllowed',
                 request_serializer=monitor__pb2.StudentFraudMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onFaceNotRecognized = channel.unary_unary(
                 '/MonitorService/onFaceNotRecognized',
                 request_serializer=monitor__pb2.FaceRecognitionMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onWebCameraObjectsRecognized = channel.unary_unary(
                 '/MonitorService/onWebCameraObjectsRecognized',
                 request_serializer=monitor__pb2.WebCameraRecognitionMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onPhoneCameraObjectsRecognized = channel.unary_unary(
                 '/MonitorService/onPhoneCameraObjectsRecognized',
                 request_serializer=monitor__pb2.PhoneCameraRecognitionMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onUnAuthorizedMonitor = channel.unary_unary(
                 '/MonitorService/onUnAuthorizedMonitor',
                 request_serializer=monitor__pb2.UnAuthorizedMonitorMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onHighAccelerationNoticed = channel.unary_unary(
                 '/MonitorService/onHighAccelerationNoticed',
                 request_serializer=monitor__pb2.HighAccelerationMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onHandDeviceStateChanged = channel.unary_unary(
                 '/MonitorService/onHandDeviceStateChanged',
                 request_serializer=monitor__pb2.HandDeviceMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.onStudentDisconnected = channel.unary_unary(
                 '/MonitorService/onStudentDisconnected',
                 request_serializer=monitor__pb2.StudentDisconnectionMessage.SerializeToString,
-                response_deserializer=monitor__pb2.EmptyResponse.FromString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
 
 
@@ -200,67 +201,67 @@ def add_MonitorServiceServicer_to_server(servicer, server):
             'onMovementDetected': grpc.unary_unary_rpc_method_handler(
                     servicer.onMovementDetected,
                     request_deserializer=monitor__pb2.MovementDetectionMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onMicrophoneSpeechRecognized': grpc.unary_unary_rpc_method_handler(
                     servicer.onMicrophoneSpeechRecognized,
                     request_deserializer=monitor__pb2.SpeechRecognitionMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onBrowserSizeNotFittingScreenSize': grpc.unary_unary_rpc_method_handler(
                     servicer.onBrowserSizeNotFittingScreenSize,
                     request_deserializer=monitor__pb2.BrowserSizeMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onScreenshotTextRecognized': grpc.unary_unary_rpc_method_handler(
                     servicer.onScreenshotTextRecognized,
                     request_deserializer=monitor__pb2.ScreenshotTextRecognitionMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onQRCodeVerificationFailed': grpc.unary_unary_rpc_method_handler(
                     servicer.onQRCodeVerificationFailed,
                     request_deserializer=monitor__pb2.QRCodeVerificationMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onStudentNotAllowed': grpc.unary_unary_rpc_method_handler(
                     servicer.onStudentNotAllowed,
                     request_deserializer=monitor__pb2.StudentFraudMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onFaceNotRecognized': grpc.unary_unary_rpc_method_handler(
                     servicer.onFaceNotRecognized,
                     request_deserializer=monitor__pb2.FaceRecognitionMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onWebCameraObjectsRecognized': grpc.unary_unary_rpc_method_handler(
                     servicer.onWebCameraObjectsRecognized,
                     request_deserializer=monitor__pb2.WebCameraRecognitionMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onPhoneCameraObjectsRecognized': grpc.unary_unary_rpc_method_handler(
                     servicer.onPhoneCameraObjectsRecognized,
                     request_deserializer=monitor__pb2.PhoneCameraRecognitionMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onUnAuthorizedMonitor': grpc.unary_unary_rpc_method_handler(
                     servicer.onUnAuthorizedMonitor,
                     request_deserializer=monitor__pb2.UnAuthorizedMonitorMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onHighAccelerationNoticed': grpc.unary_unary_rpc_method_handler(
                     servicer.onHighAccelerationNoticed,
                     request_deserializer=monitor__pb2.HighAccelerationMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onHandDeviceStateChanged': grpc.unary_unary_rpc_method_handler(
                     servicer.onHandDeviceStateChanged,
                     request_deserializer=monitor__pb2.HandDeviceMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'onStudentDisconnected': grpc.unary_unary_rpc_method_handler(
                     servicer.onStudentDisconnected,
                     request_deserializer=monitor__pb2.StudentDisconnectionMessage.FromString,
-                    response_serializer=monitor__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -319,7 +320,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onMovementDetected',
             monitor__pb2.MovementDetectionMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -336,7 +337,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onMicrophoneSpeechRecognized',
             monitor__pb2.SpeechRecognitionMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -353,7 +354,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onBrowserSizeNotFittingScreenSize',
             monitor__pb2.BrowserSizeMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -370,7 +371,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onScreenshotTextRecognized',
             monitor__pb2.ScreenshotTextRecognitionMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -387,7 +388,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onQRCodeVerificationFailed',
             monitor__pb2.QRCodeVerificationMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -404,7 +405,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onStudentNotAllowed',
             monitor__pb2.StudentFraudMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -421,7 +422,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onFaceNotRecognized',
             monitor__pb2.FaceRecognitionMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -438,7 +439,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onWebCameraObjectsRecognized',
             monitor__pb2.WebCameraRecognitionMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -455,7 +456,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onPhoneCameraObjectsRecognized',
             monitor__pb2.PhoneCameraRecognitionMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -472,7 +473,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onUnAuthorizedMonitor',
             monitor__pb2.UnAuthorizedMonitorMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -489,7 +490,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onHighAccelerationNoticed',
             monitor__pb2.HighAccelerationMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -506,7 +507,7 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onHandDeviceStateChanged',
             monitor__pb2.HandDeviceMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -523,6 +524,6 @@ class MonitorService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/MonitorService/onStudentDisconnected',
             monitor__pb2.StudentDisconnectionMessage.SerializeToString,
-            monitor__pb2.EmptyResponse.FromString,
+            common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -3,6 +3,8 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "mliot.monitor.generated";
 
+import "common.proto";
+
 service MonitorService {
   rpc fetchKnownStudents(EmptyMessage) returns (stream KnownStudentResponse) {}
   rpc onStudentConnected(StudentConnectionMessage) returns (StudentConnectionResponse) {}
@@ -28,8 +30,6 @@ enum Severity {
 }
 
 message EmptyMessage {}
-
-message EmptyResponse {}
 
 message StudentDisconnectionMessage {
   string card_number = 1;

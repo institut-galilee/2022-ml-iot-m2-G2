@@ -1,49 +1,27 @@
 package mliot.monitor;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.protobuf.ByteString;
-import io.grpc.stub.StreamObserver;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import mliot.monitor.callback.HomeControllerCallback;
 import mliot.monitor.controller.HomeController;
-import mliot.monitor.generated.*;
-import mliot.monitor.impl.Monitor;
 import mliot.monitor.model.Student;
-import mliot.monitor.util.Util;
 
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
 
-public class MainApplication extends Application implements HomeControllerCallback {
+public class MainApplication extends Application {
 
-    private Monitor monitor;
-    private JsonArray studentArray;
+    private List<Student> studentList;
 
     private HomeController homeController;
 
-    private static final Logger logger = Logger.getLogger(MainApplication.class.getCanonicalName());
-
-    @Override
-    public void onStudentRequested(Student student) {
-        System.out.println(student.toString());
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HomeController.class.getResource("home.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        URL cssUrl = MainApplication.class.getResource("styles.css");
-        if (cssUrl != null) {
-            scene.getStylesheets().add(cssUrl.toExternalForm());
-        }
         URL iconUrl = MainApplication.class.getResource("asset/images/logo.png");
         if (iconUrl != null) {
             stage.getIcons().add(new Image(iconUrl.toExternalForm()));
@@ -54,130 +32,11 @@ public class MainApplication extends Application implements HomeControllerCallba
         stage.show();
 
         this.homeController = fxmlLoader.getController();
-        this.homeController.setHomeControllerCallback(this);
-
-        /*
-            Load students lists
-         */
-        studentArray = Util.loadArrayOfStudents();
-
-        this.monitor = new Monitor(new MonitorServiceGrpc.MonitorServiceImplBase() {
-            @Override
-            public void fetchKnownStudents(EmptyMessage request, StreamObserver<KnownStudentResponse> responseObserver) {
-                logger.log(Level.INFO, "A list of students is requested");
-                studentArray.forEach(
-                        studentElement -> {
-                            JsonObject studentObject = studentElement.getAsJsonObject();
-                            byte []image = Util.readImage(studentObject.get(Util.STUDENT_CARD_NUMBER).getAsString());
-                            if (image != null) {
-                                responseObserver.onNext(
-                                        KnownStudentResponse.newBuilder()
-                                                .setFirstName(studentObject.get(Util.STUDENT_FIRST_NAME).getAsString())
-                                                .setLastName(studentObject.get(Util.STUDENT_LAST_NAME).getAsString())
-                                                .setCardNumber(studentObject.get(Util.STUDENT_CARD_NUMBER).getAsString())
-                                                .setProfilePhoto(ByteString.copyFrom(image))
-                                                .build()
-                                );
-                            }
-                        }
-                );
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onStudentConnected(StudentConnectionMessage request, StreamObserver<StudentConnectionResponse> responseObserver) {
-                Platform.runLater(() -> MainApplication.this.homeController.studentConnected(request.getCardNumber(), request.getAddress(), request.getPortNumber()));
-                String examUrl = Util.findExamUrl();
-                String apiUrl = Util.findApiUrl();
-                responseObserver.onNext(StudentConnectionResponse.newBuilder().setApiUrl(apiUrl).setExamUrl(examUrl).build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onMovementDetected(MovementDetectionMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onMicrophoneSpeechRecognized(SpeechRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                logger.log(Level.INFO, request.getSpokenSpeech());
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onBrowserSizeNotFittingScreenSize(BrowserSizeMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onScreenshotTextRecognized(ScreenshotTextRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onQRCodeVerificationFailed(QRCodeVerificationMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onStudentNotAllowed(StudentFraudMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onFaceNotRecognized(FaceRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onWebCameraObjectsRecognized(WebCameraRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onPhoneCameraObjectsRecognized(PhoneCameraRecognitionMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onUnAuthorizedMonitor(UnAuthorizedMonitorMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onHighAccelerationNoticed(HighAccelerationMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onHandDeviceStateChanged(HandDeviceMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-
-            @Override
-            public void onStudentDisconnected(StudentDisconnectionMessage request, StreamObserver<EmptyResponse> responseObserver) {
-                responseObserver.onNext(EmptyResponse.newBuilder().build());
-                responseObserver.onCompleted();
-            }
-        });
-        this.monitor.start();
     }
 
     @Override
     public void stop() {
-        this.monitor.shutDown();
+        this.homeController.stopProcesses();
     }
 
     // --module-path /opt/javafx-sdk-17.0.2/lib/ --add-modules=javafx.controls,javafx.fxml

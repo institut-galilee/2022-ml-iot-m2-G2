@@ -1,5 +1,6 @@
 package mliot.sensors.grpc;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,12 +12,11 @@ import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import mliot.sensors.proto.Response;
-import mliot.sensors.proto.SinkServiceGrpc;
-import mliot.sensors.proto.VideoMessage;
+import mliot.sensors.generated.SinkServiceGrpc;
+import mliot.sensors.generated.VideoMessage;
 import mliot.sensors.util.Prefs;
 
-public class GrpcVideoTask extends AsyncTask<ByteString, Void, Boolean> {
+public class GrpcVideoTask extends AsyncTask<ByteString, Void, Void> {
 
     public ManagedChannel channel;
     private SinkServiceGrpc.SinkServiceBlockingStub stub;
@@ -33,20 +33,20 @@ public class GrpcVideoTask extends AsyncTask<ByteString, Void, Boolean> {
         stub = SinkServiceGrpc.newBlockingStub(channel);
     }
 
+    @SuppressLint("CheckResult")
     @Override
-    protected Boolean doInBackground(ByteString... data) {
+    protected Void doInBackground(ByteString... data) {
         try {
             VideoMessage videoMessage = VideoMessage.newBuilder().setVideoFrame(data[0]).build();
-            Response response = stub.onVideoFrameAvailable(videoMessage);
-            return response.getIsReceived();
+            stub.onVideoFrameAvailable(videoMessage);
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);
-            return false;
         }
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean received) {
+    protected void onPostExecute(Void unused) {
         try {
             channel.shutdown().awaitTermination(1, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

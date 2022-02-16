@@ -1,30 +1,32 @@
 package mliot.monitor.model;
 
+import mliot.monitor.generated.Severity;
+
 public class Log {
 
-    private long mills;
-    private String severity;
+    private String date;
+    private Severity severity;
 
-    public long getMills() {
-        return mills;
+    public String getDate() {
+        return date;
     }
 
-    public void setMills(long mills) {
-        this.mills = mills;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
 
-    public void setSeverity(String severity) {
+    public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 
     @Override
     public String toString() {
         return "Log{" +
-                "mills=" + mills +
+                "date='" + date + '\'' +
                 ", severity='" + severity + '\'' +
                 '}';
     }

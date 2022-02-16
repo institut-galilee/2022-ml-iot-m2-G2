@@ -9,8 +9,8 @@ from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel
 
 from acceleration_view import AccelerationView
 from callback.recognition_callback import RecognitionCallback
-from process import SpeechRecognizer, ScreenshotTextRecognizer, FaceRecognizer, ObjectRecognizer
 from monitor_client import MonitorHelper
+from process import SpeechRecognizer, ScreenshotTextRecognizer, FaceRecognizer, ObjectRecognizer
 
 GRAVITY = 9.81
 
@@ -215,11 +215,11 @@ class MainView(QWidget, RecognitionCallback):
             question_nlp = self.nlp(question["question_text"])
             question_similarity = question_nlp.similarity(spoken_nlp)
             if question_similarity >= 0.5:
-                similarity_report.append(f"Question {question['question_id']}: {question_similarity}")
+                similarity_report.append(f"Q{question['question_id']}: {round(question_similarity * 100, 2)}%")
             question_responses = question["question_responses"]
             for response in question_responses:
                 response_nlp = self.nlp(response["response_text"])
                 response_similarity = response_nlp.similarity(spoken_nlp)
                 if response_similarity >= 0.3:
-                    similarity_report.append(f"Question {question['question_id']}, option {response['response_id']}: {response_similarity}")
+                    similarity_report.append(f"Q{question['question_id']}, O{response['response_id']}: {round(response_similarity * 100, 2)}%")
         return similarity_report

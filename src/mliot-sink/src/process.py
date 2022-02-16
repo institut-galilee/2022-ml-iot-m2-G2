@@ -113,19 +113,21 @@ class SpeechRecognizer(threading.Thread):
 
         self.speech_engine = sr.Recognizer()
         self.is_recording = True
+        self.is_suspended = False
 
     def run(self):
         while self.is_recording:
-            with sr.Microphone() as source:
-                self.speech_engine.adjust_for_ambient_noise(source)
-                audio_data = self.speech_engine.record(source, duration=self.sleeping_timeout)
-                try:
-                    extracted_text = self.speech_engine.recognize_google(audio_data, language="fr-FR")
-                    self.speech_recognition_callback.on_microphone_speech_recognized(extracted_text)
-                except sr.UnknownValueError:
-                    pass
-                except sr.RequestError:
-                    pass
+            if not self.is_suspended:
+                with sr.Microphone() as source:
+                    self.speech_engine.adjust_for_ambient_noise(source)
+                    audio_data = self.speech_engine.record(source, duration=self.sleeping_timeout)
+                    try:
+                        extracted_text = self.speech_engine.recognize_google(audio_data, language="fr-FR")
+                        self.speech_recognition_callback.on_microphone_speech_recognized(extracted_text)
+                    except sr.UnknownValueError:
+                        pass
+                    except sr.RequestError:
+                        pass
 
 
 class ScreenshotTextRecognizer(threading.Thread):

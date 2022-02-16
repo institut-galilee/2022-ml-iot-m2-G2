@@ -16,8 +16,8 @@ ext {
 }
 
 
-def grpcVersion = '1.43.2'
-def protobufVersion = '3.19.3'
+def grpcVersion = '1.44.0'
+def protobufVersion = '3.19.4'
 def protocVersion = protobufVersion
 
 dependencies {

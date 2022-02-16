@@ -3,6 +3,7 @@ import json
 import logging as logger
 import ssl
 import sys
+import time
 import urllib.request
 import webbrowser
 
@@ -12,11 +13,12 @@ from PySide6.QtWidgets import QStackedWidget, QApplication, QMainWindow
 from playsound import playsound
 
 from callback.setup_callback import SinkSetupCallback
+from common_pb2 import EmptyResponse
 from main_view import MainView
 from monitor_client import MonitorHelper
 from setup_view import AuthenticationView, InvigilatorView
 from setup_view import SensorsView, HandView, HeadView
-from sink_pb2 import Response
+from sink_pb2 import BoolResponse
 from sink_pb2_grpc import SinkServiceServicer
 from sink_server import Sink
 from util.network_util import NetworkHelper
@@ -70,6 +72,8 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.move(geometry.topLeft())
 
     def closeEvent(self, event: QCloseEvent):
+        if self.current_student is not None:
+            asyncio.run(MonitorHelper.disconnect_student(self.current_student.card_number))
         self.sink.shut_down()
         for i in range(0, self.content_view.count()):
             self.content_view.widget(i).close()
@@ -96,9 +100,9 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.center_window()
 
     def on_student_recognized(self, student):
-        # tts = gtts.gTTS(f"Bonjour {student.first_name} {student.last_name}", lang="fr")
-        # tts.save("greeting.mp3")
-        # playsound("greeting.mp3")
+        tts = gtts.gTTS(f"Bonjour {student.first_name} {student.last_name}", lang="fr")
+        tts.save("greeting.mp3")
+        playsound("greeting.mp3")
         self.current_student = student
         self.authentication_view.close()
         self.sensors_view = SensorsView(self)
@@ -119,28 +123,38 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
         self.content_view.setCurrentWidget(self.hand_view)
         self.center_window()
 
+    def onMonitorFeedbackAvailable(self, request, context):
+        if not self.setup_is_ongoing and self.main_view is not None and self.main_view.isVisible():
+            self.main_view.speech_recognizer.is_suspended = True
+            time.sleep(5)
+            tts = gtts.gTTS(request.message, lang="fr")
+            tts.save("warning.mp3")
+            playsound("warning.mp3")
+            self.main_view.speech_recognizer.is_suspended = False
+        return EmptyResponse()
+
     def onVideoFrameAvailable(self, request, context):
         if not self.setup_is_ongoing and self.main_view is not None and self.main_view.isVisible():
             self.main_view.update_phone_video(request.video_frame)
         elif self.setup_is_ongoing and self.head_view is not None and self.head_view.isVisible():
             self.head_view.new_frame(request.video_frame)
-        return Response(is_received=True)
+        return EmptyResponse()
 
     def onAccelerationChanged(self, request, context):
         if not self.setup_is_ongoing and self.main_view is not None and self.main_view.isVisible():
             self.main_view.update_acceleration_view(request)
-            return Response(is_received=self.main_view.acceleration_view.max_range is not None)
+            return BoolResponse(is_received=self.main_view.acceleration_view.max_range is not None)
         elif self.setup_is_ongoing:
-            return Response(is_received=True)
+            return BoolResponse(is_received=True)
 
     def setAccelerationMaxRange(self, request, context):
         if not self.setup_is_ongoing and self.main_view is not None and self.main_view.isVisible():
             self.main_view.set_acceleration_max_value(request.max_range)
-        return Response(is_received=True)
+        return EmptyResponse()
 
     def onStepDetected(self, request, context):
         logger.info(f"Un pas a été detecté")
-        return Response(is_received=True)
+        return EmptyResponse()
 
     def onProximityChanged(self, request, context):
         if self.setup_is_ongoing and self.hand_view is not None and self.hand_view.isVisible():
@@ -152,22 +166,21 @@ class MainWindow(QMainWindow, SinkServiceServicer, SinkSetupCallback):
             else:
                 message = f"{self.current_student.first_name} {self.current_student.last_name} met à nouveau son hand device."
                 asyncio.run(MonitorHelper.hand_device_state_changed(self.current_student.card_number, message))
-        return Response(is_received=True)
+        return EmptyResponse()
 
     def onHeartRateChanged(self, request, context):
-        print(request.heart_rate)
         logger.info(f"Le rythme cardiaque est à {request.heart_rate}")
-        return Response(is_received=True)
+        return EmptyResponse()
 
     def onMotionDetected(self, request, context):
         if self.current_student is not None:
             message = f"{self.current_student.first_name} {self.current_student.last_name} semble être en mouvement."
             asyncio.run(MonitorHelper.motion_detected(self.current_student.card_number, message))
-        return Response(is_received=True)
+        return EmptyResponse()
 
     def onTemperatureChanged(self, request, context):
         logger.info(f"La température ambiente est à {request.degrees}°C")
-        return Response(is_received=True)
+        return EmptyResponse()
 
 
 if __name__ == "__main__":

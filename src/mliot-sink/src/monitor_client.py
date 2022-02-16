@@ -1,11 +1,11 @@
+import logging as logger
 import time
 
 from grpc import aio, RpcError, insecure_channel
 
 from monitor_pb2 import *
 from monitor_pb2_grpc import MonitorServiceStub
-from util.network_util import NetworkHelper, GATEWAY_LISTENING_PORT
-import logging as logger
+from util.network_util import NetworkHelper, SINK_LISTENING_PORT
 
 
 class MonitorHelper:
@@ -18,8 +18,8 @@ class MonitorHelper:
         with insecure_channel("{0}:{1}".format(address, port_number)) as channel:
             stub = MonitorServiceStub(channel)
             try:
-                gateway_address = NetworkHelper.get_gateway_listening_address()
-                gateway_port_number = GATEWAY_LISTENING_PORT
+                gateway_address = NetworkHelper.get_sink_listening_address()
+                gateway_port_number = SINK_LISTENING_PORT
                 message = StudentConnectionMessage()
                 message.card_number = card_number
                 message.address = gateway_address
@@ -264,5 +264,20 @@ class MonitorHelper:
                 await stub.onHighAccelerationNoticed(acceleration_message)
             except RpcError as e:
                 logger.log(level=logger.FATAL, msg=f"Error while communicating with monitor: {e}")
+            finally:
+                await channel.close()
+
+    @staticmethod
+    async def disconnect_student(card_number):
+        address = NetworkHelper.get_monitor_listening_address()
+        port_number = NetworkHelper.get_monitor_listening_port_number()
+        async with aio.insecure_channel("{0}:{1}".format(address, port_number)) as channel:
+            stub = MonitorServiceStub(channel)
+            try:
+                disconnection_message = StudentDisconnectionMessage()
+                disconnection_message.card_number = card_number
+                await stub.onStudentDisconnected(disconnection_message)
+            except RpcError as e:
+                logger.log(level=logger.FATAL, msg=f"Error while connecting student: {e}")
             finally:
                 await channel.close()

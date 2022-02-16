@@ -16,14 +16,14 @@ public class Student {
 
     private String statusColor;
 
-    List<Log> messageLog;
-    List<Log> reportLog;
+    List<Warning> warningLog;
+    List<Report> reportLog;
 
     public Student() {
 
         this.statusColor = ColorHelper.COLOR_STUDENT_OFFLINE;
 
-        this.messageLog = new ArrayList<>();
+        this.warningLog = new ArrayList<>();
         this.reportLog = new ArrayList<>();
     }
 
@@ -75,6 +75,22 @@ public class Student {
         this.portNumber = portNumber;
     }
 
+    public List<Warning> getWarningLog() {
+        return this.warningLog;
+    }
+
+    public void addWarning(Warning warning) {
+        this.warningLog.add(warning);
+    }
+
+    public List<Report> getReportLog() {
+        return this.reportLog;
+    }
+
+    public void addReport(Report report) {
+        this.reportLog.add(report);
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -84,7 +100,7 @@ public class Student {
                 ", address='" + address + '\'' +
                 ", portNumber=" + portNumber +
                 ", statusColor='" + statusColor + '\'' +
-                ", messageLog=" + messageLog +
+                ", messageLog=" + warningLog +
                 ", reportLog=" + reportLog +
                 '}';
     }

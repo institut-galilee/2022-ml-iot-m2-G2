@@ -1,5 +1,6 @@
 package mliot.sensors.grpc;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -9,12 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import mliot.sensors.proto.ProximityMessage;
-import mliot.sensors.proto.Response;
-import mliot.sensors.proto.SinkServiceGrpc;
+import mliot.sensors.generated.ProximityMessage;
+import mliot.sensors.generated.SinkServiceGrpc;
 import mliot.sensors.util.Prefs;
 
-public class GrpcProximityTask extends AsyncTask<Float, Void, Boolean> {
+public class GrpcProximityTask extends AsyncTask<Float, Void, Void> {
 
     public ManagedChannel channel;
     private SinkServiceGrpc.SinkServiceBlockingStub stub;
@@ -31,20 +31,20 @@ public class GrpcProximityTask extends AsyncTask<Float, Void, Boolean> {
         stub = SinkServiceGrpc.newBlockingStub(channel);
     }
 
+    @SuppressLint("CheckResult")
     @Override
-    protected Boolean doInBackground(Float... distance) {
+    protected Void doInBackground(Float... distance) {
         try {
             ProximityMessage proximityMessage = ProximityMessage.newBuilder().setDistance(distance[0]).build();
-            Response response = stub.onProximityChanged(proximityMessage);
-            return response.getIsReceived();
+            stub.onProximityChanged(proximityMessage);
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);
-            return false;
         }
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean received) {
+    protected void onPostExecute(Void unused) {
         try {
             channel.shutdown().awaitTermination(1, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

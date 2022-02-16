@@ -1,6 +1,6 @@
 package mliot.monitor.model;
 
-public class Message extends Log {
+public class Warning extends Log {
 
     private String message;
 

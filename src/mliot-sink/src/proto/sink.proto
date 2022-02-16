@@ -1,20 +1,27 @@
-// python3 -m grpc_tools.protoc -I./src/proto/ --python_out=./src --grpc_python_out=./src ./src/proto/sink.proto
+// python3 -m grpc_tools.protoc -I./proto/ --python_out=. --grpc_python_out=. ./proto/sink.proto
 syntax = "proto3";
 option java_multiple_files = true;
-option java_package = "mliot.sensors.proto";
+option java_package = "mliot.sensors.generated";
+
+import "common.proto";
 
 service SinkService {
-  rpc onStepDetected(StepDetectionMessage) returns (Response) {}
-  rpc onVideoFrameAvailable(VideoMessage) returns (Response) {}
-  rpc onProximityChanged(ProximityMessage) returns (Response) {}
-  rpc onHeartRateChanged(HeartBeatMessage) returns (Response) {}
-  rpc setAccelerationMaxRange(RangeMessage) returns (Response) {}
-  rpc onMotionDetected(MotionDetectionMessage) returns (Response) {}
-  rpc onTemperatureChanged(TemperatureMessage) returns (Response) {}
-  rpc onAccelerationChanged(AccelerationMessage) returns (Response) {}
+  rpc onStepDetected(StepDetectionMessage) returns (EmptyResponse) {}
+  rpc onVideoFrameAvailable(VideoMessage) returns (EmptyResponse) {}
+  rpc onProximityChanged(ProximityMessage) returns (EmptyResponse) {}
+  rpc onHeartRateChanged(HeartBeatMessage) returns (EmptyResponse) {}
+  rpc setAccelerationMaxRange(RangeMessage) returns (EmptyResponse) {}
+  rpc onMotionDetected(MotionDetectionMessage) returns (EmptyResponse) {}
+  rpc onTemperatureChanged(TemperatureMessage) returns (EmptyResponse) {}
+  rpc onAccelerationChanged(AccelerationMessage) returns (BoolResponse) {}
+  rpc onMonitorFeedbackAvailable(FeedbackMessage) returns (EmptyResponse) {}
 }
 
-message Response {
+message FeedbackMessage {
+  string message = 1;
+}
+
+message BoolResponse {
   bool is_received = 1;
 }
 

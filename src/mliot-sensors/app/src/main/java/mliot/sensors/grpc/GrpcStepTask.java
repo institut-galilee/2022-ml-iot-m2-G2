@@ -1,5 +1,6 @@
 package mliot.sensors.grpc;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -9,12 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import mliot.sensors.proto.Response;
-import mliot.sensors.proto.SinkServiceGrpc;
-import mliot.sensors.proto.StepDetectionMessage;
+import mliot.sensors.generated.SinkServiceGrpc;
+import mliot.sensors.generated.StepDetectionMessage;
 import mliot.sensors.util.Prefs;
 
-public class GrpcStepTask extends AsyncTask<Boolean, Void, Boolean> {
+public class GrpcStepTask extends AsyncTask<Boolean, Void, Void> {
 
     public ManagedChannel channel;
     private SinkServiceGrpc.SinkServiceBlockingStub stub;
@@ -31,20 +31,20 @@ public class GrpcStepTask extends AsyncTask<Boolean, Void, Boolean> {
         stub = SinkServiceGrpc.newBlockingStub(channel);
     }
 
+    @SuppressLint("CheckResult")
     @Override
-    protected Boolean doInBackground(Boolean... isDetected) {
+    protected Void doInBackground(Boolean... isDetected) {
         try {
             StepDetectionMessage stepDetectionMessage = StepDetectionMessage.newBuilder().setIsDetected(isDetected[0]).build();
-            Response response = stub.onStepDetected(stepDetectionMessage);
-            return response.getIsReceived();
+            stub.onStepDetected(stepDetectionMessage);
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);
-            return false;
         }
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean received) {
+    protected void onPostExecute(Void unused) {
         try {
             channel.shutdown().awaitTermination(1, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

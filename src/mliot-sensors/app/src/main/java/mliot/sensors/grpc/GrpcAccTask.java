@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import mliot.sensors.callback.OnAccelerationCallback;
-import mliot.sensors.proto.AccelerationMessage;
-import mliot.sensors.proto.Response;
-import mliot.sensors.proto.SinkServiceGrpc;
+import mliot.sensors.generated.AccelerationMessage;
+import mliot.sensors.generated.BoolResponse;
+import mliot.sensors.generated.SinkServiceGrpc;
 import mliot.sensors.util.Prefs;
 
 public class GrpcAccTask extends AsyncTask<Float, Void, Boolean> {
@@ -41,7 +41,7 @@ public class GrpcAccTask extends AsyncTask<Float, Void, Boolean> {
             float y = acc[1];
             float z = acc[2];
             AccelerationMessage accelerationMessage = AccelerationMessage.newBuilder().setX(x).setY(y).setZ(z).build();
-            Response response = stub.onAccelerationChanged(accelerationMessage);
+            BoolResponse response = stub.onAccelerationChanged(accelerationMessage);
             return response.getIsReceived();
         } catch (Exception e) {
             Log.e(getClass().getCanonicalName(), "Error while calling the service", e);

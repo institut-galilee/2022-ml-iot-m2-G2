@@ -1,0 +1,7 @@
+// python3 -m grpc_tools.protoc -I./proto --python_out=. --grpc_python_out=. ./proto/common.proto
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "mliot.monitor.generated";
+
+message EmptyResponse {}
